@@ -4,110 +4,87 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FlexDrive Driver Onboarding</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: "Source Sans Pro", sans-serif; background: #F6F6FB; }
+    body { font-family: 'Source Sans Pro', sans-serif; background: #F6F6FB; }
     #root { min-height: 100vh; }
+    @keyframes slideUp { from { opacity:0;transform:translateY(16px); } to { opacity:1;transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes celebPop { 0%{opacity:0;transform:scale(0.7);} 50%{transform:scale(1.05);} 100%{opacity:1;transform:scale(1);} }
+    @keyframes confetti { 0%{transform:translateY(0) rotate(0deg);opacity:1;} 100%{transform:translateY(420px) rotate(720deg);opacity:0;} }
+    @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+    button:hover { filter: brightness(1.06); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #d4d4e0; border-radius: 3px; }
   </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="text/babel" data-presets="react">
+  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#666;">Loading...</div></div>
+  <script type="text/babel">
 const { useState, useCallback, useEffect } = React;
-
-const LOGO_COLOR = "data:image/png;base64,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";
-const LOGO_WHITE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKYAAAAyCAYAAADWf6AiAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAWO0lEQVR42u1deZxcVZX+7nuvurIQTSAJJGwdWUJo9kAAFZIWI4rCOGJ1xFFQwA6LkRkWWQRel4AwYdHGoFZwZBHDpCIuMETQQHUSSVg6ohAYZM0wEJaQhOzp7qr6/OOd23X69qvu6iZkBrru7/fyOu/dd5dzv3vOWeecewswkUTj9cEkP0PyNpJ3kbyK5MckP2rbgGEYgGEYgGEYgKEYgJEYgJEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgFEYgA==";
-
-const IMG1 = "data:image/jpeg;base64,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";
-
-// Note: Full base64 images from the original code are embedded - truncated here for readability
-// The actual file will have complete base64 data
-
-const IMG1_FULL = "data:image/jpeg;base64,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";
-
-// COMPONENT CODE - paste your full JSX here
-// The component FlexdriveOnboarding and all its dependencies go here
 
 function parseBold(text) {
   const parts = text.split(/\*\*(.*?)\*\*/g);
   return parts.map((part, i) =>
-    i % 2 === 1 ? (
-      <strong key={i} style={{ color: "#1a1a2e", fontWeight: 700 }}>{part}</strong>
-    ) : (
-      <span key={i}>{part}</span>
-    )
+    i % 2 === 1 ? <strong key={i} style={{color:"#1a1a2e",fontWeight:700}}>{part}</strong> : <span key={i}>{part}</span>
   );
 }
 
-function btnPrimary(accent, disabled) {
-  return {
-    background: disabled ? "#d4d4e0" : accent,
-    color: "#fff",
-    border: "none",
-    borderRadius: 12,
-    padding: "14px 28px",
-    fontSize: 14,
-    fontWeight: 700,
-    cursor: disabled ? "not-allowed" : "pointer",
-    fontFamily: "'Source Sans Pro', sans-serif",
-    transition: "all 0.25s",
-    letterSpacing: "0.01em",
-    opacity: disabled ? 0.5 : 1,
-  };
-}
+const btnPrimary = (accent, disabled) => ({
+  background: disabled ? "#d4d4e0" : accent, color: "#fff", border: "none",
+  borderRadius: 12, padding: "14px 28px", fontSize: 14, fontWeight: 700,
+  cursor: disabled ? "not-allowed" : "pointer", fontFamily:"'Source Sans Pro',sans-serif",
+  transition:"all 0.25s", opacity: disabled ? 0.5 : 1,
+});
 
-function btnOutline(accent) {
-  return {
-    background: "transparent",
-    color: accent,
-    border: `2px solid ${accent}`,
-    borderRadius: 12,
-    padding: "12px 24px",
-    fontSize: 14,
-    fontWeight: 700,
-    cursor: "pointer",
-    fontFamily: "'Source Sans Pro', sans-serif",
-    transition: "all 0.25s",
-  };
-}
+const btnOutline = (accent) => ({
+  background:"transparent", color:accent, border:`2px solid ${accent}`,
+  borderRadius:12, padding:"12px 24px", fontSize:14, fontWeight:700,
+  cursor:"pointer", fontFamily:"'Source Sans Pro',sans-serif", transition:"all 0.25s",
+});
 
-function StepDots({ total, current, accent }) {
+function StepDots({total, current, accent}) {
   return (
-    <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-      {Array.from({ length: total }, (_, i) => (
-        <div key={i} style={{ width: i === current ? 28 : 8, height: 8, borderRadius: 4, background: i < current ? `${accent}88` : i === current ? accent : "#e2e2ee", transition: "all 0.4s cubic-bezier(.4,0,.2,1)" }} />
+    <div style={{display:"flex",gap:5,alignItems:"center"}}>
+      {Array.from({length:total},(_,i)=>(
+        <div key={i} style={{width:i===current?28:8,height:8,borderRadius:4,
+          background:i<current?`${accent}88`:i===current?accent:"#e2e2ee",
+          transition:"all 0.4s"}} />
       ))}
     </div>
   );
 }
 
-function IntroCard({ step, accent, onNext }) {
+function IntroCard({step, accent, onNext}) {
   return (
-    <div style={{ textAlign: "center", padding: "12px 0" }}>
-      <div style={{ width: 96, height: 96, borderRadius: 28, background: `linear-gradient(135deg, ${accent}15, ${accent}08)`, border: `2px solid ${accent}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 44, margin: "0 auto 26px" }}>
-        {step.visual}
-      </div>
-      <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 24, fontWeight: 800, color: "#1a1a2e", margin: "0 0 12px", lineHeight: 1.3 }}>{step.title}</h2>
-      <p style={{ fontSize: 15, color: "#6a6a88", lineHeight: 1.7, maxWidth: 420, margin: "0 auto 30px" }}>{step.body}</p>
-      <button onClick={onNext} style={btnPrimary(accent, false)}>Let's Begin →</button>
+    <div style={{textAlign:"center",padding:"12px 0"}}>
+      <div style={{width:96,height:96,borderRadius:28,background:`linear-gradient(135deg,${accent}15,${accent}08)`,
+        border:`2px solid ${accent}25`,display:"flex",alignItems:"center",justifyContent:"center",
+        fontSize:44,margin:"0 auto 26px"}}>{step.visual}</div>
+      <h2 style={{fontSize:24,fontWeight:800,color:"#1a1a2e",margin:"0 0 12px",lineHeight:1.3}}>{step.title}</h2>
+      <p style={{fontSize:15,color:"#6a6a88",lineHeight:1.7,maxWidth:420,margin:"0 auto 30px"}}>{step.body}</p>
+      <button onClick={onNext} style={btnPrimary(accent,false)}>Let's Begin →</button>
     </div>
   );
 }
 
-function LearnCard({ step, accent, onNext }) {
+function LearnCard({step, accent, onNext}) {
   return (
     <div>
-      <div style={{ display: "inline-block", fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: accent, background: `${accent}10`, padding: "5px 12px", borderRadius: 6, marginBottom: 14 }}>{step.label}</div>
-      <h3 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 21, fontWeight: 700, color: "#1a1a2e", margin: "0 0 14px", lineHeight: 1.35 }}>{step.title}</h3>
-      <p style={{ fontSize: 15, color: "#4a4a68", lineHeight: 1.75, margin: "0 0 20px" }}>{parseBold(step.body)}</p>
+      <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
+        textTransform:"uppercase",color:accent,background:`${accent}10`,padding:"5px 12px",
+        borderRadius:6,marginBottom:14}}>{step.label}</div>
+      <h3 style={{fontSize:21,fontWeight:700,color:"#1a1a2e",margin:"0 0 14px",lineHeight:1.35}}>{step.title}</h3>
+      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.75,margin:"0 0 20px"}}>{parseBold(step.body)}</p>
       {step.callout && (
-        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", background: `${accent}06`, border: `1px solid ${accent}18`, borderRadius: 12, padding: "14px 18px", marginBottom: 22 }}>
-          <span style={{ fontSize: 20, flexShrink: 0 }}>{step.callout.icon}</span>
-          <span style={{ fontSize: 13.5, color: "#2a2a48", lineHeight: 1.6, fontWeight: 600 }}>{step.callout.text}</span>
+        <div style={{display:"flex",gap:12,alignItems:"flex-start",background:`${accent}06`,
+          border:`1px solid ${accent}18`,borderRadius:12,padding:"14px 18px",marginBottom:22}}>
+          <span style={{fontSize:20,flexShrink:0}}>{step.callout.icon}</span>
+          <span style={{fontSize:13.5,color:"#2a2a48",lineHeight:1.6,fontWeight:600}}>{step.callout.text}</span>
         </div>
       )}
       <button onClick={onNext} style={btnOutline(accent)}>Got it — Next →</button>
@@ -115,29 +92,7 @@ function LearnCard({ step, accent, onNext }) {
   );
 }
 
-function VisualCard({ step, accent, onNext }) {
-  return (
-    <div>
-      <div style={{ display: "inline-block", fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: accent, background: `${accent}10`, padding: "5px 12px", borderRadius: 6, marginBottom: 14 }}>{step.label}</div>
-      <h3 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 21, fontWeight: 700, color: "#1a1a2e", margin: "0 0 14px", lineHeight: 1.35 }}>{step.title}</h3>
-      <p style={{ fontSize: 15, color: "#4a4a68", lineHeight: 1.75, margin: "0 0 20px" }}>{parseBold(step.body)}</p>
-      {step.image && (
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-          <img src={step.image} alt={step.title} style={{ maxWidth: 220, borderRadius: 16, border: `2px solid ${accent}20`, boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }} />
-        </div>
-      )}
-      {step.callout && (
-        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", background: `${accent}06`, border: `1px solid ${accent}18`, borderRadius: 12, padding: "14px 18px", marginBottom: 22 }}>
-          <span style={{ fontSize: 20, flexShrink: 0 }}>{step.callout.icon}</span>
-          <span style={{ fontSize: 13.5, color: "#2a2a48", lineHeight: 1.6, fontWeight: 600 }}>{step.callout.text}</span>
-        </div>
-      )}
-      <button onClick={onNext} style={btnOutline(accent)}>Got it — Next →</button>
-    </div>
-  );
-}
-
-function ScenarioCard({ step, accent, onNext }) {
+function ScenarioCard({step, accent, onNext}) {
   const [selected, setSelected] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [wrongPicks, setWrongPicks] = useState(new Set());
@@ -146,187 +101,199 @@ function ScenarioCard({ step, accent, onNext }) {
 
   const handlePick = (i) => {
     if (showFeedback) return;
-    setSelected(i);
-    setShowFeedback(true);
-    if (!step.options[i].correct) setWrongPicks((prev) => new Set([...prev, i]));
+    setSelected(i); setShowFeedback(true);
+    if (!step.options[i].correct) setWrongPicks(prev => new Set([...prev, i]));
   };
 
   return (
     <div>
-      <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#003B71", background: "#003B7108", padding: "5px 12px", borderRadius: 6, marginBottom: 14 }}>💭 Scenario</div>
-      <h3 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 20, fontWeight: 700, color: "#1a1a2e", margin: "0 0 10px", lineHeight: 1.3 }}>{step.title}</h3>
-      <p style={{ fontSize: 15, color: "#4a4a68", lineHeight: 1.7, margin: "0 0 20px" }}>{step.body}</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {step.options.map((opt, i) => {
-          let bg = "#f8f8fc", border = "2px solid #e8e8f0", color = "#2a2a48";
-          const isDisabled = wrongPicks.has(i) || (answered && isCorrect);
-          if (answered && opt.correct) { bg = "#ecfdf5"; border = "2px solid #6ee7b7"; color = "#065f46"; }
-          else if (answered && i === selected && !isCorrect) { bg = "#fef2f2"; border = "2px solid #fca5a5"; color = "#991b1b"; }
-          else if (wrongPicks.has(i)) { bg = "#fef2f2"; border = "2px solid #fecaca"; color = "#991b1b80"; }
+      <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
+        textTransform:"uppercase",color:"#003B71",background:"#003B7110",
+        padding:"5px 12px",borderRadius:6,marginBottom:14}}>💭 Scenario</div>
+      <h3 style={{fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
+      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.7,margin:"0 0 20px"}}>{step.body}</p>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        {step.options.map((opt,i) => {
+          let bg="#f8f8fc", border="2px solid #e8e8f0", color="#2a2a48";
+          const isDisabled = wrongPicks.has(i)||(answered&&isCorrect);
+          if(answered&&opt.correct){bg="#ecfdf5";border="2px solid #6ee7b7";color="#065f46";}
+          else if(answered&&i===selected&&!isCorrect){bg="#fef2f2";border="2px solid #fca5a5";color="#991b1b";}
+          else if(wrongPicks.has(i)){bg="#fef2f2";border="2px solid #fecaca";color="#991b1b80";}
           return (
-            <button key={i} onClick={() => handlePick(i)} disabled={isDisabled}
-              style={{ background: bg, border, borderRadius: 12, padding: "14px 18px", textAlign: "left", fontSize: 14, color, cursor: isDisabled ? "default" : "pointer", fontFamily: "'Source Sans Pro', sans-serif", lineHeight: 1.5, transition: "all 0.25s", fontWeight: 500, opacity: wrongPicks.has(i) && !answered ? 0.55 : 1 }}>
+            <button key={i} onClick={()=>handlePick(i)} disabled={isDisabled}
+              style={{background:bg,border,borderRadius:12,padding:"14px 18px",textAlign:"left",
+                fontSize:14,color,cursor:isDisabled?"default":"pointer",lineHeight:1.5,
+                transition:"all 0.25s",fontWeight:500,opacity:wrongPicks.has(i)&&!answered?0.55:1,
+                fontFamily:"'Source Sans Pro',sans-serif"}}>
               {opt.text}
             </button>
           );
         })}
       </div>
       {answered && (
-        <div style={{ marginTop: 16, padding: "14px 18px", borderRadius: 12, background: isCorrect ? "#ecfdf5" : "#fef2f2", border: isCorrect ? "1px solid #a7f3d0" : "1px solid #fecaca", fontSize: 14, lineHeight: 1.6, color: isCorrect ? "#065f46" : "#991b1b" }}>
-          <strong>{isCorrect ? "✓ Correct!" : "✗ Not quite."}</strong> {isCorrect ? step.explanation : "That's not the right answer. Try again!"}
+        <div style={{marginTop:16,padding:"14px 18px",borderRadius:12,
+          background:isCorrect?"#ecfdf5":"#fef2f2",
+          border:isCorrect?"1px solid #a7f3d0":"1px solid #fecaca",
+          fontSize:14,lineHeight:1.6,color:isCorrect?"#065f46":"#991b1b"}}>
+          <strong>{isCorrect?"✓ Correct!":"✗ Not quite."}</strong>{" "}
+          {isCorrect?step.explanation:"That's not the right answer. Try again!"}
         </div>
       )}
-      {answered && isCorrect && <button onClick={onNext} style={{ ...btnPrimary(accent, false), marginTop: 16 }}>Continue →</button>}
-      {answered && !isCorrect && <button onClick={() => { setSelected(null); setShowFeedback(false); }} style={{ ...btnOutline(accent), marginTop: 16 }}>Try Again →</button>}
+      {answered&&isCorrect&&<button onClick={onNext} style={{...btnPrimary(accent,false),marginTop:16}}>Continue →</button>}
+      {answered&&!isCorrect&&<button onClick={()=>{setSelected(null);setShowFeedback(false);}} style={{...btnOutline(accent),marginTop:16}}>Try Again →</button>}
     </div>
   );
 }
 
-function CheckpointCard({ step, accent, onComplete, alreadyPassed }) {
+function CheckpointCard({step, accent, onComplete, alreadyPassed}) {
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(alreadyPassed);
   const [wrongPicks, setWrongPicks] = useState(new Set());
-  const isCorrect = selected !== null && step.options[selected].correct;
+  const isCorrect = selected!==null && step.options[selected].correct;
 
   const handleSubmit = () => {
     setSubmitted(true);
-    if (step.options[selected].correct) onComplete();
-    else setWrongPicks((prev) => new Set([...prev, selected]));
+    if(step.options[selected].correct) onComplete();
+    else setWrongPicks(prev=>new Set([...prev,selected]));
   };
 
   return (
     <div>
-      <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: accent, background: `${accent}10`, padding: "5px 12px", borderRadius: 6, marginBottom: 14 }}>🎯 Final Check</div>
-      <h3 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 20, fontWeight: 700, color: "#1a1a2e", margin: "0 0 10px", lineHeight: 1.3 }}>{step.title}</h3>
-      <p style={{ fontSize: 15, color: "#4a4a68", lineHeight: 1.7, margin: "0 0 20px", fontWeight: 500 }}>{step.question}</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {step.options.map((opt, i) => {
-          let bg = "#f8f8fc", border = "2px solid #e8e8f0", color = "#2a2a48";
-          const isDisabled = wrongPicks.has(i) || (submitted && isCorrect);
-          if (submitted && opt.correct && isCorrect) { bg = "#ecfdf5"; border = "2px solid #6ee7b7"; color = "#065f46"; }
-          else if (submitted && i === selected && !isCorrect) { bg = "#fef2f2"; border = "2px solid #fca5a5"; color = "#991b1b"; }
-          else if (wrongPicks.has(i)) { bg = "#fef2f2"; border = "2px solid #fecaca"; color = "#991b1b80"; }
-          else if (!submitted && i === selected) { bg = `${accent}08`; border = `2px solid ${accent}`; }
+      <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
+        textTransform:"uppercase",color:accent,background:`${accent}10`,
+        padding:"5px 12px",borderRadius:6,marginBottom:14}}>🎯 Final Check</div>
+      <h3 style={{fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
+      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.7,margin:"0 0 20px",fontWeight:500}}>{step.question}</p>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        {step.options.map((opt,i) => {
+          let bg="#f8f8fc",border="2px solid #e8e8f0",color="#2a2a48";
+          const isDisabled=wrongPicks.has(i)||(submitted&&isCorrect);
+          if(submitted&&opt.correct&&isCorrect){bg="#ecfdf5";border="2px solid #6ee7b7";color="#065f46";}
+          else if(submitted&&i===selected&&!isCorrect){bg="#fef2f2";border="2px solid #fca5a5";color="#991b1b";}
+          else if(wrongPicks.has(i)){bg="#fef2f2";border="2px solid #fecaca";color="#991b1b80";}
+          else if(!submitted&&i===selected){bg=`${accent}08`;border=`2px solid ${accent}`;}
           return (
-            <button key={i} onClick={() => !submitted && !wrongPicks.has(i) && setSelected(i)} disabled={isDisabled}
-              style={{ background: bg, border, borderRadius: 12, padding: "14px 18px", textAlign: "left", fontSize: 14, color, cursor: isDisabled ? "default" : "pointer", fontFamily: "'Source Sans Pro', sans-serif", lineHeight: 1.5, transition: "all 0.25s", fontWeight: 500, opacity: wrongPicks.has(i) ? 0.55 : 1 }}>
+            <button key={i} onClick={()=>!submitted&&!wrongPicks.has(i)&&setSelected(i)} disabled={isDisabled}
+              style={{background:bg,border,borderRadius:12,padding:"14px 18px",textAlign:"left",
+                fontSize:14,color,cursor:isDisabled?"default":"pointer",lineHeight:1.5,
+                transition:"all 0.25s",fontWeight:500,opacity:wrongPicks.has(i)?0.55:1,
+                fontFamily:"'Source Sans Pro',sans-serif"}}>
               {opt.text}
             </button>
           );
         })}
       </div>
-      {!submitted && <button onClick={handleSubmit} disabled={selected === null} style={{ ...btnPrimary(accent, selected === null), marginTop: 16 }}>Submit Answer</button>}
-      {submitted && (
+      {!submitted&&<button onClick={handleSubmit} disabled={selected===null} style={{...btnPrimary(accent,selected===null),marginTop:16}}>Submit Answer</button>}
+      {submitted&&(
         <>
-          <div style={{ marginTop: 16, padding: "14px 18px", borderRadius: 12, background: isCorrect ? "#ecfdf5" : "#fef2f2", border: isCorrect ? "1px solid #a7f3d0" : "1px solid #fecaca", fontSize: 14, lineHeight: 1.6, color: isCorrect ? "#065f46" : "#991b1b" }}>
-            <strong>{isCorrect ? "✓ Correct!" : "✗ Not quite."}</strong> {isCorrect ? step.explanation : "That's not the right answer. Try again!"}
+          <div style={{marginTop:16,padding:"14px 18px",borderRadius:12,
+            background:isCorrect?"#ecfdf5":"#fef2f2",
+            border:isCorrect?"1px solid #a7f3d0":"1px solid #fecaca",
+            fontSize:14,lineHeight:1.6,color:isCorrect?"#065f46":"#991b1b"}}>
+            <strong>{isCorrect?"✓ Correct!":"✗ Not quite."}</strong>{" "}
+            {isCorrect?step.explanation:"That's not the right answer. Try again!"}
           </div>
-          {isCorrect && (
-            <div style={{ marginTop: 22, textAlign: "center", padding: "24px", borderRadius: 16, background: "linear-gradient(135deg, #f0fdf4, #ecfdf5)", border: "2px solid #a7f3d0" }}>
-              <div style={{ fontSize: 36, marginBottom: 6 }}>🎉</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#065f46", fontFamily: "'Source Sans Pro', sans-serif" }}>Module Complete!</div>
-              <div style={{ fontSize: 13, color: "#34d399", marginTop: 4, fontWeight: 600 }}>Great work — this topic is locked in.</div>
+          {isCorrect&&(
+            <div style={{marginTop:22,textAlign:"center",padding:24,borderRadius:16,
+              background:"linear-gradient(135deg,#f0fdf4,#ecfdf5)",border:"2px solid #a7f3d0"}}>
+              <div style={{fontSize:36,marginBottom:6}}>🎉</div>
+              <div style={{fontSize:18,fontWeight:800,color:"#065f46"}}>Module Complete!</div>
+              <div style={{fontSize:13,color:"#34d399",marginTop:4,fontWeight:600}}>Great work — this topic is locked in.</div>
             </div>
           )}
-          {!isCorrect && <button onClick={() => { setSelected(null); setSubmitted(false); }} style={{ ...btnOutline(accent), marginTop: 16 }}>Try Again →</button>}
+          {!isCorrect&&<button onClick={()=>{setSelected(null);setSubmitted(false);}} style={{...btnOutline(accent),marginTop:16}}>Try Again →</button>}
         </>
       )}
     </div>
   );
 }
 
-// ─── DATA (abbreviated - full data from original) ───
-// For the actual deployment, all the MODULES, MODULES_ES, etc. data
-// from the original component code goes here verbatim.
-// Including all the base64 image constants IMG1-IMG5.
-
-// Placeholder - in real file replace with full data from original code
-const PLACEHOLDER_IMG = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2YwZjBmYSIvPjx0ZXh0IHg9IjExMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjYTBhMGI4IiBmb250LXNpemU9IjE0Ij5TY3JlZW5zaG90PC90ZXh0Pjwvc3ZnPg==";
-
 const MODULES = [
   {
-    id: "billing", icon: "💳", title: "Billings & Earnings", subtitle: "How your pay and rental fees work", accent: "#003B71",
-    steps: [
-      { type: "intro", title: "Let's learn about Billings & Earnings", body: "Understanding how billing works is essential. In this module you'll learn when your billing week starts, how earnings are applied, and what happens if your card charge fails.", visual: "💳" },
-      { type: "learn", label: "Billing Week", title: "Your billing week runs Monday to Monday", body: "The rental billing week starts on **Monday at 5:00 AM** and ends the following **Monday at 4:59 AM**. Everything — your earnings, ride counts, and personal miles — resets at the start of each billing week.", callout: { icon: "📅", text: "Monday 5:00 AM → Monday 4:59 AM" } },
-      { type: "learn", label: "Earnings First", title: "Your earnings cover rental fees first", body: "All your ride earnings are automatically applied to your rental fees before anything else. The more you drive, the more your rental costs are offset — and in many cases, fully covered.", callout: { icon: "💡", text: "Pro Tip: Aim to meet the weekly ride target to fully cover your rental!" } },
-      { type: "scenario", title: "Quick Scenario", body: "It's Tuesday morning. Your ride earnings from last week didn't fully cover your rental fee. What happens next?", options: [{ text: "Nothing — the balance is forgiven", correct: false }, { text: "The remaining balance is charged to your card on file", correct: true }, { text: "Your account is immediately suspended", correct: false }], explanation: "Any rental fees not covered by earnings are charged to your card on file on the Tuesday after the billing week ends." },
-      { type: "learn", label: "Adjusted Rates", title: "Express Drive drivers earn at adjusted rates", body: "If you're using an Express Drive vehicle, your rate card is adjusted because the rental provider already covers many insurance and maintenance costs. You can always check your current rates on the **Driver Dashboard** in the Lyft Driver app.", callout: { icon: "📱", text: "Check the Driver Dashboard for your current rate card anytime." } },
-      { type: "learn", label: "Minimum Rides", title: "There may be a weekly ride minimum", body: "Depending on your market and plan, there may be a **minimum number of rides** you need to complete each week. Meeting this minimum increases the likelihood that your earnings will fully cover your rental fee.", callout: null },
-      { type: "checkpoint", title: "Knowledge Check", question: "When does the rental billing week begin?", options: [{ text: "Sunday at midnight", correct: false }, { text: "Monday at 5:00 AM", correct: true }, { text: "Tuesday at 5:00 AM", correct: false }, { text: "Monday at midnight", correct: false }], explanation: "The billing week starts every Monday at 5:00 AM and ends the following Monday at 4:59 AM." },
+    id:"billing",icon:"💳",title:"Billings & Earnings",subtitle:"How your pay and rental fees work",accent:"#003B71",
+    steps:[
+      {type:"intro",title:"Let's learn about Billings & Earnings",body:"Understanding how billing works is essential. In this module you'll learn when your billing week starts, how earnings are applied, and what happens if your card charge fails.",visual:"💳"},
+      {type:"learn",label:"Billing Week",title:"Your billing week runs Monday to Monday",body:"The rental billing week starts on **Monday at 5:00 AM** and ends the following **Monday at 4:59 AM**. Everything — your earnings, ride counts, and personal miles — resets at the start of each billing week.",callout:{icon:"📅",text:"Monday 5:00 AM → Monday 4:59 AM"}},
+      {type:"learn",label:"Earnings First",title:"Your earnings cover rental fees first",body:"All your ride earnings are automatically applied to your rental fees before anything else. The more you drive, the more your rental costs are offset — and in many cases, fully covered.",callout:{icon:"💡",text:"Pro Tip: Aim to meet the weekly ride target to fully cover your rental!"}},
+      {type:"scenario",title:"Quick Scenario",body:"It's Tuesday morning. Your ride earnings from last week didn't fully cover your rental fee. What happens next?",options:[{text:"Nothing — the balance is forgiven",correct:false},{text:"The remaining balance is charged to your card on file",correct:true},{text:"Your account is immediately suspended",correct:false}],explanation:"Any rental fees not covered by earnings are charged to your card on file on the Tuesday after the billing week ends."},
+      {type:"learn",label:"Adjusted Rates",title:"Express Drive drivers earn at adjusted rates",body:"If you're using an Express Drive vehicle, your rate card is adjusted because the rental provider already covers many insurance and maintenance costs. Check your current rates on the **Driver Dashboard** in the Lyft Driver app.",callout:{icon:"📱",text:"Check the Driver Dashboard for your current rate card anytime."}},
+      {type:"learn",label:"Minimum Rides",title:"There may be a weekly ride minimum",body:"Depending on your market and plan, there may be a **minimum number of rides** you need to complete each week. Meeting this minimum increases the likelihood that your earnings will fully cover your rental fee.",callout:null},
+      {type:"checkpoint",title:"Knowledge Check",question:"When does the rental billing week begin?",options:[{text:"Sunday at midnight",correct:false},{text:"Monday at 5:00 AM",correct:true},{text:"Tuesday at 5:00 AM",correct:false},{text:"Monday at midnight",correct:false}],explanation:"The billing week starts every Monday at 5:00 AM and ends the following Monday at 4:59 AM."},
     ],
   },
   {
-    id: "maintenance", icon: "🔧", title: "Maintenance", subtitle: "Keeping your vehicle in top shape", accent: "#5E0D8B",
-    steps: [
-      { type: "intro", title: "Let's learn about Maintenance", body: "Your rental vehicle needs regular care. This module covers what's included in your rental fee, what's not covered, and where to go for service.", visual: "🔧" },
-      { type: "learn", label: "Your Responsibility", title: "You're in charge of getting maintenance done", body: "As the driver, it's your responsibility to complete maintenance on schedule. The good news? You'll get a **notification in the app** when it's time — so you'll never have to guess.", callout: null },
-      { type: "learn", label: "What's Included", title: "Preventative maintenance is covered", body: "Routine, preventative maintenance is **included in your weekly rental fees**. This means standard scheduled services are taken care of as part of your rental cost.", callout: { icon: "✅", text: "Preventative maintenance = included in your weekly fee" } },
-      { type: "scenario", title: "Quick Scenario", body: "You ran over a nail and now have a flat tire. Is this covered by the included preventative maintenance?", options: [{ text: "Yes — all tire issues are covered", correct: false }, { text: "No — tire blowouts and nail damage are not included", correct: true }, { text: "Only if it happens during a Lyft ride", correct: false }], explanation: "Included maintenance does NOT cover tire blowouts, nails in tires, collision damage, or windshield damage. These are the driver's responsibility." },
-      { type: "learn", label: "Approved Vendors", title: "Always use approved service vendors", body: "For any maintenance — scheduled or not — you must use an **approved vendor**. Check the pamphlet in your vehicle or the list in the Driver app.", callout: { icon: "📋", text: "Approved vendor list → Vehicle pamphlet or Driver App" } },
-      { type: "learn", label: "Minor Issues", title: "Don't ignore small problems", body: "Even if it's not time for scheduled maintenance, visit an approved vendor right away for issues like **light bulb changes**, **windshield wiper fluid**, or a **check engine light**.", callout: null },
-      { type: "checkpoint", title: "Knowledge Check", question: "Which of the following is NOT covered by included preventative maintenance?", options: [{ text: "Scheduled oil changes", correct: false }, { text: "Tire blowouts from road debris", correct: true }, { text: "Routine brake inspections", correct: false }, { text: "Standard filter replacements", correct: false }], explanation: "Tire blowouts, nails in tires, collision damage, and windshield damage are NOT included in the preventative maintenance." },
+    id:"maintenance",icon:"🔧",title:"Maintenance",subtitle:"Keeping your vehicle in top shape",accent:"#5E0D8B",
+    steps:[
+      {type:"intro",title:"Let's learn about Maintenance",body:"Your rental vehicle needs regular care. This module covers what's included in your rental fee, what's not covered, and where to go for service.",visual:"🔧"},
+      {type:"learn",label:"Your Responsibility",title:"You're in charge of getting maintenance done",body:"As the driver, it's your responsibility to complete maintenance on schedule. The good news? You'll get a **notification in the app** when it's time — so you'll never have to guess.",callout:null},
+      {type:"learn",label:"What's Included",title:"Preventative maintenance is covered",body:"Routine, preventative maintenance is **included in your weekly rental fees**. This means standard scheduled services are taken care of as part of your rental cost.",callout:{icon:"✅",text:"Preventative maintenance = included in your weekly fee"}},
+      {type:"scenario",title:"Quick Scenario",body:"You ran over a nail and now have a flat tire. Is this covered by the included preventative maintenance?",options:[{text:"Yes — all tire issues are covered",correct:false},{text:"No — tire blowouts and nail damage are not included",correct:true},{text:"Only if it happens during a Lyft ride",correct:false}],explanation:"Included maintenance does NOT cover tire blowouts, nails in tires, collision damage, or windshield damage. These are the driver's responsibility."},
+      {type:"learn",label:"Approved Vendors",title:"Always use approved service vendors",body:"For any maintenance — scheduled or not — you must use an **approved vendor**. Check the pamphlet in your vehicle or the list in the Driver app.",callout:{icon:"📋",text:"Approved vendor list → Vehicle pamphlet or Driver App"}},
+      {type:"learn",label:"Minor Issues",title:"Don't ignore small problems",body:"Even if it's not time for scheduled maintenance, visit an approved vendor right away for issues like **light bulb changes**, **windshield wiper fluid**, or a **check engine light**.",callout:null},
+      {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is NOT covered by included preventative maintenance?",options:[{text:"Scheduled oil changes",correct:false},{text:"Tire blowouts from road debris",correct:true},{text:"Routine brake inspections",correct:false},{text:"Standard filter replacements",correct:false}],explanation:"Tire blowouts, nails in tires, collision damage, and windshield damage are NOT included in the preventative maintenance covered by your rental fee."},
     ],
   },
   {
-    id: "miles", icon: "📍", title: "Personal Miles", subtitle: "Tracking off-the-clock driving", accent: "#059669",
-    steps: [
-      { type: "intro", title: "Let's learn about Personal Miles", body: "Any driving you do while not online for Lyft counts as personal miles. This module explains how they work, when they accrue, and how to avoid overage charges.", visual: "📍" },
-      { type: "learn", label: "When They Accrue", title: "Personal miles count whenever you're offline", body: "Personal miles accrue anytime the vehicle moves and you are **not online for Lyft**. This includes during deactivations, carrying personal passengers, taking required breaks, and driving to maintenance appointments.", callout: { icon: "⚠️", text: "Offline + vehicle moving = personal miles accruing" } },
-      { type: "learn", label: "Precision Tracking", title: "Tracking starts at just 1/10 of a mile", body: "Personal miles begin accruing at **1/10 of a mile** — so even short trips add up.", callout: null },
-      { type: "scenario", title: "Quick Scenario", body: "You have 15 unused personal miles at the end of the billing week. What happens to them?", options: [{ text: "They roll over to next week", correct: false }, { text: "They convert to bonus earnings", correct: false }, { text: "They expire — personal miles never roll over", correct: true }], explanation: "Personal miles do NOT roll over to the next week. Each billing week gives you a fresh allotment based on your plan." },
-      { type: "learn", label: "Overage Charges", title: "Overages hit immediately — even by 1/10 of a mile", body: "If you exceed your allotted personal miles by even **1/10 of a mile**, overage charges apply.", callout: { icon: "🚨", text: "Even 0.1 miles over = overage charges apply" } },
-      { type: "checkpoint", title: "Knowledge Check", question: "When do personal miles start accruing?", options: [{ text: "After the first full mile driven offline", correct: false }, { text: "At 1/10 of a mile", correct: true }, { text: "Only after 5 miles of offline driving", correct: false }, { text: "At the start of each billing week automatically", correct: false }], explanation: "Personal miles start accruing at just 1/10 of a mile." },
+    id:"miles",icon:"📍",title:"Personal Miles",subtitle:"Tracking off-the-clock driving",accent:"#059669",
+    steps:[
+      {type:"intro",title:"Let's learn about Personal Miles",body:"Any driving you do while not online for Lyft counts as personal miles. This module explains how they work, when they accrue, and how to avoid overage charges.",visual:"📍"},
+      {type:"learn",label:"When They Accrue",title:"Personal miles count whenever you're offline",body:"Personal miles accrue anytime the vehicle moves and you are **not online for Lyft**. This includes during deactivations, carrying personal passengers, taking required breaks, and driving to maintenance appointments.",callout:{icon:"⚠️",text:"Offline + vehicle moving = personal miles accruing"}},
+      {type:"learn",label:"Precision Tracking",title:"Tracking starts at just 1/10 of a mile",body:"Personal miles begin accruing at **1/10 of a mile** — so even short trips add up. They are also prorated during your first week, so you'll have a fair starting balance.",callout:null},
+      {type:"scenario",title:"Quick Scenario",body:"You have 15 unused personal miles at the end of the billing week. What happens to them?",options:[{text:"They roll over to next week",correct:false},{text:"They convert to bonus earnings",correct:false},{text:"They expire — personal miles never roll over",correct:true}],explanation:"Personal miles do NOT roll over to the next week. Each billing week gives you a fresh allotment based on your plan."},
+      {type:"learn",label:"Overage Charges",title:"Overages hit immediately — even by 1/10 of a mile",body:"If you exceed your allotted personal miles by even **1/10 of a mile**, overage charges apply. On the Pay As You Go plan, charges start from the very first 1/10 mile used. Monitor your miles closely in the app!",callout:{icon:"🚨",text:"Even 0.1 miles over = overage charges apply"}},
+      {type:"checkpoint",title:"Knowledge Check",question:"When do personal miles start accruing?",options:[{text:"After the first full mile driven offline",correct:false},{text:"At 1/10 of a mile",correct:true},{text:"Only after 5 miles of offline driving",correct:false},{text:"At the start of each billing week automatically",correct:false}],explanation:"Personal miles start accruing at just 1/10 of a mile — so even very short offline trips are tracked."},
     ],
   },
   {
-    id: "accidents", icon: "🚨", title: "Accidents", subtitle: "What to do if there's a collision", accent: "#DA3AB3",
-    steps: [
-      { type: "intro", title: "Let's learn about Accident Procedures", body: "Nobody plans for an accident, but knowing the exact steps to take can save you time, money, and stress. This module walks through exactly what to do.", visual: "🚨" },
-      { type: "learn", label: "Step 1", title: "First: Call the police", body: "Your absolute first step after any accident is to **call the police**. You need to file an official accident report and receive a copy.", callout: { icon: "📞", text: "Step 1 — Always call the police FIRST" } },
-      { type: "learn", label: "Step 2", title: "Then: Report in the Lyft Driver app", body: "After you've contacted the police, **report the accident in the Lyft Driver app**. The vehicle will be **deactivated immediately** once reported.", callout: { icon: "📱", text: "Step 2 — Report in app (vehicle gets deactivated)" } },
-      { type: "scenario", title: "Quick Scenario", body: "You've been in a fender bender. The car is drivable. After calling the police and reporting in-app, what should you do?", options: [{ text: "Continue giving rides for the rest of the day", correct: false }, { text: "Drive the vehicle to your rental location for inspection ASAP", correct: true }, { text: "Take it to any nearby mechanic", correct: false }], explanation: "If the vehicle can be driven safely, you must drive it to your rental location for an inspection as soon as possible." },
-      { type: "learn", label: "Not Drivable", title: "If the car can't be driven — call Holman", body: "If the vehicle is not safe to drive, call the **Holman Roadside Assistance** line. The phone number is located on the **driver side of your rental's windshield**.", callout: { icon: "🪪", text: "Holman Roadside number → driver-side windshield" } },
-      { type: "checkpoint", title: "Knowledge Check", question: "After an accident, what is the correct order of actions?", options: [{ text: "Report in app → Call police → Drive to rental location", correct: false }, { text: "Call police → Report in app → Get to rental location", correct: true }, { text: "Drive to rental location → Call police → Report in app", correct: false }, { text: "Call Holman → Report in app → Call police", correct: false }], explanation: "The correct order is: (1) Call police to file a report, (2) Report in the Lyft Driver app, (3) Get the vehicle to your rental location." },
+    id:"accidents",icon:"🚨",title:"Accidents",subtitle:"What to do if there's a collision",accent:"#DA3AB3",
+    steps:[
+      {type:"intro",title:"Let's learn about Accident Procedures",body:"Nobody plans for an accident, but knowing the exact steps to take can save you time, money, and stress. This module walks through exactly what to do.",visual:"🚨"},
+      {type:"learn",label:"Step 1",title:"First: Call the police",body:"Your absolute first step after any accident is to **call the police**. You need to file an official accident report and receive a copy. This is critical for the claims process.",callout:{icon:"📞",text:"Step 1 — Always call the police FIRST"}},
+      {type:"learn",label:"Step 2",title:"Then: Report in the Lyft Driver app",body:"After you've contacted the police, **report the accident in the Lyft Driver app**. Important: the vehicle will be **deactivated immediately** once reported — this is normal and expected.",callout:{icon:"📱",text:"Step 2 — Report in app (vehicle gets deactivated)"}},
+      {type:"scenario",title:"Quick Scenario",body:"You've been in a fender bender. The car is drivable. After calling the police and reporting in-app, what should you do?",options:[{text:"Continue giving rides for the rest of the day",correct:false},{text:"Drive the vehicle to your rental location for inspection ASAP",correct:true},{text:"Take it to any nearby mechanic",correct:false}],explanation:"If the vehicle can be driven safely, you must drive it to your rental location for an inspection and to receive next steps as soon as possible."},
+      {type:"learn",label:"Not Drivable",title:"If the car can't be driven — call Holman",body:"If the vehicle is not safe to drive, call the **Holman Roadside Assistance** line. The phone number is located on the **driver side of your rental's windshield**. They'll arrange a tow to your rental location.",callout:{icon:"🪪",text:"Holman Roadside number → driver-side windshield"}},
+      {type:"learn",label:"Claim Period",title:"Open claims pause your rental eligibility",body:"While an accident claim is open, you'll be **ineligible to rent** until the claim is fully resolved, you're deemed not at fault, and any outstanding balance is paid.",callout:null},
+      {type:"checkpoint",title:"Knowledge Check",question:"After an accident, what is the correct order of actions?",options:[{text:"Report in app → Call police → Drive to rental location",correct:false},{text:"Call police → Report in app → Get to rental location",correct:true},{text:"Drive to rental location → Call police → Report in app",correct:false},{text:"Call Holman → Report in app → Call police",correct:false}],explanation:"The correct order is: (1) Call police to file a report, (2) Report the accident in the Lyft Driver app, (3) Get the vehicle to your rental location."},
     ],
   },
   {
-    id: "damage", icon: "🛡️", title: "Damage", subtitle: "Inspections, fees, and protection", accent: "#D97706",
-    steps: [
-      { type: "intro", title: "Let's learn about Damage Policies", body: "Understanding damage policies protects your wallet. This module covers the pre-rental inspection, what counts as chargeable damage, and how to protect yourself.", visual: "🛡️" },
-      { type: "learn", label: "Pre-Rental Inspection", title: "Everything starts with the inspection", body: "Before you sign your rental contract, a rental associate will complete a **pre-rental inspection** with you, carefully marking any pre-existing damage on the contract.", callout: { icon: "🔍", text: "Review your pre-rental inspection carefully before signing!" } },
-      { type: "scenario", title: "Quick Scenario", body: "You notice a 4-inch scratch on the bumper that wasn't there before. Will you be charged for this?", options: [{ text: "No — chargeable damage must be greater than 6 inches or larger than a quarter", correct: true }, { text: "Yes — any visible scratch is chargeable", correct: false }, { text: "Only if another driver reports it", correct: false }], explanation: "Chargeable damage is defined as anything greater than 6 inches OR greater than the size of a quarter." },
-      { type: "learn", label: "CDW Protection", title: "Consider the Collision Damage Waiver", body: "All drivers are **encouraged** (but not required) to add the **Collision Damage Waiver (CDW)** to reduce or avoid damage fees.", callout: { icon: "🛡️", text: "CDW = peace of mind against damage charges" } },
-      { type: "learn", label: "Critical Rule", title: "Never repair damage yourself", body: "This is important: **do NOT attempt to repair any damage on your own.** Always report damage through the proper channels and let your rental location handle repairs.", callout: { icon: "🚫", text: "NEVER attempt self-repairs on any damage" } },
-      { type: "checkpoint", title: "Knowledge Check", question: "What is the threshold for chargeable damage?", options: [{ text: "Any scratch or dent, no matter how small", correct: false }, { text: "Greater than 12 inches", correct: false }, { text: "Greater than 6 inches OR greater than the size of a quarter", correct: true }, { text: "Only damage visible from 10 feet away", correct: false }], explanation: "Chargeable damage includes any damage greater than 6 inches OR greater than the size of a quarter." },
+    id:"damage",icon:"🛡️",title:"Damage",subtitle:"Inspections, fees, and protection",accent:"#D97706",
+    steps:[
+      {type:"intro",title:"Let's learn about Damage Policies",body:"Understanding damage policies protects your wallet. This module covers the pre-rental inspection, what counts as chargeable damage, and how to protect yourself.",visual:"🛡️"},
+      {type:"learn",label:"Pre-Rental Inspection",title:"Everything starts with the inspection",body:"Before you sign your rental contract, a rental associate will complete a **pre-rental inspection** with you, carefully marking any pre-existing damage on the contract. This protects you from being charged for damage that was already there.",callout:{icon:"🔍",text:"Review your pre-rental inspection carefully before signing!"}},
+      {type:"learn",label:"Your Liability",title:"After signing, new damage is your responsibility",body:"Once the contract is signed, you're responsible for **any new damage** to the vehicle. The driver is responsible for damage fees unless insurance proves otherwise.",callout:null},
+      {type:"scenario",title:"Quick Scenario",body:"You notice a 4-inch scratch on the bumper that wasn't there before. Will you be charged for this?",options:[{text:"No — chargeable damage must be greater than 6 inches or larger than a quarter",correct:true},{text:"Yes — any visible scratch is chargeable",correct:false},{text:"Only if another driver reports it",correct:false}],explanation:"Chargeable damage is defined as anything greater than 6 inches OR greater than the size of a quarter. A 4-inch scratch would fall below this threshold."},
+      {type:"learn",label:"CDW Protection",title:"Consider the Collision Damage Waiver",body:"All drivers are **encouraged** (but not required) to add the **Collision Damage Waiver (CDW)** to reduce or avoid damage fees.",callout:{icon:"🛡️",text:"CDW = peace of mind against damage charges"}},
+      {type:"learn",label:"Critical Rule",title:"Never repair damage yourself",body:"This is important: **do NOT attempt to repair any damage on your own.** Always report damage through the proper channels and let your rental location handle repairs. Self-repairs can void protections and create additional charges.",callout:{icon:"🚫",text:"NEVER attempt self-repairs on any damage"}},
+      {type:"checkpoint",title:"Knowledge Check",question:"What is the threshold for chargeable damage?",options:[{text:"Any scratch or dent, no matter how small",correct:false},{text:"Greater than 12 inches",correct:false},{text:"Greater than 6 inches OR greater than the size of a quarter",correct:true},{text:"Only damage visible from 10 feet away",correct:false}],explanation:"Chargeable damage includes any damage greater than 6 inches OR greater than the size of a quarter."},
     ],
   },
   {
-    id: "return", icon: "🔑", title: "Return Expectations", subtitle: "Returning your vehicle the right way", accent: "#003B71",
-    steps: [
-      { type: "intro", title: "Let's learn about Return Expectations", body: "When it's time to return your vehicle, following the correct steps will save you from unexpected charges.", visual: "🔑" },
-      { type: "learn", label: "Vehicle Condition", title: "Return the vehicle clean and fueled", body: "Before returning, your vehicle must be: **vacuumed and wiped down** inside, **washed** outside, and **fueled** to the same level as when you picked it up.", callout: { icon: "✨", text: "Clean inside + Clean outside + Full fuel = No extra charges" } },
-      { type: "scenario", title: "Quick Scenario", body: "You return your vehicle at 7 PM on Saturday. When will your rental contract be closed?", options: [{ text: "Immediately upon drop-off", correct: false }, { text: "The next business day — and you'll be charged through then", correct: true }, { text: "The following Saturday", correct: false }], explanation: "After-hours or weekend returns mean your contract won't close until the next business day, and you'll be charged through that day." },
-      { type: "learn", label: "Personal Belongings", title: "Don't leave anything behind", body: "Lyft/Flexdrive is **NOT responsible** for any belongings left in the vehicle after return. All items left behind will be **disposed of**.", callout: { icon: "⚠️", text: "All belongings left behind WILL be disposed of — no exceptions" } },
-      { type: "checkpoint", title: "Knowledge Check", question: "Which of the following is required before returning your vehicle?", options: [{ text: "Only vacuum the interior", correct: false }, { text: "Just fill the gas tank", correct: false }, { text: "Vacuum & wipe inside, wash outside, and fuel to pickup level", correct: true }, { text: "Nothing — the rental location handles cleaning", correct: false }], explanation: "You must vacuum and wipe down the interior, wash the exterior, and fuel the vehicle to the same level as pickup." },
+    id:"return",icon:"🔑",title:"Return Expectations",subtitle:"Returning your vehicle the right way",accent:"#003B71",
+    steps:[
+      {type:"intro",title:"Let's learn about Return Expectations",body:"When it's time to return your vehicle, following the correct steps will save you from unexpected charges. This module covers everything from cleaning to timing.",visual:"🔑"},
+      {type:"learn",label:"Scheduling",title:"Appointments are encouraged but not required",body:"You can schedule a return appointment through the **Lyft Driver App**. While not mandatory, scheduling ahead helps ensure a smooth return process.",callout:null},
+      {type:"learn",label:"Vehicle Condition",title:"Return the vehicle clean and fueled",body:"Before returning, your vehicle must be: **vacuumed and wiped down** inside, **washed** outside, and **fueled** to the same level as when you picked it up. Charges will apply if cleaning or fueling isn't completed.",callout:{icon:"✨",text:"Clean inside + Clean outside + Full fuel = No extra charges"}},
+      {type:"scenario",title:"Quick Scenario",body:"You return your vehicle at 7 PM on Saturday. When will your rental contract be closed?",options:[{text:"Immediately upon drop-off",correct:false},{text:"The next business day — and you'll be charged through then",correct:true},{text:"The following Saturday",correct:false}],explanation:"After-hours or weekend returns mean your contract won't close until the next business day, and you'll be charged through that day."},
+      {type:"learn",label:"Personal Belongings",title:"Don't leave anything behind",body:"Lyft/Flexdrive is **NOT responsible** for any belongings left in the vehicle after return or repossession. All items left behind will be **disposed of**. Double-check the vehicle thoroughly before handing over the keys.",callout:{icon:"⚠️",text:"All belongings left behind WILL be disposed of — no exceptions"}},
+      {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is required before returning your vehicle?",options:[{text:"Only vacuum the interior",correct:false},{text:"Just fill the gas tank",correct:false},{text:"Vacuum & wipe inside, wash outside, and fuel to pickup level",correct:true},{text:"Nothing — the rental location handles cleaning",correct:false}],explanation:"You must vacuum and wipe down the interior, wash the exterior, and fuel the vehicle to the same level as pickup. Charges apply for any of these not completed."},
     ],
   },
   {
-    id: "navigate", icon: "📱", title: "Navigating the Lyft Driver App", subtitle: "Find your rental details step by step", accent: "#7D868C",
-    steps: [
-      { type: "intro", title: "Let's learn to navigate the Lyft Driver App", body: "Knowing where to find your rental details, ride minimums, personal miles, and billing history is essential. This module walks you through each screen step by step.", visual: "📱" },
-      { type: "visual", label: "Step 1", title: "Start from the Driver Home Screen", body: "When you open the Lyft Driver app, tap the **☰ menu icon** in the top-left corner to access your rental details.", image: PLACEHOLDER_IMG, callout: { icon: "👆", text: "Tap the ☰ menu icon in the top-left corner to proceed." } },
-      { type: "visual", label: "Step 2", title: "Open Vehicle and Devices", body: "In the side menu, find the **Vehicle and Devices** section. Tap **Your Vehicles** to continue.", image: PLACEHOLDER_IMG, callout: { icon: "👆", text: 'Tap "Your Vehicles" under Vehicle and Devices.' } },
-      { type: "visual", label: "Step 3", title: "View Your Express Drive Vehicle", body: "The Vehicles screen shows your current rental with the **lyf express drive** label. Tap **See details** to view full rental information.", image: PLACEHOLDER_IMG, callout: { icon: "👆", text: 'Tap "See details" to open the full rental dashboard.' } },
-      { type: "visual", label: "Step 4", title: "Rental Dashboard — Rides & Miles", body: "This is your rental details page. You'll see your **Ride minimum** and **Personal miles** — both reset Monday at 5:00 AM.", image: PLACEHOLDER_IMG, callout: { icon: "📊", text: "Track your ride minimum and personal miles here — both reset Monday at 5:00 AM." } },
-      { type: "visual", label: "Step 5", title: "Manage Rental & View History", body: "Scroll further to see **Recent usage** and **Manage rental** with quick links to billing history, maintenance scheduling, and plan changes.", image: PLACEHOLDER_IMG, callout: { icon: "🔧", text: "Use Manage rental to view billing, schedule maintenance, or change your mileage/protection plan." } },
-      { type: "checkpoint", title: "Knowledge Check", question: "To view your ride minimum and personal miles, where do you navigate?", options: [{ text: "Settings > Account > Rides", correct: false }, { text: "☰ Menu > Vehicle and Devices > Your Vehicles > See details", correct: true }, { text: "The earnings tab at the top of the home screen", correct: false }, { text: "Support and Resources > Rental Info", correct: false }], explanation: "Navigate to ☰ Menu > Vehicle and Devices > Your Vehicles > See details to see your ride minimum, personal miles, recent usage, and manage rental options." },
+    id:"navigate",icon:"📱",title:"Navigating the Lyft Driver App",subtitle:"Find your rental details step by step",accent:"#7D868C",
+    steps:[
+      {type:"intro",title:"Let's learn to navigate the Lyft Driver App",body:"Knowing where to find your rental details, ride minimums, personal miles, and billing history is essential. This module walks you through each screen step by step.",visual:"📱"},
+      {type:"learn",label:"Step 1",title:"Open the Menu",body:"From the **Driver Home Screen**, tap the **☰ hamburger menu** in the top-left corner. This opens the side navigation menu where you can find vehicle and rental info.",callout:{icon:"👆",text:"Tap ☰ in the top-left corner of the home screen."}},
+      {type:"learn",label:"Step 2",title:"Go to Vehicle and Devices",body:"In the side menu, scroll down and tap **Vehicle and Devices** to expand it. Then tap **Your Vehicles** to see your current rental.",callout:{icon:"👆",text:'Tap "Your Vehicles" under Vehicle and Devices.'}},
+      {type:"learn",label:"Step 3",title:"Tap See Details",body:"On the Vehicles screen, you'll see your current rental with the **lyf express drive** label. Tap **See details** to open the full rental dashboard.",callout:{icon:"👆",text:'Tap "See details" to open the full rental dashboard.'}},
+      {type:"learn",label:"Step 4",title:"Rental Dashboard — Rides and Miles",body:"Your rental details page shows your **Ride minimum** (e.g. 20 rides/week) and **Personal miles** (e.g. 0/25 used). Both reset every **Monday at 5:00 AM**.",callout:{icon:"📊",text:"Track your ride minimum and personal miles here — both reset Monday at 5:00 AM."}},
+      {type:"learn",label:"Step 5",title:"Manage Rental and View History",body:"Scroll further to see **Manage rental** with quick links: **View weekly cost**, **See Express Drive billing history**, **Schedule preventative maintenance**, **Change mileage plan**, and **Change protection plan**.",callout:{icon:"🔧",text:"Use Manage rental to view billing, schedule maintenance, or change your plan."}},
+      {type:"checkpoint",title:"Knowledge Check",question:"To view your ride minimum and personal miles, where do you navigate?",options:[{text:"Settings > Account > Rides",correct:false},{text:"☰ Menu > Vehicle and Devices > Your Vehicles > See details",correct:true},{text:"The earnings tab at the top of the home screen",correct:false},{text:"Support and Resources > Rental Info",correct:false}],explanation:"Navigate to ☰ Menu > Vehicle and Devices > Your Vehicles > See details to see your ride minimum, personal miles, recent usage, and manage rental options."},
     ],
   },
 ];
 
-// ─── MAIN APP ───
-export default function FlexdriveOnboarding() {
+function App() {
   const [activeModuleIdx, setActiveModuleIdx] = useState(null);
   const [stepIdx, setStepIdx] = useState(0);
   const [completedModules, setCompletedModules] = useState(new Set());
@@ -343,33 +310,29 @@ export default function FlexdriveOnboarding() {
   const progress = Math.round((totalCompleted / MODULES.length) * 100);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (startTime && !showCelebration) setElapsed(Math.floor((Date.now() - startTime) / 1000));
+    const iv = setInterval(() => {
+      if (startTime && !showCelebration) setElapsed(Math.floor((Date.now()-startTime)/1000));
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(iv);
   }, [startTime, showCelebration]);
 
-  const formatTime = (secs) => {
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    return `${m}:${s.toString().padStart(2, "0")}`;
-  };
+  const formatTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,"0")}`;
 
   const goNext = useCallback(() => {
     if (!mod) return;
-    if (stepIdx < mod.steps.length - 1) { setStepIdx((s) => s + 1); setAnimKey((k) => k + 1); }
+    if (stepIdx < mod.steps.length-1) { setStepIdx(s=>s+1); setAnimKey(k=>k+1); }
   }, [mod, stepIdx]);
 
   const selectModule = (idx) => {
     if (!startTime) setStartTime(Date.now());
-    setActiveModuleIdx(idx); setStepIdx(0); setAnimKey((k) => k + 1);
+    setActiveModuleIdx(idx); setStepIdx(0); setAnimKey(k=>k+1);
   };
 
   const handleModuleComplete = (modId) => {
     const next = new Set([...completedModules, modId]);
     setCompletedModules(next);
     if (next.size === MODULES.length) {
-      setFinalTime(Math.floor((Date.now() - startTime) / 1000));
+      setFinalTime(Math.floor((Date.now()-startTime)/1000));
       setShowCelebration(true);
     }
   };
@@ -380,111 +343,95 @@ export default function FlexdriveOnboarding() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F6F6FB", fontFamily: "'Source Sans Pro', sans-serif", display: "flex", flexDirection: "column" }}>
-      <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes celebPop { 0% { opacity: 0; transform: scale(0.7); } 50% { transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(420px) rotate(720deg); opacity: 0; } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-        button:hover { filter: brightness(1.06); }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: #d4d4e0; border-radius: 3px; }
-      `}</style>
-
+    <div style={{minHeight:"100vh",background:"#F6F6FB",display:"flex",flexDirection:"column"}}>
       {/* HEADER */}
-      <header style={{ background: "#003B71", borderBottom: "1px solid #002a55", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", position: "sticky", top: 0, zIndex: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: "none", border: "1px solid #ffffff30", borderRadius: 8, padding: "6px 10px", cursor: "pointer", fontSize: 16, lineHeight: 1, color: "#ffffffcc" }}>☰</button>
+      <header style={{background:"#003B71",padding:"18px 24px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,zIndex:10}}>
+        <div style={{display:"flex",alignItems:"center",gap:16}}>
+          <button onClick={()=>setSidebarOpen(!sidebarOpen)} style={{background:"none",border:"1px solid #ffffff30",borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:16,color:"#ffffffcc"}}>☰</button>
           <div>
-            <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "#FF00BF", marginBottom: 2 }}>
-              <span style={{ color: "#FF00BF", fontWeight: 900, fontSize: 16 }}>flexdrive</span>
-            </div>
-            <h1 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 20, fontWeight: 800, color: "#ffffff", margin: 0 }}>Driver Onboarding</h1>
+            <div style={{fontSize:18,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em"}}>flexdrive</div>
+            <div style={{fontSize:14,fontWeight:700,color:"#ffffffcc"}}>Driver Onboarding</div>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          {startTime && !showCelebration && (
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#FF00BF", fontFamily: "monospace", background: "#ffffff15", padding: "3px 10px", borderRadius: 6 }}>⏱ {formatTime(elapsed)}</span>
-          )}
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#ffffffcc" }}>{totalCompleted}/{MODULES.length}</span>
-          <div style={{ width: 100, height: 7, borderRadius: 4, background: "#ffffff30", overflow: "hidden" }}>
-            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 4, background: progress === 100 ? "linear-gradient(90deg, #10b981, #34d399)" : "linear-gradient(90deg, #003B71, #FF00BF)", transition: "width 0.6s" }} />
+        <div style={{display:"flex",alignItems:"center",gap:14}}>
+          {startTime&&!showCelebration&&<span style={{fontSize:12,fontWeight:700,color:"#FF00BF",fontFamily:"monospace",background:"#ffffff15",padding:"3px 10px",borderRadius:6}}>⏱ {formatTime(elapsed)}</span>}
+          <span style={{fontSize:12,fontWeight:700,color:"#ffffffcc"}}>{totalCompleted}/{MODULES.length}</span>
+          <div style={{width:100,height:7,borderRadius:4,background:"#ffffff30",overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${progress}%`,borderRadius:4,background:progress===100?"linear-gradient(90deg,#10b981,#34d399)":"linear-gradient(90deg,#003B71,#FF00BF)",transition:"width 0.6s"}} />
           </div>
         </div>
       </header>
 
-      <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
+      <div style={{display:"flex",flex:1,minHeight:0}}>
         {/* SIDEBAR */}
-        {sidebarOpen && (
-          <nav style={{ width: 270, minWidth: 270, background: "#fff", borderRight: "1px solid #ebebf4", padding: "18px 12px", overflowY: "auto", animation: "fadeIn 0.2s ease" }}>
-            <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#b0b0c8", padding: "0 10px 12px" }}>Course Modules</div>
-            {MODULES.map((m, i) => {
-              const isActive = activeModuleIdx === i;
-              const isDone = completedModules.has(m.id);
+        {sidebarOpen&&(
+          <nav style={{width:270,minWidth:270,background:"#fff",borderRight:"1px solid #ebebf4",padding:"18px 12px",overflowY:"auto"}}>
+            <div style={{fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",color:"#b0b0c8",padding:"0 10px 12px"}}>Course Modules</div>
+            {MODULES.map((m,i)=>{
+              const isActive=activeModuleIdx===i, isDone=completedModules.has(m.id);
               return (
-                <button key={m.id} onClick={() => selectModule(i)}
-                  style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px", marginBottom: 2, border: isActive ? `2px solid ${m.accent}28` : "2px solid transparent", borderRadius: 14, background: isActive ? `${m.accent}05` : "transparent", cursor: "pointer", textAlign: "left", transition: "all 0.2s" }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", fontSize: isDone ? 15 : 17, background: isDone ? "#ecfdf5" : isActive ? `${m.accent}10` : "#f4f4fa", color: isDone ? "#10b981" : m.accent, border: isDone ? "2px solid #a7f3d0" : isActive ? `2px solid ${m.accent}28` : "2px solid #ebebf4", flexShrink: 0 }}>
-                    {isDone ? "✓" : m.icon}
+                <button key={m.id} onClick={()=>selectModule(i)}
+                  style={{width:"100%",display:"flex",alignItems:"center",gap:12,padding:12,marginBottom:2,
+                    border:isActive?`2px solid ${m.accent}28`:"2px solid transparent",borderRadius:14,
+                    background:isActive?`${m.accent}05`:"transparent",cursor:"pointer",textAlign:"left",transition:"all 0.2s"}}>
+                  <div style={{width:36,height:36,borderRadius:11,display:"flex",alignItems:"center",justifyContent:"center",
+                    fontSize:isDone?15:17,background:isDone?"#ecfdf5":isActive?`${m.accent}10`:"#f4f4fa",
+                    color:isDone?"#10b981":m.accent,border:isDone?"2px solid #a7f3d0":isActive?`2px solid ${m.accent}28`:"2px solid #ebebf4",flexShrink:0}}>
+                    {isDone?"✓":m.icon}
                   </div>
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: isActive ? 700 : 600, color: isActive ? "#1a1a2e" : "#5a5a78", marginBottom: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{m.title}</div>
-                    <div style={{ fontSize: 11, color: isDone ? "#10b981" : "#a0a0b8", fontWeight: 600 }}>{isDone ? "Completed ✓" : m.subtitle}</div>
+                  <div style={{minWidth:0,flex:1}}>
+                    <div style={{fontSize:13,fontWeight:isActive?700:600,color:isActive?"#1a1a2e":"#5a5a78",marginBottom:1,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{m.title}</div>
+                    <div style={{fontSize:11,color:isDone?"#10b981":"#a0a0b8",fontWeight:600}}>{isDone?"Completed ✓":m.subtitle}</div>
                   </div>
                 </button>
               );
             })}
-            {progress === 100 && (
-              <div style={{ marginTop: 18, padding: "18px 14px", borderRadius: 14, background: "linear-gradient(135deg, #ecfdf5, #f0fdf4)", border: "2px solid #a7f3d0", textAlign: "center" }}>
-                <div style={{ fontSize: 30, marginBottom: 6 }}>🎓</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#065f46" }}>Onboarding Complete!</div>
-                <div style={{ fontSize: 11, color: "#34d399", marginTop: 3, fontWeight: 600 }}>You're ready to hit the road</div>
+            {progress===100&&(
+              <div style={{marginTop:18,padding:"18px 14px",borderRadius:14,background:"linear-gradient(135deg,#ecfdf5,#f0fdf4)",border:"2px solid #a7f3d0",textAlign:"center"}}>
+                <div style={{fontSize:30,marginBottom:6}}>🎓</div>
+                <div style={{fontSize:14,fontWeight:800,color:"#065f46"}}>Onboarding Complete!</div>
+                <div style={{fontSize:11,color:"#34d399",marginTop:3,fontWeight:600}}>You're ready to hit the road</div>
               </div>
             )}
-            <button onClick={handleRestart} style={{ width: "100%", marginTop: 18, padding: "12px", borderRadius: 12, border: "2px solid #e8e8f0", background: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 700, color: "#7D868C", fontFamily: "'Source Sans Pro', sans-serif", transition: "all 0.2s" }}>
+            <button onClick={handleRestart} style={{width:"100%",marginTop:18,padding:12,borderRadius:12,border:"2px solid #e8e8f0",background:"#fff",cursor:"pointer",fontSize:13,fontWeight:700,color:"#7D868C",fontFamily:"'Source Sans Pro',sans-serif"}}>
               🔄 Restart for Next Driver
             </button>
           </nav>
         )}
 
-        {/* MAIN CONTENT */}
-        <main style={{ flex: 1, overflowY: "auto", display: "flex", justifyContent: "center", padding: "36px 28px 56px" }}>
-          {!mod ? (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 440, animation: "fadeIn 0.5s ease" }}>
-              <div style={{ width: 84, height: 84, borderRadius: 22, background: "linear-gradient(135deg, #003B7115, #FF00BF15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 38, marginBottom: 22, border: "2px solid #003B7130" }}>📘</div>
-              <div style={{ fontSize: 24, fontWeight: 900, color: "#FF00BF", letterSpacing: "0.05em", marginBottom: 6 }}>flexdrive</div>
-              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#1a1a2e", marginBottom: 10 }}>Driver Onboarding</h2>
-              <p style={{ fontSize: 15, color: "#8a8aa8", lineHeight: 1.7, marginBottom: 12 }}>
+        {/* MAIN */}
+        <main style={{flex:1,overflowY:"auto",display:"flex",justifyContent:"center",padding:"36px 28px 56px"}}>
+          {!mod?(
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
+              <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
+              <div style={{fontSize:28,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em",marginBottom:4}}>flexdrive</div>
+              <h2 style={{fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>Driver Onboarding</h2>
+              <p style={{fontSize:15,color:"#8a8aa8",lineHeight:1.7,marginBottom:12}}>
                 {MODULES.length} learning modules to finish your onboarding. Each module includes guided lessons, real-world scenarios, and a final knowledge check.
               </p>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", margin: "8px 0 28px" }}>
-                {["📖 Guided lessons", "💭 Scenarios", "🎯 Quizzes"].map((tag) => (
-                  <span key={tag} style={{ fontSize: 12, fontWeight: 600, color: "#6a6a88", background: "#f0f0fa", padding: "5px 12px", borderRadius: 8 }}>{tag}</span>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",margin:"8px 0 28px"}}>
+                {["📖 Guided lessons","💭 Scenarios","🎯 Quizzes"].map(tag=>(
+                  <span key={tag} style={{fontSize:12,fontWeight:600,color:"#6a6a88",background:"#f0f0fa",padding:"5px 12px",borderRadius:8}}>{tag}</span>
                 ))}
               </div>
-              <button onClick={() => selectModule(0)} style={btnPrimary("#003B71", false)}>Start Module 1 →</button>
+              <button onClick={()=>selectModule(0)} style={btnPrimary("#003B71",false)}>Start Module 1 →</button>
             </div>
-          ) : (
-            <div key={animKey} style={{ maxWidth: 560, width: "100%", animation: "slideUp 0.3s ease" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+          ):(
+            <div key={animKey} style={{maxWidth:560,width:"100%",animation:"slideUp 0.3s ease"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
                 <StepDots total={mod.steps.length} current={stepIdx} accent={mod.accent} />
-                <span style={{ fontSize: 12, fontWeight: 700, color: "#a0a0b8" }}>{stepIdx + 1} / {mod.steps.length}</span>
+                <span style={{fontSize:12,fontWeight:700,color:"#a0a0b8"}}>{stepIdx+1} / {mod.steps.length}</span>
               </div>
-              <div style={{ background: "#fff", borderRadius: 20, padding: "32px 30px", border: "1px solid #ebebf4", boxShadow: "0 2px 20px rgba(0,0,0,0.03)", minHeight: 340 }}>
-                {step.type === "intro" && <IntroCard step={step} accent={mod.accent} onNext={goNext} />}
-                {step.type === "visual" && <VisualCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} />}
-                {step.type === "learn" && <LearnCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} />}
-                {step.type === "scenario" && <ScenarioCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} />}
-                {step.type === "checkpoint" && (
-                  <CheckpointCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} alreadyPassed={completedModules.has(mod.id)} onComplete={() => handleModuleComplete(mod.id)} />
-                )}
+              <div style={{background:"#fff",borderRadius:20,padding:"32px 30px",border:"1px solid #ebebf4",boxShadow:"0 2px 20px rgba(0,0,0,0.03)",minHeight:340}}>
+                {step.type==="intro"&&<IntroCard step={step} accent={mod.accent} onNext={goNext}/>}
+                {step.type==="learn"&&<LearnCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext}/>}
+                {step.type==="scenario"&&<ScenarioCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext}/>}
+                {step.type==="checkpoint"&&<CheckpointCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} alreadyPassed={completedModules.has(mod.id)} onComplete={()=>handleModuleComplete(mod.id)}/>}
               </div>
-              {completedModules.has(mod.id) && stepIdx === mod.steps.length - 1 && activeModuleIdx < MODULES.length - 1 && (
-                <div style={{ textAlign: "center", marginTop: 22 }}>
-                  <button onClick={() => selectModule(activeModuleIdx + 1)} style={{ ...btnPrimary(MODULES[activeModuleIdx + 1].accent, false) }}>
-                    Continue to: {MODULES[activeModuleIdx + 1].title} →
+              {completedModules.has(mod.id)&&stepIdx===mod.steps.length-1&&activeModuleIdx<MODULES.length-1&&(
+                <div style={{textAlign:"center",marginTop:22}}>
+                  <button onClick={()=>selectModule(activeModuleIdx+1)} style={btnPrimary(MODULES[activeModuleIdx+1].accent,false)}>
+                    Continue to: {MODULES[activeModuleIdx+1].title} →
                   </button>
                 </div>
               )}
@@ -493,28 +440,30 @@ export default function FlexdriveOnboarding() {
         </main>
       </div>
 
-      {/* CELEBRATION OVERLAY */}
-      {showCelebration && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "linear-gradient(135deg, #003B71ee, #003B71dd)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, animation: "fadeIn 0.5s ease", overflow: "hidden" }}>
-          {Array.from({ length: 30 }, (_, i) => (
-            <div key={i} style={{ position: "absolute", top: -20, left: `${Math.random() * 100}%`, width: Math.random() * 10 + 6, height: Math.random() * 10 + 6, borderRadius: Math.random() > 0.5 ? "50%" : "2px", background: ["#FF00BF", "#DA3AB3", "#5E0D8B", "#fff", "#7D868C", "#10b981"][i % 6], animation: `confetti ${Math.random() * 2 + 2}s linear ${Math.random() * 1.5}s infinite` }} />
+      {/* CELEBRATION */}
+      {showCelebration&&(
+        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"linear-gradient(135deg,#003B71ee,#003B71dd)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:100,animation:"fadeIn 0.5s ease",overflow:"hidden"}}>
+          {Array.from({length:24},(_,i)=>(
+            <div key={i} style={{position:"absolute",top:-20,left:`${(i*4.2)%100}%`,width:i%3===0?12:8,height:i%3===0?12:8,borderRadius:i%2===0?"50%":"2px",background:["#FF00BF","#DA3AB3","#5E0D8B","#fff","#7D868C","#10b981"][i%6],animation:`confetti ${2+i%3}s linear ${i*0.1}s infinite`}}/>
           ))}
-          <div style={{ background: "#fff", borderRadius: 28, padding: "48px 40px", maxWidth: 480, textAlign: "center", animation: "celebPop 0.6s ease", position: "relative", boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}>
-            <div style={{ fontSize: 72, marginBottom: 12, animation: "pulse 1.5s ease infinite" }}>🎓</div>
-            <h1 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 32, fontWeight: 900, color: "#003B71", margin: "0 0 8px" }}>You did it!</h1>
-            <p style={{ fontSize: 17, color: "#5a5a78", lineHeight: 1.6, margin: "0 0 24px" }}>
-              You've completed all {MODULES.length} FlexDrive onboarding modules.<br />You're officially ready to hit the road!
+          <div style={{background:"#fff",borderRadius:28,padding:"48px 40px",maxWidth:440,textAlign:"center",animation:"celebPop 0.6s ease",position:"relative",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
+            <div style={{fontSize:72,marginBottom:12,animation:"pulse 1.5s ease infinite"}}>🎓</div>
+            <h1 style={{fontSize:32,fontWeight:900,color:"#003B71",margin:"0 0 8px"}}>You did it!</h1>
+            <p style={{fontSize:16,color:"#5a5a78",lineHeight:1.6,margin:"0 0 24px"}}>
+              You've completed all {MODULES.length} FlexDrive onboarding modules.<br/>You're officially ready to hit the road!
             </p>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#003B7110", borderRadius: 14, padding: "14px 24px", marginBottom: 28, border: "2px solid #003B7120" }}>
-              <span style={{ fontSize: 24 }}>⏱</span>
-              <div style={{ textAlign: "left" }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "#7D868C", textTransform: "uppercase", letterSpacing: "0.08em" }}>Completion time</div>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#003B71", fontFamily: "monospace", lineHeight: 1.2 }}>{finalTime && formatTime(finalTime)}</div>
+            {finalTime&&(
+              <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"#003B7110",borderRadius:14,padding:"14px 24px",marginBottom:28,border:"2px solid #003B7120"}}>
+                <span style={{fontSize:24}}>⏱</span>
+                <div style={{textAlign:"left"}}>
+                  <div style={{fontSize:11,fontWeight:700,color:"#7D868C",textTransform:"uppercase",letterSpacing:"0.08em"}}>Completion time</div>
+                  <div style={{fontSize:28,fontWeight:900,color:"#003B71",fontFamily:"monospace",lineHeight:1.2}}>{formatTime(finalTime)}</div>
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <button onClick={() => setShowCelebration(false)} style={{ background: "transparent", color: "#003B71", border: "2px solid #003B71", borderRadius: 12, padding: "14px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>Review Modules</button>
-              <button onClick={handleRestart} style={{ background: "#003B71", color: "#fff", border: "none", borderRadius: 12, padding: "14px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>🔄 Next Driver</button>
+            )}
+            <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+              <button onClick={()=>setShowCelebration(false)} style={{background:"transparent",color:"#003B71",border:"2px solid #003B71",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>Review Modules</button>
+              <button onClick={handleRestart} style={{background:"#003B71",color:"#fff",border:"none",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>🔄 Next Driver</button>
             </div>
           </div>
         </div>
@@ -524,7 +473,7 @@ export default function FlexdriveOnboarding() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<FlexdriveOnboarding />);
+root.render(<App />);
   </script>
 </body>
 </html>
