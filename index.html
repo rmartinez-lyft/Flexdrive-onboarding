@@ -27,9 +27,9 @@
   <script type="text/babel">
 const { useState, useCallback, useEffect } = React;
 
-const LOGO_COLOR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNTAiPgogIDxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNTAiIGZpbGw9IndoaXRlIiByeD0iNCIvPgogIDx0ZXh0IHg9IjEwIiB5PSIzNCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyOCIgZmlsbD0iI0ZGMDBCRiIgbGV0dGVyLXNwYWNpbmc9IjEiPmZsZXhkcml2ZTwvdGV4dD4KICA8dGV4dCB4PSIxNTIiIHk9IjIwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzY2NjY2NiI+Ynk8L3RleHQ+CiAgPHRleHQgeD0iMTQ4IiB5PSIzMiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkiIGZpbGw9IiM2NjY2NjYiPkx5ZnQ8L3RleHQ+Cjwvc3ZnPg==";
+const LOGO_COLOR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiPjx0ZXh0IHg9IjAiIHk9IjMwIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIzMCIgZmlsbD0iI0ZGMDBCRiI+ZmxleGRyaXZlPC90ZXh0Pjx0ZXh0IHg9IjE0OCIgeT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9IiM5OTkiPmJ5PC90ZXh0Pjx0ZXh0IHg9IjE0NCIgeT0iMjYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9IiM5OTkiPkx5ZnQ8L3RleHQ+PC9zdmc+";
 
-const LOGO_WHITE = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNTAiPgogIDx0ZXh0IHg9IjEwIiB5PSIzNCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyOCIgZmlsbD0id2hpdGUiIGxldHRlci1zcGFjaW5nPSIxIj5mbGV4ZHJpdmU8L3RleHQ+CiAgPHRleHQgeD0iMTUyIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44KSI+Ynk8L3RleHQ+CiAgPHRleHQgeD0iMTQ4IiB5PSIzMiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44KSI+THlmdDwvdGV4dD4KPC9zdmc+";
+const LOGO_WHITE = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiPjx0ZXh0IHg9IjAiIHk9IjMwIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiPmZsZXhkcml2ZTwvdGV4dD48dGV4dCB4PSIxNDgiIHk9IjE2IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiPmJ5PC90ZXh0Pjx0ZXh0IHg9IjE0NCIgeT0iMjYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSI+THlmdDwvdGV4dD48L3N2Zz4=";
 
 
 
@@ -491,7 +491,7 @@ function FlexdriveOnboarding() {
         <div style={{display:"flex",alignItems:"center",gap:16}}>
           <button onClick={()=>setSidebarOpen(!sidebarOpen)} style={{background:"none",border:"1px solid #ffffff30",borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:16,color:"#ffffffcc"}}>☰</button>
           <div>
-            <img src={LOGO_WHITE} alt="flexdrive" style={{height:32}} />
+            <img src={LOGO_WHITE} alt="flexdrive" style={{height:28,display:"block"}} />
             <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:20,fontWeight:800,color:"#ffffff",margin:0}}>{t("driverOnboarding")}</h1>
           </div>
         </div>
@@ -545,7 +545,7 @@ function FlexdriveOnboarding() {
             !lang?(
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
                 <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
-                <img src={LOGO_COLOR} alt="flexdrive" style={{height:40,marginBottom:4}} />
+                <img src={LOGO_COLOR} alt="flexdrive" style={{height:36,marginBottom:4,display:"block"}} />
                 <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>Driver Onboarding</h2>
                 <p style={{fontSize:16,fontWeight:700,color:"#003B71",marginBottom:8}}>{t("chooseLanguage")}</p>
                 <p style={{fontSize:13,color:"#a0a0b8",marginBottom:28}}>{t("selectLanguage")}</p>
@@ -559,7 +559,7 @@ function FlexdriveOnboarding() {
             ):(
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
                 <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
-                <img src={LOGO_COLOR} alt="flexdrive" style={{height:40,marginBottom:4}} />
+                <img src={LOGO_COLOR} alt="flexdrive" style={{height:36,marginBottom:4,display:"block"}} />
                 <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>{t("driverOnboarding")}</h2>
                 <p style={{fontSize:15,color:"#8a8aa8",lineHeight:1.7,marginBottom:12}}>{MODS.length} {t("welcomeSub")}</p>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",margin:"8px 0 28px"}}>
@@ -632,7 +632,7 @@ function FlexdriveOnboarding() {
             <div style={{fontSize:72,marginBottom:12,animation:"pulse 1.5s ease infinite"}}>🎓</div>
             <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:32,fontWeight:900,color:"#003B71",margin:"0 0 8px"}}>{t("youDidIt")}</h1>
             <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 8px"}}>{t("celebSub1")} {MODS.length}</p>
-            <img src={LOGO_COLOR} alt="flexdrive" style={{height:36,marginBottom:8}} />
+            <img src={LOGO_COLOR} alt="flexdrive" style={{height:32,marginBottom:8,display:"block"}} />
             <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 24px"}}>{t("celebSub2")}<br/>{t("celebSub3")}</p>
             {finalTime&&(
               <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"#003B7110",borderRadius:14,padding:"14px 24px",marginBottom:28,border:"2px solid #003B7120"}}>
