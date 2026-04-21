@@ -27,9 +27,9 @@
   <script type="text/babel">
 const { useState, useCallback, useEffect } = React;
 
-const LOGO_COLOR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiPjx0ZXh0IHg9IjAiIHk9IjMwIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIzMCIgZmlsbD0iI0ZGMDBCRiI+ZmxleGRyaXZlPC90ZXh0Pjx0ZXh0IHg9IjE0OCIgeT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9IiM5OTkiPmJ5PC90ZXh0Pjx0ZXh0IHg9IjE0NCIgeT0iMjYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9IiM5OTkiPkx5ZnQ8L3RleHQ+PC9zdmc+";
+const LOGO_COLOR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjAgNTYiIHdpZHRoPSIyMjAiIGhlaWdodD0iNTYiPgogIDwhLS0gUGluL2xvY2F0aW9uIG1hcmsgaWNvbiBpbiBuYXZ5IC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDIpIj4KICAgIDwhLS0gT3V0ZXIgcGluIHNoYXBlIC0tPgogICAgPHBhdGggZD0iTTE5IDIgQzEwLjcgMiA0IDguNyA0IDE3IEM0IDI1IDEyIDM1IDE5IDQxIEMyNiAzNSAzNCAyNSAzNCAxNyBDMzQgOC43IDI3LjMgMiAxOSAyIFoiIGZpbGw9IiMwMDNCNzEiLz4KICAgIDwhLS0gSW5uZXIgd2hpdGUgbmVnYXRpdmUgc3BhY2UgZm9ybWluZyBmK2Qgc2hhcGUgLS0+CiAgICA8cGF0aCBkPSJNMTUgMTQgTDE1IDI0IEwxNy41IDI0IEwxNy41IDE5IEwyMSAxOSBMMjEgMTYuNSBMMTcuNSAxNi41IEwxNy41IDE0IFoiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNMjAgMTQgQzIzLjUgMTQgMjUuNSAxNiAyNS41IDE5IEMyNS41IDIyIDIzLjUgMjQgMjAgMjQgTDIwIDIxLjUgQzIyIDIxLjUgMjMgMjAuNSAyMyAxOSBDMjMgMTcuNSAyMiAxNi41IDIwIDE2LjUgWiIgZmlsbD0id2hpdGUiLz4KICA8L2c+CiAgPCEtLSBmbGV4ZHJpdmUgd29yZG1hcmsgaW4gbmF2eSAtLT4KICA8dGV4dCB4PSI0MiIgeT0iMzQiIGZvbnQtZmFtaWx5PSJTb3VyY2UgU2FucyBQcm8sIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjI2IiBmaWxsPSIjMDAzQjcxIiBsZXR0ZXItc3BhY2luZz0iLTAuNSI+ZmxleGRyaXZlPC90ZXh0PgogIDwhLS0gImJ5IGx5ZnQiIGluIHBpbmsgLS0+CiAgPHRleHQgeD0iOTAiIHk9IjUwIiBmb250LWZhbWlseT0iU291cmNlIFNhbnMgUHJvLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxMyIgZmlsbD0iI0ZGMDBCRiI+YnkgbHlmdDwvdGV4dD4KPC9zdmc+";
 
-const LOGO_WHITE = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiPjx0ZXh0IHg9IjAiIHk9IjMwIiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIzMCIgZmlsbD0id2hpdGUiPmZsZXhkcml2ZTwvdGV4dD48dGV4dCB4PSIxNDgiIHk9IjE2IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiPmJ5PC90ZXh0Pjx0ZXh0IHg9IjE0NCIgeT0iMjYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSI+THlmdDwvdGV4dD48L3N2Zz4=";
+const LOGO_WHITE = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjAgNTYiIHdpZHRoPSIyMjAiIGhlaWdodD0iNTYiPgogIDwhLS0gUGluIGljb24gaW4gd2hpdGUgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMikiPgogICAgPHBhdGggZD0iTTE5IDIgQzEwLjcgMiA0IDguNyA0IDE3IEM0IDI1IDEyIDM1IDE5IDQxIEMyNiAzNSAzNCAyNSAzNCAxNyBDMzQgOC43IDI3LjMgMiAxOSAyIFoiIGZpbGw9IndoaXRlIi8+CiAgICA8cGF0aCBkPSJNMTUgMTQgTDE1IDI0IEwxNy41IDI0IEwxNy41IDE5IEwyMSAxOSBMMjEgMTYuNSBMMTcuNSAxNi41IEwxNy41IDE0IFoiIGZpbGw9IiMwMDNCNzEiLz4KICAgIDxwYXRoIGQ9Ik0yMCAxNCBDMjMuNSAxNCAyNS41IDE2IDI1LjUgMTkgQzI1LjUgMjIgMjMuNSAyNCAyMCAyNCBMMjAgMjEuNSBDMjIgMjEuNSAyMyAyMC41IDIzIDE5IEMyMyAxNy41IDIyIDE2LjUgMjAgMTYuNSBaIiBmaWxsPSIjMDAzQjcxIi8+CiAgPC9nPgogIDwhLS0gZmxleGRyaXZlIHdvcmRtYXJrIGluIHdoaXRlIC0tPgogIDx0ZXh0IHg9IjQyIiB5PSIzNCIgZm9udC1mYW1pbHk9IlNvdXJjZSBTYW5zIFBybywgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMjYiIGZpbGw9IndoaXRlIiBsZXR0ZXItc3BhY2luZz0iLTAuNSI+ZmxleGRyaXZlPC90ZXh0PgogIDwhLS0gImJ5IGx5ZnQiIGluIHBpbmsgLS0+CiAgPHRleHQgeD0iOTAiIHk9IjUwIiBmb250LWZhbWlseT0iU291cmNlIFNhbnMgUHJvLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxMyIgZmlsbD0iI0ZGMDBCRiI+YnkgbHlmdDwvdGV4dD4KPC9zdmc+";
 
 
 
@@ -491,7 +491,7 @@ function FlexdriveOnboarding() {
         <div style={{display:"flex",alignItems:"center",gap:16}}>
           <button onClick={()=>setSidebarOpen(!sidebarOpen)} style={{background:"none",border:"1px solid #ffffff30",borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:16,color:"#ffffffcc"}}>☰</button>
           <div>
-            <img src={LOGO_WHITE} alt="flexdrive" style={{height:28,display:"block"}} />
+            <img src={LOGO_WHITE} alt="flexdrive" style={{height:44,display:"block"}} />
             <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:20,fontWeight:800,color:"#ffffff",margin:0}}>{t("driverOnboarding")}</h1>
           </div>
         </div>
@@ -545,7 +545,7 @@ function FlexdriveOnboarding() {
             !lang?(
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
                 <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
-                <img src={LOGO_COLOR} alt="flexdrive" style={{height:36,marginBottom:4,display:"block"}} />
+                <img src={LOGO_COLOR} alt="flexdrive" style={{height:52,marginBottom:4,display:"block"}} />
                 <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>Driver Onboarding</h2>
                 <p style={{fontSize:16,fontWeight:700,color:"#003B71",marginBottom:8}}>{t("chooseLanguage")}</p>
                 <p style={{fontSize:13,color:"#a0a0b8",marginBottom:28}}>{t("selectLanguage")}</p>
@@ -559,7 +559,7 @@ function FlexdriveOnboarding() {
             ):(
               <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
                 <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
-                <img src={LOGO_COLOR} alt="flexdrive" style={{height:36,marginBottom:4,display:"block"}} />
+                <img src={LOGO_COLOR} alt="flexdrive" style={{height:52,marginBottom:4,display:"block"}} />
                 <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>{t("driverOnboarding")}</h2>
                 <p style={{fontSize:15,color:"#8a8aa8",lineHeight:1.7,marginBottom:12}}>{MODS.length} {t("welcomeSub")}</p>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",margin:"8px 0 28px"}}>
@@ -632,7 +632,7 @@ function FlexdriveOnboarding() {
             <div style={{fontSize:72,marginBottom:12,animation:"pulse 1.5s ease infinite"}}>🎓</div>
             <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:32,fontWeight:900,color:"#003B71",margin:"0 0 8px"}}>{t("youDidIt")}</h1>
             <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 8px"}}>{t("celebSub1")} {MODS.length}</p>
-            <img src={LOGO_COLOR} alt="flexdrive" style={{height:32,marginBottom:8,display:"block"}} />
+            <img src={LOGO_COLOR} alt="flexdrive" style={{height:48,marginBottom:8,display:"block"}} />
             <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 24px"}}>{t("celebSub2")}<br/>{t("celebSub3")}</p>
             {finalTime&&(
               <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"#003B7110",borderRadius:14,padding:"14px 24px",marginBottom:28,border:"2px solid #003B7120"}}>
