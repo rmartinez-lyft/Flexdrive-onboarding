@@ -7,80 +7,95 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Source Sans Pro', sans-serif; background: #F6F6FB; }
-    #root { min-height: 100vh; }
-    @keyframes slideUp { from { opacity:0;transform:translateY(16px); } to { opacity:1;transform:translateY(0); } }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    @keyframes celebPop { 0%{opacity:0;transform:scale(0.7);} 50%{transform:scale(1.05);} 100%{opacity:1;transform:scale(1);} }
-    @keyframes confetti { 0%{transform:translateY(0) rotate(0deg);opacity:1;} 100%{transform:translateY(420px) rotate(720deg);opacity:0;} }
-    @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
-    button:hover { filter: brightness(1.06); }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-thumb { background: #d4d4e0; border-radius: 3px; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:"Source Sans Pro",sans-serif;background:#F6F6FB;}
+    #root{min-height:100vh;}
+    @keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    @keyframes celebPop{0%{opacity:0;transform:scale(0.7);}50%{transform:scale(1.05);}100%{opacity:1;transform:scale(1);}}
+    @keyframes confetti{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(420px) rotate(720deg);opacity:0;}}
+    @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+    button:hover{filter:brightness(1.06);}
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-thumb{background:#d4d4e0;border-radius:3px;}
   </style>
 </head>
 <body>
-  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#666;">Loading...</div></div>
+  <div id="root"><div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#666;font-size:16px;">Loading FlexDrive Onboarding...</div></div>
   <script type="text/babel">
 const { useState, useCallback, useEffect } = React;
 
+// ─── SCREENSHOTS (original app walkthroughs) ───
+// These are actual screenshots from the Lyft Driver app
+const IMG1 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAGeAPADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAECAwQFBgcI/8QATRAAAQMCAgUGCAwFAgQGAwAAAQACAwQREiEFEzFBUQYHYXGRshQiMjM2UnSBFhc1QlNUVYKTobHRI5LB0uEVciRi8PElJjRDY8Jkc5T/xAAZAQEBAQEBAQAAAAAAAAAAAAAAAQIDBAX/xAAkEQEBAAICAgICAgMAAAAAAAAAAQIRAzEUURIhE0EEIlJh8P/aAAwDAQACEQMRAD8A87QhCAQhCAQkhAIQhAIQhAIQhAIQhAIQhAIQhAIQhAIQhAIQhA0JIQNCSaAQhCAQhCASQhA2tLjYLaaK0BpDSry2gpJZ7GznDJjetxyW15E8mv8AXNIETXFJBZ0zhkXE7Gg9P6L2Smp4aSnZBTRMiijFmsYLABB5I3m606WgmGkb0Gb/AAn8XOnfo6P8b/C9fQg8g+LnTv0dH+N/hHxc6d+jo/xv8L19CDyD4udO/R0f43+FrtNck9IaDpWVNeynEb36sauTEb2J4dC9wXH850EkvJqORjSWw1DXvtuBBF+0hB5LqwCbEKonTesuvz+S9upaeCkp2QU0TIoo2hrWMFgAg8kb3W906WgmGkb0Gb/CfxcqNunGlQaFgEQIMlRpDgQCT/pL2HWgAEk4ADUJF1JqXYx8oZEJzFyrQ7Ew2oQMhuDuAOxbVv8AFeEygqX19G4urMjOWBDSCCdNRa99LFeqRRxxyOkZGxr3kFzgMyd5OiClJqIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiJIShCnGxWEtdFYqXpg7OmWvjCrX17aerCxjRFUkzS6OotpsBbbbzwshSmkgFSJWsFVK6Sow2SOaGUBxCqHAhxJB3E8gVlupmAOlJ1QTZXrT0Qz1JXNqiGSA5XE9UarjWvAFmk4gbB37iuKPWPdYDV+J3lZbpGxkajMXOW5G5d7lzVJfgvI0NaOdlSiG1nAyNuIe6u2O1NJJSMnp5o5GEDQg3sRoVOjUvBDRiDHOtYuAs4noHUscwOm8C4t1bnUoqqaJwY+SNriLgFwBKCqmpGiPmSxNIOJkl3GIOGGJOvNuqoMFVLGwz3dDI6KQgN9J3Y61t0pFXJHG4PiheWOBsHAGxHTv70FHXSMijdNMWsbIJHMidc6HVvI3Bql1PEaqKnbJGJ3Ma8AuJDAHEk2trz7eS7nQvEFjK9tLVSCmkjgZHhLDpbW/2OqxBRuLpK2ipxJOXQwxGV0smHJxuHuGF/JBiCqzVU8c2SUxyNxMcL3BHAFWZaKqjidNHFUshv4OJkbI8g4OPMBaFk3p4IHOfK8QSucbvkaxo+gTxI3d6AOm0jJvDjkjEsbntF3SuewN47xvjuVDKcTMipjIxwzARPblf5gKpREoSg2u8GQloJAvuGJuEEMoJY6VlRI2Vjm4hLC4YbbhbFu3ivQ4HiONhFPJiMrJDjpGguLWXAOe2x0ubdFyBVr3IiKlRaVJVhFulMiVSREGpQEMRQhSKYSiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiJIShCnGxWEtdFYqXpg7OmWvjCrX17aerCxjRFUkzS6OotpsBbbbzwshSmkgFSJWsFVK6Sow2SOaGUBxCqHAhxJB3E8gVlupmAOlJ1QTZXrT0Qz1JXNqiGSA5XE9UarjWvAFmk4gbB37iuKPWPdYDV+J3lZbpGxkajMXOW5G5d7lzVJfgvI0NaOdlSiG1nAyNuIe6u2O1NJJSMnp5o5GEDQg3sRoVOjUvBDRiDHOtYuAs4noHUscwOm8C4t1bnUoqqaJwY+SNriLgFwBKCqmpGiPmSxNIOJkl3GIOGGJOvNuqoMFVLGwz3dDI6KQgN9J3Y61t0pFXJHG4PiheWOBsHAGxHTv70FHXSMijdNMWsbIJHMidc6HVvI3Bql1PEaqKnbJGJ3Ma8AuJDAHEk2trz7eS7nQvEFjK9tLVSCmkjgZHhLDpbW/2OqxBRuLpK2ipxJOXQwxGV0smHJxuHuGF/JBiCqzVU8c2SUxyNxMcL3BHAFWZaKqjidNHFUshv4OJkbI8g4OPMBaFk3p4IHOfK8QSucbvkaxo+gTxI3d6AOm0jJvDjkjEsbntF3SuewN47xvjuVDKcTMipjIxwzARPblf5gKpREoSg2u8GQloJAvuGJuEEMoJY6VlRI2Vjm4hLC4YbbhbFu3ivQ4HiONhFPJiMrJDjpGguLWXAOe2x0ubdFyBVr3IiKlRaVJVhFulMiVSREGpQEMRQhSKYSiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==";
+
+// Note: IMG2-IMG5 use the same placeholder approach since the full base64 data
+// from the original document is embedded. For the real screenshots, use the
+// full base64 strings from your original CodeSandbox project.
+// The navigate module visual steps will show real screenshots when you paste
+// the full IMG1-IMG5 strings from your original code.
+const IMG2 = IMG1;
+const IMG3 = IMG1;
+const IMG4 = IMG1;
+const IMG5 = IMG1;
+
+
+// ─── HELPERS ───
 function parseBold(text) {
   const parts = text.split(/\*\*(.*?)\*\*/g);
   return parts.map((part, i) =>
     i % 2 === 1 ? <strong key={i} style={{color:"#1a1a2e",fontWeight:700}}>{part}</strong> : <span key={i}>{part}</span>
   );
 }
-
 const btnPrimary = (accent, disabled) => ({
-  background: disabled ? "#d4d4e0" : accent, color: "#fff", border: "none",
-  borderRadius: 12, padding: "14px 28px", fontSize: 14, fontWeight: 700,
-  cursor: disabled ? "not-allowed" : "pointer", fontFamily:"'Source Sans Pro',sans-serif",
-  transition:"all 0.25s", opacity: disabled ? 0.5 : 1,
+  background:disabled?"#d4d4e0":accent,color:"#fff",border:"none",borderRadius:12,
+  padding:"14px 28px",fontSize:14,fontWeight:700,cursor:disabled?"not-allowed":"pointer",
+  fontFamily:"'Source Sans Pro',sans-serif",transition:"all 0.25s",opacity:disabled?0.5:1,
 });
-
 const btnOutline = (accent) => ({
-  background:"transparent", color:accent, border:`2px solid ${accent}`,
-  borderRadius:12, padding:"12px 24px", fontSize:14, fontWeight:700,
-  cursor:"pointer", fontFamily:"'Source Sans Pro',sans-serif", transition:"all 0.25s",
+  background:"transparent",color:accent,border:`2px solid ${accent}`,borderRadius:12,
+  padding:"12px 24px",fontSize:14,fontWeight:700,cursor:"pointer",
+  fontFamily:"'Source Sans Pro',sans-serif",transition:"all 0.25s",
 });
 
-function StepDots({total, current, accent}) {
+// ─── STEP DOTS ───
+function StepDots({total,current,accent}) {
   return (
     <div style={{display:"flex",gap:5,alignItems:"center"}}>
       {Array.from({length:total},(_,i)=>(
         <div key={i} style={{width:i===current?28:8,height:8,borderRadius:4,
           background:i<current?`${accent}88`:i===current?accent:"#e2e2ee",
-          transition:"all 0.4s"}} />
+          transition:"all 0.4s cubic-bezier(.4,0,.2,1)"}}/>
       ))}
     </div>
   );
 }
 
-function IntroCard({step, accent, onNext}) {
+// ─── CARD COMPONENTS ───
+function IntroCard({step,accent,onNext,t}) {
   return (
     <div style={{textAlign:"center",padding:"12px 0"}}>
       <div style={{width:96,height:96,borderRadius:28,background:`linear-gradient(135deg,${accent}15,${accent}08)`,
         border:`2px solid ${accent}25`,display:"flex",alignItems:"center",justifyContent:"center",
         fontSize:44,margin:"0 auto 26px"}}>{step.visual}</div>
-      <h2 style={{fontSize:24,fontWeight:800,color:"#1a1a2e",margin:"0 0 12px",lineHeight:1.3}}>{step.title}</h2>
+      <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:24,fontWeight:800,color:"#1a1a2e",margin:"0 0 12px",lineHeight:1.3}}>{step.title}</h2>
       <p style={{fontSize:15,color:"#6a6a88",lineHeight:1.7,maxWidth:420,margin:"0 auto 30px"}}>{step.body}</p>
       <button onClick={onNext} style={btnPrimary(accent,false)}>Let's Begin →</button>
     </div>
   );
 }
 
-function LearnCard({step, accent, onNext}) {
+function LearnCard({step,accent,onNext,t}) {
   return (
     <div>
       <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
         textTransform:"uppercase",color:accent,background:`${accent}10`,padding:"5px 12px",
         borderRadius:6,marginBottom:14}}>{step.label}</div>
-      <h3 style={{fontSize:21,fontWeight:700,color:"#1a1a2e",margin:"0 0 14px",lineHeight:1.35}}>{step.title}</h3>
+      <h3 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:21,fontWeight:700,color:"#1a1a2e",margin:"0 0 14px",lineHeight:1.35}}>{step.title}</h3>
       <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.75,margin:"0 0 20px"}}>{parseBold(step.body)}</p>
-      {step.callout && (
+      {step.callout&&(
         <div style={{display:"flex",gap:12,alignItems:"flex-start",background:`${accent}06`,
           border:`1px solid ${accent}18`,borderRadius:12,padding:"14px 18px",marginBottom:22}}>
           <span style={{fontSize:20,flexShrink:0}}>{step.callout.icon}</span>
@@ -92,272 +107,393 @@ function LearnCard({step, accent, onNext}) {
   );
 }
 
-function ScenarioCard({step, accent, onNext}) {
-  const [selected, setSelected] = useState(null);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [wrongPicks, setWrongPicks] = useState(new Set());
-  const answered = showFeedback && selected !== null;
-  const isCorrect = answered && step.options[selected].correct;
-
-  const handlePick = (i) => {
-    if (showFeedback) return;
-    setSelected(i); setShowFeedback(true);
-    if (!step.options[i].correct) setWrongPicks(prev => new Set([...prev, i]));
-  };
-
+function VisualCard({step,accent,onNext,t}) {
   return (
     <div>
       <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
-        textTransform:"uppercase",color:"#003B71",background:"#003B7110",
-        padding:"5px 12px",borderRadius:6,marginBottom:14}}>💭 Scenario</div>
-      <h3 style={{fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
-      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.7,margin:"0 0 20px"}}>{step.body}</p>
-      <div style={{display:"flex",flexDirection:"column",gap:10}}>
-        {step.options.map((opt,i) => {
-          let bg="#f8f8fc", border="2px solid #e8e8f0", color="#2a2a48";
-          const isDisabled = wrongPicks.has(i)||(answered&&isCorrect);
-          if(answered&&opt.correct){bg="#ecfdf5";border="2px solid #6ee7b7";color="#065f46";}
-          else if(answered&&i===selected&&!isCorrect){bg="#fef2f2";border="2px solid #fca5a5";color="#991b1b";}
-          else if(wrongPicks.has(i)){bg="#fef2f2";border="2px solid #fecaca";color="#991b1b80";}
-          return (
-            <button key={i} onClick={()=>handlePick(i)} disabled={isDisabled}
-              style={{background:bg,border,borderRadius:12,padding:"14px 18px",textAlign:"left",
-                fontSize:14,color,cursor:isDisabled?"default":"pointer",lineHeight:1.5,
-                transition:"all 0.25s",fontWeight:500,opacity:wrongPicks.has(i)&&!answered?0.55:1,
-                fontFamily:"'Source Sans Pro',sans-serif"}}>
-              {opt.text}
-            </button>
-          );
-        })}
-      </div>
-      {answered && (
-        <div style={{marginTop:16,padding:"14px 18px",borderRadius:12,
-          background:isCorrect?"#ecfdf5":"#fef2f2",
-          border:isCorrect?"1px solid #a7f3d0":"1px solid #fecaca",
-          fontSize:14,lineHeight:1.6,color:isCorrect?"#065f46":"#991b1b"}}>
-          <strong>{isCorrect?"✓ Correct!":"✗ Not quite."}</strong>{" "}
-          {isCorrect?step.explanation:"That's not the right answer. Try again!"}
+        textTransform:"uppercase",color:accent,background:`${accent}10`,padding:"5px 12px",
+        borderRadius:6,marginBottom:14}}>{step.label}</div>
+      <h3 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:21,fontWeight:700,color:"#1a1a2e",margin:"0 0 14px",lineHeight:1.35}}>{step.title}</h3>
+      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.75,margin:"0 0 20px"}}>{parseBold(step.body)}</p>
+      {step.image&&(
+        <div style={{display:"flex",justifyContent:"center",marginBottom:20}}>
+          <img src={step.image} alt={step.title} style={{maxWidth:220,borderRadius:16,
+            border:`2px solid ${accent}20`,boxShadow:"0 4px 20px rgba(0,0,0,0.08)"}}/>
         </div>
       )}
-      {answered&&isCorrect&&<button onClick={onNext} style={{...btnPrimary(accent,false),marginTop:16}}>Continue →</button>}
-      {answered&&!isCorrect&&<button onClick={()=>{setSelected(null);setShowFeedback(false);}} style={{...btnOutline(accent),marginTop:16}}>Try Again →</button>}
+      {step.callout&&(
+        <div style={{display:"flex",gap:12,alignItems:"flex-start",background:`${accent}06`,
+          border:`1px solid ${accent}18`,borderRadius:12,padding:"14px 18px",marginBottom:22}}>
+          <span style={{fontSize:20,flexShrink:0}}>{step.callout.icon}</span>
+          <span style={{fontSize:13.5,color:"#2a2a48",lineHeight:1.6,fontWeight:600}}>{step.callout.text}</span>
+        </div>
+      )}
+      <button onClick={onNext} style={btnOutline(accent)}>Got it — Next →</button>
     </div>
   );
 }
 
-function CheckpointCard({step, accent, onComplete, alreadyPassed}) {
-  const [selected, setSelected] = useState(null);
-  const [submitted, setSubmitted] = useState(alreadyPassed);
-  const [wrongPicks, setWrongPicks] = useState(new Set());
-  const isCorrect = selected!==null && step.options[selected].correct;
-
-  const handleSubmit = () => {
-    setSubmitted(true);
-    if(step.options[selected].correct) onComplete();
-    else setWrongPicks(prev=>new Set([...prev,selected]));
+function ScenarioCard({step,accent,onNext,t}) {
+  const [selected,setSelected]=useState(null);
+  const [showFeedback,setShowFeedback]=useState(false);
+  const [wrongPicks,setWrongPicks]=useState(new Set());
+  const answered=showFeedback&&selected!==null;
+  const isCorrect=answered&&step.options[selected].correct;
+  const handlePick=(i)=>{
+    if(showFeedback)return;
+    setSelected(i);setShowFeedback(true);
+    if(!step.options[i].correct)setWrongPicks(prev=>new Set([...prev,i]));
   };
-
   return (
     <div>
-      <div style={{display:"inline-block",fontSize:10,fontWeight:800,letterSpacing:"0.14em",
-        textTransform:"uppercase",color:accent,background:`${accent}10`,
-        padding:"5px 12px",borderRadius:6,marginBottom:14}}>🎯 Final Check</div>
-      <h3 style={{fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
+      <div style={{display:"inline-flex",alignItems:"center",gap:6,fontSize:10,fontWeight:800,
+        letterSpacing:"0.14em",textTransform:"uppercase",color:"#003B71",background:"#003B7108",
+        padding:"5px 12px",borderRadius:6,marginBottom:14}}>💭 {t("scenario")}</div>
+      <h3 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
+      <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.7,margin:"0 0 20px"}}>{step.body}</p>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        {step.options.map((opt,i)=>{
+          let bg="#f8f8fc",border="2px solid #e8e8f0",color="#2a2a48";
+          const isDisabled=wrongPicks.has(i)||(answered&&isCorrect);
+          if(answered&&opt.correct){bg="#ecfdf5";border="2px solid #6ee7b7";color="#065f46";}
+          else if(answered&&i===selected&&!isCorrect){bg="#fef2f2";border="2px solid #fca5a5";color="#991b1b";}
+          else if(wrongPicks.has(i)){bg="#fef2f2";border="2px solid #fecaca";color="#991b1b80";}
+          return(
+            <button key={i} onClick={()=>handlePick(i)} disabled={isDisabled}
+              style={{background:bg,border,borderRadius:12,padding:"14px 18px",textAlign:"left",
+                fontSize:14,color,cursor:isDisabled?"default":"pointer",
+                fontFamily:"'Source Sans Pro',sans-serif",lineHeight:1.5,transition:"all 0.25s",
+                fontWeight:500,opacity:wrongPicks.has(i)&&!answered?0.55:1}}>{opt.text}</button>
+          );
+        })}
+      </div>
+      {answered&&(
+        <div style={{marginTop:16,padding:"14px 18px",borderRadius:12,
+          background:isCorrect?"#ecfdf5":"#fef2f2",
+          border:isCorrect?"1px solid #a7f3d0":"1px solid #fecaca",
+          fontSize:14,lineHeight:1.6,color:isCorrect?"#065f46":"#991b1b"}}>
+          <strong>{isCorrect?t("correct"):t("notQuite")}</strong>{" "}
+          {isCorrect?step.explanation:t("wrongTryAgain")}
+        </div>
+      )}
+      {answered&&isCorrect&&<button onClick={onNext} style={{...btnPrimary(accent,false),marginTop:16}}>{t("continue")}</button>}
+      {answered&&!isCorrect&&<button onClick={()=>{setSelected(null);setShowFeedback(false);}} style={{...btnOutline(accent),marginTop:16}}>{t("tryAgain")}</button>}
+    </div>
+  );
+}
+
+function CheckpointCard({step,accent,onComplete,alreadyPassed,t}) {
+  const [selected,setSelected]=useState(null);
+  const [submitted,setSubmitted]=useState(alreadyPassed);
+  const [wrongPicks,setWrongPicks]=useState(new Set());
+  const isCorrect=selected!==null&&step.options[selected].correct;
+  const handleSubmit=()=>{
+    setSubmitted(true);
+    if(step.options[selected].correct)onComplete();
+    else setWrongPicks(prev=>new Set([...prev,selected]));
+  };
+  return (
+    <div>
+      <div style={{display:"inline-flex",alignItems:"center",gap:6,fontSize:10,fontWeight:800,
+        letterSpacing:"0.14em",textTransform:"uppercase",color:accent,background:`${accent}10`,
+        padding:"5px 12px",borderRadius:6,marginBottom:14}}>🎯 {t("finalCheck")}</div>
+      <h3 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:20,fontWeight:700,color:"#1a1a2e",margin:"0 0 10px",lineHeight:1.3}}>{step.title}</h3>
       <p style={{fontSize:15,color:"#4a4a68",lineHeight:1.7,margin:"0 0 20px",fontWeight:500}}>{step.question}</p>
       <div style={{display:"flex",flexDirection:"column",gap:10}}>
-        {step.options.map((opt,i) => {
+        {step.options.map((opt,i)=>{
           let bg="#f8f8fc",border="2px solid #e8e8f0",color="#2a2a48";
           const isDisabled=wrongPicks.has(i)||(submitted&&isCorrect);
           if(submitted&&opt.correct&&isCorrect){bg="#ecfdf5";border="2px solid #6ee7b7";color="#065f46";}
           else if(submitted&&i===selected&&!isCorrect){bg="#fef2f2";border="2px solid #fca5a5";color="#991b1b";}
           else if(wrongPicks.has(i)){bg="#fef2f2";border="2px solid #fecaca";color="#991b1b80";}
           else if(!submitted&&i===selected){bg=`${accent}08`;border=`2px solid ${accent}`;}
-          return (
+          return(
             <button key={i} onClick={()=>!submitted&&!wrongPicks.has(i)&&setSelected(i)} disabled={isDisabled}
               style={{background:bg,border,borderRadius:12,padding:"14px 18px",textAlign:"left",
-                fontSize:14,color,cursor:isDisabled?"default":"pointer",lineHeight:1.5,
-                transition:"all 0.25s",fontWeight:500,opacity:wrongPicks.has(i)?0.55:1,
-                fontFamily:"'Source Sans Pro',sans-serif"}}>
-              {opt.text}
-            </button>
+                fontSize:14,color,cursor:isDisabled?"default":"pointer",
+                fontFamily:"'Source Sans Pro',sans-serif",lineHeight:1.5,transition:"all 0.25s",
+                fontWeight:500,opacity:wrongPicks.has(i)?0.55:1}}>{opt.text}</button>
           );
         })}
       </div>
-      {!submitted&&<button onClick={handleSubmit} disabled={selected===null} style={{...btnPrimary(accent,selected===null),marginTop:16}}>Submit Answer</button>}
+      {!submitted&&<button onClick={handleSubmit} disabled={selected===null} style={{...btnPrimary(accent,selected===null),marginTop:16}}>{t("submitAnswer")}</button>}
       {submitted&&(
         <>
           <div style={{marginTop:16,padding:"14px 18px",borderRadius:12,
             background:isCorrect?"#ecfdf5":"#fef2f2",
             border:isCorrect?"1px solid #a7f3d0":"1px solid #fecaca",
             fontSize:14,lineHeight:1.6,color:isCorrect?"#065f46":"#991b1b"}}>
-            <strong>{isCorrect?"✓ Correct!":"✗ Not quite."}</strong>{" "}
-            {isCorrect?step.explanation:"That's not the right answer. Try again!"}
+            <strong>{isCorrect?t("correct"):t("notQuite")}</strong>{" "}
+            {isCorrect?step.explanation:t("wrongTryAgain")}
           </div>
           {isCorrect&&(
             <div style={{marginTop:22,textAlign:"center",padding:24,borderRadius:16,
               background:"linear-gradient(135deg,#f0fdf4,#ecfdf5)",border:"2px solid #a7f3d0"}}>
               <div style={{fontSize:36,marginBottom:6}}>🎉</div>
-              <div style={{fontSize:18,fontWeight:800,color:"#065f46"}}>Module Complete!</div>
-              <div style={{fontSize:13,color:"#34d399",marginTop:4,fontWeight:600}}>Great work — this topic is locked in.</div>
+              <div style={{fontSize:18,fontWeight:800,color:"#065f46",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("moduleComplete")}</div>
+              <div style={{fontSize:13,color:"#34d399",marginTop:4,fontWeight:600}}>{t("topicLockedIn")}</div>
             </div>
           )}
-          {!isCorrect&&<button onClick={()=>{setSelected(null);setSubmitted(false);}} style={{...btnOutline(accent),marginTop:16}}>Try Again →</button>}
+          {!isCorrect&&<button onClick={()=>{setSelected(null);setSubmitted(false);}} style={{...btnOutline(accent),marginTop:16}}>{t("tryAgain")}</button>}
         </>
       )}
     </div>
   );
 }
 
+
+// ─── UI TRANSLATIONS ───
+const UI = {
+  en: {
+    driverOnboarding:"Driver Onboarding",courseModules:"Course Modules",completed:"Completed ✓",
+    onboardingComplete:"Onboarding Complete!",readyToRoad:"You're ready to hit the road",
+    restartBtn:"🔄 Restart for Next Driver",welcomeTo:"Welcome to",
+    welcomeSub:"learning modules to finish your onboarding. Each module includes guided lessons, real-world scenarios, and a final knowledge check.",
+    guidedLessons:"📖 Guided lessons",scenarios:"💭 Scenarios",quizzes:"🎯 Quizzes",
+    startModule:"Start Module 1 →",letsBegin:"Let's Begin →",gotItNext:"Got it — Next →",
+    continue:"Continue →",tryAgain:"Try Again →",submitAnswer:"Submit Answer",
+    moduleComplete:"Module Complete!",topicLockedIn:"Great work — this topic is locked in.",
+    correct:"✓ Correct!",notQuite:"✗ Not quite.",wrongTryAgain:"That's not the right answer. Try again!",
+    continueTo:"Continue to:",completionTime:"Completion time",youDidIt:"You did it!",
+    celebSub1:"You've completed all",celebSub2:"onboarding modules.",celebSub3:"You're officially ready to hit the road!",
+    reviewModules:"Review Modules",nextDriver:"🔄 Next Driver",scenario:"Scenario",finalCheck:"Final Check",
+    chooseLanguage:"Choose your language",selectLanguage:"Select your preferred language to begin",
+    evQuestion:"Are you renting an Electric Vehicle?",yesEV:"⚡ Yes — I have an EV",noEV:"🚗 No — Not an EV",
+    evComplete:"EV Training Complete!",evReadyToRoad:"You are fully prepared for your electric vehicle!",
+  },
+  es: {
+    driverOnboarding:"Capacitación del Conductor",courseModules:"Módulos del Curso",completed:"Completado ✓",
+    onboardingComplete:"¡Capacitación Completa!",readyToRoad:"Estás listo para conducir",
+    restartBtn:"🔄 Reiniciar para Siguiente Conductor",welcomeTo:"Bienvenido a",
+    welcomeSub:"módulos de aprendizaje para completar tu capacitación. Cada módulo incluye lecciones guiadas, escenarios reales y una verificación de conocimientos.",
+    guidedLessons:"📖 Lecciones guiadas",scenarios:"💭 Escenarios",quizzes:"🎯 Evaluaciones",
+    startModule:"Iniciar Módulo 1 →",letsBegin:"¡Comencemos! →",gotItNext:"Entendido — Siguiente →",
+    continue:"Continuar →",tryAgain:"Intentar de Nuevo →",submitAnswer:"Enviar Respuesta",
+    moduleComplete:"¡Módulo Completado!",topicLockedIn:"¡Buen trabajo! — Este tema está dominado.",
+    correct:"✓ ¡Correcto!",notQuite:"✗ No exactamente.",wrongTryAgain:"Esa no es la respuesta correcta. ¡Inténtalo de nuevo!",
+    continueTo:"Continuar a:",completionTime:"Tiempo de finalización",youDidIt:"¡Lo lograste!",
+    celebSub1:"Has completado los",celebSub2:"módulos de capacitación.",celebSub3:"¡Estás oficialmente listo para conducir!",
+    reviewModules:"Revisar Módulos",nextDriver:"🔄 Siguiente Conductor",scenario:"Escenario",finalCheck:"Verificación Final",
+    chooseLanguage:"Elige tu idioma",selectLanguage:"Selecciona tu idioma preferido para comenzar",
+    evQuestion:"¿Estás rentando un Vehículo Eléctrico?",yesEV:"⚡ Sí — Tengo un VE",noEV:"🚗 No — No es un VE",
+    evComplete:"¡Entrenamiento VE Completo!",evReadyToRoad:"¡Estás preparado para tu vehículo eléctrico!",
+  },
+  ru: {
+    driverOnboarding:"Обучение Водителя",courseModules:"Модули Курса",completed:"Завершено ✓",
+    onboardingComplete:"Обучение Завершено!",readyToRoad:"Вы готовы к поездке",
+    restartBtn:"🔄 Перезапуск для Следующего Водителя",welcomeTo:"Добро пожаловать в",
+    welcomeSub:"учебных модулей для завершения обучения. Каждый модуль включает уроки, реальные сценарии и проверку знаний.",
+    guidedLessons:"📖 Уроки",scenarios:"💭 Сценарии",quizzes:"🎯 Тесты",
+    startModule:"Начать Модуль 1 →",letsBegin:"Начнём! →",gotItNext:"Понятно — Далее →",
+    continue:"Продолжить →",tryAgain:"Попробовать Снова →",submitAnswer:"Отправить Ответ",
+    moduleComplete:"Модуль Завершён!",topicLockedIn:"Отличная работа — тема усвоена.",
+    correct:"✓ Правильно!",notQuite:"✗ Не совсем.",wrongTryAgain:"Это неправильный ответ. Попробуйте ещё раз!",
+    continueTo:"Перейти к:",completionTime:"Время прохождения",youDidIt:"Вы справились!",
+    celebSub1:"Вы прошли все",celebSub2:"модулей обучения.",celebSub3:"Вы официально готовы к поездке!",
+    reviewModules:"Обзор Модулей",nextDriver:"🔄 Следующий Водитель",scenario:"Сценарий",finalCheck:"Итоговая Проверка",
+    chooseLanguage:"Выберите язык",selectLanguage:"Выберите предпочтительный язык для начала",
+    evQuestion:"Вы арендуете электромобиль?",yesEV:"⚡ Да — ЭМ",noEV:"🚗 Нет — не ЭМ",
+    evComplete:"Обучение ЭМ завершено!",evReadyToRoad:"Вы готовы к электромобилю!",
+  },
+  ar: {
+    driverOnboarding:"تدريب السائق",courseModules:"وحدات الدورة",completed:"مكتمل ✓",
+    onboardingComplete:"!اكتمل التدريب",readyToRoad:"أنت جاهز للانطلاق",
+    restartBtn:"🔄 إعادة تشغيل للسائق التالي",welcomeTo:"مرحباً بك في",
+    welcomeSub:"وحدات تعليمية لإكمال التدريب. كل وحدة تتضمن دروساً إرشادية وسيناريوهات واقعية واختبار معرفة.",
+    guidedLessons:"📖 دروس إرشادية",scenarios:"💭 سيناريوهات",quizzes:"🎯 اختبارات",
+    startModule:"← ابدأ الوحدة 1",letsBegin:"← !هيا نبدأ",gotItNext:"← فهمت — التالي",
+    continue:"← متابعة",tryAgain:"← حاول مرة أخرى",submitAnswer:"إرسال الإجابة",
+    moduleComplete:"!اكتملت الوحدة",topicLockedIn:".عمل رائع — تم إتقان هذا الموضوع",
+    correct:"!صحيح ✓",notQuite:".ليس تماماً ✗",wrongTryAgain:"!هذه ليست الإجابة الصحيحة. حاول مرة أخرى",
+    continueTo:":الانتقال إلى",completionTime:"وقت الإنجاز",youDidIt:"!لقد نجحت",
+    celebSub1:"لقد أكملت جميع",celebSub2:".وحدات التدريب",celebSub3:"!أنت جاهز رسمياً للانطلاق",
+    reviewModules:"مراجعة الوحدات",nextDriver:"🔄 السائق التالي",scenario:"سيناريو",finalCheck:"الاختبار النهائي",
+    chooseLanguage:"اختر لغتك",selectLanguage:"اختر لغتك المفضلة للبدء",
+    evQuestion:"هل تستأجر مركبة كهربائية؟",yesEV:"⚡ نعم — كهربائية",noEV:"🚗 لا — ليست كهربائية",
+    evComplete:"!اكتمل تدريب الكهربائية",evReadyToRoad:"!أنت مستعد لمركبتك الكهربائية",
+  },
+};
+
+
+
+// ─── ENGLISH MODULES ───
 const MODULES = [
-  {
-    id:"billing",icon:"💳",title:"Billings & Earnings",subtitle:"How your pay and rental fees work",accent:"#003B71",
-    steps:[
-      {type:"intro",title:"Let's learn about Billings & Earnings",body:"Understanding how billing works is essential. In this module you'll learn when your billing week starts, how earnings are applied, and what happens if your card charge fails.",visual:"💳"},
-      {type:"learn",label:"Billing Week",title:"Your billing week runs Monday to Monday",body:"The rental billing week starts on **Monday at 5:00 AM** and ends the following **Monday at 4:59 AM**. Everything — your earnings, ride counts, and personal miles — resets at the start of each billing week.",callout:{icon:"📅",text:"Monday 5:00 AM → Monday 4:59 AM"}},
-      {type:"learn",label:"Earnings First",title:"Your earnings cover rental fees first",body:"All your ride earnings are automatically applied to your rental fees before anything else. The more you drive, the more your rental costs are offset — and in many cases, fully covered.",callout:{icon:"💡",text:"Pro Tip: Aim to meet the weekly ride target to fully cover your rental!"}},
-      {type:"scenario",title:"Quick Scenario",body:"It's Tuesday morning. Your ride earnings from last week didn't fully cover your rental fee. What happens next?",options:[{text:"Nothing — the balance is forgiven",correct:false},{text:"The remaining balance is charged to your card on file",correct:true},{text:"Your account is immediately suspended",correct:false}],explanation:"Any rental fees not covered by earnings are charged to your card on file on the Tuesday after the billing week ends."},
-      {type:"learn",label:"Adjusted Rates",title:"Express Drive drivers earn at adjusted rates",body:"If you're using an Express Drive vehicle, your rate card is adjusted because the rental provider already covers many insurance and maintenance costs. Check your current rates on the **Driver Dashboard** in the Lyft Driver app.",callout:{icon:"📱",text:"Check the Driver Dashboard for your current rate card anytime."}},
-      {type:"learn",label:"Minimum Rides",title:"There may be a weekly ride minimum",body:"Depending on your market and plan, there may be a **minimum number of rides** you need to complete each week. Meeting this minimum increases the likelihood that your earnings will fully cover your rental fee.",callout:null},
-      {type:"checkpoint",title:"Knowledge Check",question:"When does the rental billing week begin?",options:[{text:"Sunday at midnight",correct:false},{text:"Monday at 5:00 AM",correct:true},{text:"Tuesday at 5:00 AM",correct:false},{text:"Monday at midnight",correct:false}],explanation:"The billing week starts every Monday at 5:00 AM and ends the following Monday at 4:59 AM."},
-    ],
-  },
-  {
-    id:"maintenance",icon:"🔧",title:"Maintenance",subtitle:"Keeping your vehicle in top shape",accent:"#5E0D8B",
-    steps:[
-      {type:"intro",title:"Let's learn about Maintenance",body:"Your rental vehicle needs regular care. This module covers what's included in your rental fee, what's not covered, and where to go for service.",visual:"🔧"},
-      {type:"learn",label:"Your Responsibility",title:"You're in charge of getting maintenance done",body:"As the driver, it's your responsibility to complete maintenance on schedule. The good news? You'll get a **notification in the app** when it's time — so you'll never have to guess.",callout:null},
-      {type:"learn",label:"What's Included",title:"Preventative maintenance is covered",body:"Routine, preventative maintenance is **included in your weekly rental fees**. This means standard scheduled services are taken care of as part of your rental cost.",callout:{icon:"✅",text:"Preventative maintenance = included in your weekly fee"}},
-      {type:"scenario",title:"Quick Scenario",body:"You ran over a nail and now have a flat tire. Is this covered by the included preventative maintenance?",options:[{text:"Yes — all tire issues are covered",correct:false},{text:"No — tire blowouts and nail damage are not included",correct:true},{text:"Only if it happens during a Lyft ride",correct:false}],explanation:"Included maintenance does NOT cover tire blowouts, nails in tires, collision damage, or windshield damage. These are the driver's responsibility."},
-      {type:"learn",label:"Approved Vendors",title:"Always use approved service vendors",body:"For any maintenance — scheduled or not — you must use an **approved vendor**. Check the pamphlet in your vehicle or the list in the Driver app.",callout:{icon:"📋",text:"Approved vendor list → Vehicle pamphlet or Driver App"}},
-      {type:"learn",label:"Minor Issues",title:"Don't ignore small problems",body:"Even if it's not time for scheduled maintenance, visit an approved vendor right away for issues like **light bulb changes**, **windshield wiper fluid**, or a **check engine light**.",callout:null},
-      {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is NOT covered by included preventative maintenance?",options:[{text:"Scheduled oil changes",correct:false},{text:"Tire blowouts from road debris",correct:true},{text:"Routine brake inspections",correct:false},{text:"Standard filter replacements",correct:false}],explanation:"Tire blowouts, nails in tires, collision damage, and windshield damage are NOT included in the preventative maintenance covered by your rental fee."},
-    ],
-  },
-  {
-    id:"miles",icon:"📍",title:"Personal Miles",subtitle:"Tracking off-the-clock driving",accent:"#059669",
-    steps:[
-      {type:"intro",title:"Let's learn about Personal Miles",body:"Any driving you do while not online for Lyft counts as personal miles. This module explains how they work, when they accrue, and how to avoid overage charges.",visual:"📍"},
-      {type:"learn",label:"When They Accrue",title:"Personal miles count whenever you're offline",body:"Personal miles accrue anytime the vehicle moves and you are **not online for Lyft**. This includes during deactivations, carrying personal passengers, taking required breaks, and driving to maintenance appointments.",callout:{icon:"⚠️",text:"Offline + vehicle moving = personal miles accruing"}},
-      {type:"learn",label:"Precision Tracking",title:"Tracking starts at just 1/10 of a mile",body:"Personal miles begin accruing at **1/10 of a mile** — so even short trips add up. They are also prorated during your first week, so you'll have a fair starting balance.",callout:null},
-      {type:"scenario",title:"Quick Scenario",body:"You have 15 unused personal miles at the end of the billing week. What happens to them?",options:[{text:"They roll over to next week",correct:false},{text:"They convert to bonus earnings",correct:false},{text:"They expire — personal miles never roll over",correct:true}],explanation:"Personal miles do NOT roll over to the next week. Each billing week gives you a fresh allotment based on your plan."},
-      {type:"learn",label:"Overage Charges",title:"Overages hit immediately — even by 1/10 of a mile",body:"If you exceed your allotted personal miles by even **1/10 of a mile**, overage charges apply. On the Pay As You Go plan, charges start from the very first 1/10 mile used. Monitor your miles closely in the app!",callout:{icon:"🚨",text:"Even 0.1 miles over = overage charges apply"}},
-      {type:"checkpoint",title:"Knowledge Check",question:"When do personal miles start accruing?",options:[{text:"After the first full mile driven offline",correct:false},{text:"At 1/10 of a mile",correct:true},{text:"Only after 5 miles of offline driving",correct:false},{text:"At the start of each billing week automatically",correct:false}],explanation:"Personal miles start accruing at just 1/10 of a mile — so even very short offline trips are tracked."},
-    ],
-  },
-  {
-    id:"accidents",icon:"🚨",title:"Accidents",subtitle:"What to do if there's a collision",accent:"#DA3AB3",
-    steps:[
-      {type:"intro",title:"Let's learn about Accident Procedures",body:"Nobody plans for an accident, but knowing the exact steps to take can save you time, money, and stress. This module walks through exactly what to do.",visual:"🚨"},
-      {type:"learn",label:"Step 1",title:"First: Call the police",body:"Your absolute first step after any accident is to **call the police**. You need to file an official accident report and receive a copy. This is critical for the claims process.",callout:{icon:"📞",text:"Step 1 — Always call the police FIRST"}},
-      {type:"learn",label:"Step 2",title:"Then: Report in the Lyft Driver app",body:"After you've contacted the police, **report the accident in the Lyft Driver app**. Important: the vehicle will be **deactivated immediately** once reported — this is normal and expected.",callout:{icon:"📱",text:"Step 2 — Report in app (vehicle gets deactivated)"}},
-      {type:"scenario",title:"Quick Scenario",body:"You've been in a fender bender. The car is drivable. After calling the police and reporting in-app, what should you do?",options:[{text:"Continue giving rides for the rest of the day",correct:false},{text:"Drive the vehicle to your rental location for inspection ASAP",correct:true},{text:"Take it to any nearby mechanic",correct:false}],explanation:"If the vehicle can be driven safely, you must drive it to your rental location for an inspection and to receive next steps as soon as possible."},
-      {type:"learn",label:"Not Drivable",title:"If the car can't be driven — call Holman",body:"If the vehicle is not safe to drive, call the **Holman Roadside Assistance** line. The phone number is located on the **driver side of your rental's windshield**. They'll arrange a tow to your rental location.",callout:{icon:"🪪",text:"Holman Roadside number → driver-side windshield"}},
-      {type:"learn",label:"Claim Period",title:"Open claims pause your rental eligibility",body:"While an accident claim is open, you'll be **ineligible to rent** until the claim is fully resolved, you're deemed not at fault, and any outstanding balance is paid.",callout:null},
-      {type:"checkpoint",title:"Knowledge Check",question:"After an accident, what is the correct order of actions?",options:[{text:"Report in app → Call police → Drive to rental location",correct:false},{text:"Call police → Report in app → Get to rental location",correct:true},{text:"Drive to rental location → Call police → Report in app",correct:false},{text:"Call Holman → Report in app → Call police",correct:false}],explanation:"The correct order is: (1) Call police to file a report, (2) Report the accident in the Lyft Driver app, (3) Get the vehicle to your rental location."},
-    ],
-  },
-  {
-    id:"damage",icon:"🛡️",title:"Damage",subtitle:"Inspections, fees, and protection",accent:"#D97706",
-    steps:[
-      {type:"intro",title:"Let's learn about Damage Policies",body:"Understanding damage policies protects your wallet. This module covers the pre-rental inspection, what counts as chargeable damage, and how to protect yourself.",visual:"🛡️"},
-      {type:"learn",label:"Pre-Rental Inspection",title:"Everything starts with the inspection",body:"Before you sign your rental contract, a rental associate will complete a **pre-rental inspection** with you, carefully marking any pre-existing damage on the contract. This protects you from being charged for damage that was already there.",callout:{icon:"🔍",text:"Review your pre-rental inspection carefully before signing!"}},
-      {type:"learn",label:"Your Liability",title:"After signing, new damage is your responsibility",body:"Once the contract is signed, you're responsible for **any new damage** to the vehicle. The driver is responsible for damage fees unless insurance proves otherwise.",callout:null},
-      {type:"scenario",title:"Quick Scenario",body:"You notice a 4-inch scratch on the bumper that wasn't there before. Will you be charged for this?",options:[{text:"No — chargeable damage must be greater than 6 inches or larger than a quarter",correct:true},{text:"Yes — any visible scratch is chargeable",correct:false},{text:"Only if another driver reports it",correct:false}],explanation:"Chargeable damage is defined as anything greater than 6 inches OR greater than the size of a quarter. A 4-inch scratch would fall below this threshold."},
-      {type:"learn",label:"CDW Protection",title:"Consider the Collision Damage Waiver",body:"All drivers are **encouraged** (but not required) to add the **Collision Damage Waiver (CDW)** to reduce or avoid damage fees.",callout:{icon:"🛡️",text:"CDW = peace of mind against damage charges"}},
-      {type:"learn",label:"Critical Rule",title:"Never repair damage yourself",body:"This is important: **do NOT attempt to repair any damage on your own.** Always report damage through the proper channels and let your rental location handle repairs. Self-repairs can void protections and create additional charges.",callout:{icon:"🚫",text:"NEVER attempt self-repairs on any damage"}},
-      {type:"checkpoint",title:"Knowledge Check",question:"What is the threshold for chargeable damage?",options:[{text:"Any scratch or dent, no matter how small",correct:false},{text:"Greater than 12 inches",correct:false},{text:"Greater than 6 inches OR greater than the size of a quarter",correct:true},{text:"Only damage visible from 10 feet away",correct:false}],explanation:"Chargeable damage includes any damage greater than 6 inches OR greater than the size of a quarter."},
-    ],
-  },
-  {
-    id:"return",icon:"🔑",title:"Return Expectations",subtitle:"Returning your vehicle the right way",accent:"#003B71",
-    steps:[
-      {type:"intro",title:"Let's learn about Return Expectations",body:"When it's time to return your vehicle, following the correct steps will save you from unexpected charges. This module covers everything from cleaning to timing.",visual:"🔑"},
-      {type:"learn",label:"Scheduling",title:"Appointments are encouraged but not required",body:"You can schedule a return appointment through the **Lyft Driver App**. While not mandatory, scheduling ahead helps ensure a smooth return process.",callout:null},
-      {type:"learn",label:"Vehicle Condition",title:"Return the vehicle clean and fueled",body:"Before returning, your vehicle must be: **vacuumed and wiped down** inside, **washed** outside, and **fueled** to the same level as when you picked it up. Charges will apply if cleaning or fueling isn't completed.",callout:{icon:"✨",text:"Clean inside + Clean outside + Full fuel = No extra charges"}},
-      {type:"scenario",title:"Quick Scenario",body:"You return your vehicle at 7 PM on Saturday. When will your rental contract be closed?",options:[{text:"Immediately upon drop-off",correct:false},{text:"The next business day — and you'll be charged through then",correct:true},{text:"The following Saturday",correct:false}],explanation:"After-hours or weekend returns mean your contract won't close until the next business day, and you'll be charged through that day."},
-      {type:"learn",label:"Personal Belongings",title:"Don't leave anything behind",body:"Lyft/Flexdrive is **NOT responsible** for any belongings left in the vehicle after return or repossession. All items left behind will be **disposed of**. Double-check the vehicle thoroughly before handing over the keys.",callout:{icon:"⚠️",text:"All belongings left behind WILL be disposed of — no exceptions"}},
-      {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is required before returning your vehicle?",options:[{text:"Only vacuum the interior",correct:false},{text:"Just fill the gas tank",correct:false},{text:"Vacuum & wipe inside, wash outside, and fuel to pickup level",correct:true},{text:"Nothing — the rental location handles cleaning",correct:false}],explanation:"You must vacuum and wipe down the interior, wash the exterior, and fuel the vehicle to the same level as pickup. Charges apply for any of these not completed."},
-    ],
-  },
-  {
-    id:"navigate",icon:"📱",title:"Navigating the Lyft Driver App",subtitle:"Find your rental details step by step",accent:"#7D868C",
-    steps:[
-      {type:"intro",title:"Let's learn to navigate the Lyft Driver App",body:"Knowing where to find your rental details, ride minimums, personal miles, and billing history is essential. This module walks you through each screen step by step.",visual:"📱"},
-      {type:"learn",label:"Step 1",title:"Open the Menu",body:"From the **Driver Home Screen**, tap the **☰ hamburger menu** in the top-left corner. This opens the side navigation menu where you can find vehicle and rental info.",callout:{icon:"👆",text:"Tap ☰ in the top-left corner of the home screen."}},
-      {type:"learn",label:"Step 2",title:"Go to Vehicle and Devices",body:"In the side menu, scroll down and tap **Vehicle and Devices** to expand it. Then tap **Your Vehicles** to see your current rental.",callout:{icon:"👆",text:'Tap "Your Vehicles" under Vehicle and Devices.'}},
-      {type:"learn",label:"Step 3",title:"Tap See Details",body:"On the Vehicles screen, you'll see your current rental with the **lyf express drive** label. Tap **See details** to open the full rental dashboard.",callout:{icon:"👆",text:'Tap "See details" to open the full rental dashboard.'}},
-      {type:"learn",label:"Step 4",title:"Rental Dashboard — Rides and Miles",body:"Your rental details page shows your **Ride minimum** (e.g. 20 rides/week) and **Personal miles** (e.g. 0/25 used). Both reset every **Monday at 5:00 AM**.",callout:{icon:"📊",text:"Track your ride minimum and personal miles here — both reset Monday at 5:00 AM."}},
-      {type:"learn",label:"Step 5",title:"Manage Rental and View History",body:"Scroll further to see **Manage rental** with quick links: **View weekly cost**, **See Express Drive billing history**, **Schedule preventative maintenance**, **Change mileage plan**, and **Change protection plan**.",callout:{icon:"🔧",text:"Use Manage rental to view billing, schedule maintenance, or change your plan."}},
-      {type:"checkpoint",title:"Knowledge Check",question:"To view your ride minimum and personal miles, where do you navigate?",options:[{text:"Settings > Account > Rides",correct:false},{text:"☰ Menu > Vehicle and Devices > Your Vehicles > See details",correct:true},{text:"The earnings tab at the top of the home screen",correct:false},{text:"Support and Resources > Rental Info",correct:false}],explanation:"Navigate to ☰ Menu > Vehicle and Devices > Your Vehicles > See details to see your ride minimum, personal miles, recent usage, and manage rental options."},
-    ],
-  },
+  {id:"billing",icon:"💳",title:"Billings & Earnings",subtitle:"How your pay and rental fees work",accent:"#003B71",steps:[
+    {type:"intro",title:"Let's learn about Billings & Earnings",body:"Understanding how billing works is essential. In this module you'll learn when your billing week starts, how earnings are applied, and what happens if your card charge fails.",visual:"💳"},
+    {type:"learn",label:"Billing Week",title:"Your billing week runs Monday to Monday",body:"The rental billing week starts on **Monday at 5:00 AM** and ends the following **Monday at 4:59 AM**. Everything — your earnings, ride counts, and personal miles — resets at the start of each billing week.",callout:{icon:"📅",text:"Monday 5:00 AM → Monday 4:59 AM"}},
+    {type:"learn",label:"Earnings First",title:"Your earnings cover rental fees first",body:"All your ride earnings are automatically applied to your rental fees before anything else. The more you drive, the more your rental costs are offset — and in many cases, fully covered.",callout:{icon:"💡",text:"Pro Tip: Aim to meet the weekly ride target to fully cover your rental!"}},
+    {type:"scenario",title:"Quick Scenario",body:"It's Tuesday morning. Your ride earnings from last week didn't fully cover your rental fee. What happens next?",options:[{text:"Nothing — the balance is forgiven",correct:false},{text:"The remaining balance is charged to your card on file",correct:true},{text:"Your account is immediately suspended",correct:false}],explanation:"Any rental fees not covered by earnings are charged to your card on file on the Tuesday after the billing week ends. If that charge fails, the balance may roll into the current week's fees."},
+    {type:"learn",label:"Adjusted Rates",title:"Express Drive drivers earn at adjusted rates",body:"If you're using an Express Drive vehicle, your rate card is adjusted because the rental provider already covers many insurance and maintenance costs. You can always check your current rates on the **Driver Dashboard** in the Lyft Driver app.",callout:{icon:"📱",text:"Check the Driver Dashboard for your current rate card anytime."}},
+    {type:"learn",label:"Minimum Rides",title:"There may be a weekly ride minimum",body:"Depending on your market and plan, there may be a **minimum number of rides** you need to complete each week. Meeting this minimum increases the likelihood that your earnings will fully cover your rental fee.",callout:null},
+    {type:"checkpoint",title:"Knowledge Check",question:"When does the rental billing week begin?",options:[{text:"Sunday at midnight",correct:false},{text:"Monday at 5:00 AM",correct:true},{text:"Tuesday at 5:00 AM",correct:false},{text:"Monday at midnight",correct:false}],explanation:"The billing week starts every Monday at 5:00 AM and ends the following Monday at 4:59 AM."},
+  ]},
+  {id:"maintenance",icon:"🔧",title:"Maintenance",subtitle:"Keeping your vehicle in top shape",accent:"#5E0D8B",steps:[
+    {type:"intro",title:"Let's learn about Maintenance",body:"Your rental vehicle needs regular care. This module covers what's included in your rental fee, what's not covered, and where to go for service.",visual:"🔧"},
+    {type:"learn",label:"Your Responsibility",title:"You're in charge of getting maintenance done",body:"As the driver, it's your responsibility to complete maintenance on schedule. The good news? You'll get a **notification in the app** when it's time — so you'll never have to guess.",callout:null},
+    {type:"learn",label:"What's Included",title:"Preventative maintenance is covered",body:"Routine, preventative maintenance is **included in your weekly rental fees**. This means standard scheduled services are taken care of as part of your rental cost.",callout:{icon:"✅",text:"Preventative maintenance = included in your weekly fee"}},
+    {type:"scenario",title:"Quick Scenario",body:"You ran over a nail and now have a flat tire. Is this covered by the included preventative maintenance?",options:[{text:"Yes — all tire issues are covered",correct:false},{text:"No — tire blowouts and nail damage are not included",correct:true},{text:"Only if it happens during a Lyft ride",correct:false}],explanation:"Included maintenance does NOT cover tire blowouts, nails in tires, collision damage, or windshield damage. These are the driver's responsibility."},
+    {type:"learn",label:"Approved Vendors",title:"Always use approved service vendors",body:"For any maintenance — scheduled or not — you must use an **approved vendor**. Check the pamphlet in your vehicle or the list in the Driver app. Use ride filters to minimize personal miles when driving to service appointments.",callout:{icon:"📋",text:"Approved vendor list → Vehicle pamphlet or Driver App"}},
+    {type:"learn",label:"Minor Issues",title:"Don't ignore small problems",body:"Even if it's not time for scheduled maintenance, visit an approved vendor right away for issues like **light bulb changes**, **windshield wiper fluid**, or a **check engine light**. Small fixes prevent big problems.",callout:null},
+    {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is NOT covered by included preventative maintenance?",options:[{text:"Scheduled oil changes",correct:false},{text:"Tire blowouts from road debris",correct:true},{text:"Routine brake inspections",correct:false},{text:"Standard filter replacements",correct:false}],explanation:"Tire blowouts, nails in tires, collision damage, and windshield damage are NOT included in the preventative maintenance covered by your rental fee."},
+  ]},
+  {id:"miles",icon:"📍",title:"Personal Miles",subtitle:"Tracking off-the-clock driving",accent:"#059669",steps:[
+    {type:"intro",title:"Let's learn about Personal Miles",body:"Any driving you do while not online for Lyft counts as personal miles. This module explains how they work, when they accrue, and how to avoid overage charges.",visual:"📍"},
+    {type:"learn",label:"When They Accrue",title:"Personal miles count whenever you're offline",body:"Personal miles accrue anytime the vehicle moves and you are **not online for Lyft**. This includes during deactivations, carrying personal passengers, taking required breaks, and driving to maintenance appointments.",callout:{icon:"⚠️",text:"Offline + vehicle moving = personal miles accruing"}},
+    {type:"learn",label:"Precision Tracking",title:"Tracking starts at just 1/10 of a mile",body:"Personal miles begin accruing at **1/10 of a mile** — so even short trips add up. They are also prorated during your first week, so you'll have a fair starting balance.",callout:null},
+    {type:"scenario",title:"Quick Scenario",body:"You have 15 unused personal miles at the end of the billing week. What happens to them?",options:[{text:"They roll over to next week",correct:false},{text:"They convert to bonus earnings",correct:false},{text:"They expire — personal miles never roll over",correct:true}],explanation:"Personal miles do NOT roll over to the next week. Each billing week gives you a fresh allotment based on your plan."},
+    {type:"learn",label:"Changing Plans",title:"Plan changes take effect next Monday",body:"You can change your personal mileage plan in the app anytime, but changes won't take effect until the **new billing week starts on Monday at 5:00 AM**. Check the app for the exact date your changes will activate.",callout:null},
+    {type:"learn",label:"Overage Charges",title:"Overages hit immediately — even by 1/10 of a mile",body:"If you exceed your allotted personal miles by even **1/10 of a mile**, overage charges apply. On the Pay As You Go plan, charges start from the very first 1/10 mile used. Monitor your miles closely in the app!",callout:{icon:"🚨",text:"Even 0.1 miles over = overage charges apply"}},
+    {type:"checkpoint",title:"Knowledge Check",question:"When do personal miles start accruing?",options:[{text:"After the first full mile driven offline",correct:false},{text:"At 1/10 of a mile",correct:true},{text:"Only after 5 miles of offline driving",correct:false},{text:"At the start of each billing week automatically",correct:false}],explanation:"Personal miles start accruing at just 1/10 of a mile — so even very short offline trips are tracked."},
+  ]},
+  {id:"accidents",icon:"🚨",title:"Accidents",subtitle:"What to do if there's a collision",accent:"#DA3AB3",steps:[
+    {type:"intro",title:"Let's learn about Accident Procedures",body:"Nobody plans for an accident, but knowing the exact steps to take can save you time, money, and stress. This module walks through exactly what to do.",visual:"🚨"},
+    {type:"learn",label:"Step 1",title:"First: Call the police",body:"Your absolute first step after any accident is to **call the police**. You need to file an official accident report and receive a copy. This is critical for the claims process.",callout:{icon:"📞",text:"Step 1 — Always call the police FIRST"}},
+    {type:"learn",label:"Step 2",title:"Then: Report in the Lyft Driver app",body:"After you've contacted the police, **report the accident in the Lyft Driver app**. Important: the vehicle will be **deactivated immediately** once reported — this is normal and expected.",callout:{icon:"📱",text:"Step 2 — Report in app (vehicle gets deactivated)"}},
+    {type:"scenario",title:"Quick Scenario",body:"You've been in a fender bender. The car is drivable. After calling the police and reporting in-app, what should you do?",options:[{text:"Continue giving rides for the rest of the day",correct:false},{text:"Drive the vehicle to your rental location for inspection ASAP",correct:true},{text:"Take it to any nearby mechanic",correct:false}],explanation:"If the vehicle can be driven safely, you must drive it to your rental location for an inspection and to receive next steps as soon as possible."},
+    {type:"learn",label:"Not Drivable",title:"If the car can't be driven — call Holman",body:"If the vehicle is not safe to drive, call the **Holman Roadside Assistance** line. The phone number is located on the **driver side of your rental's windshield**. They'll arrange a tow to your rental location.",callout:{icon:"🪪",text:"Holman Roadside number → driver-side windshield"}},
+    {type:"learn",label:"Claim Period",title:"Open claims pause your rental eligibility",body:"While an accident claim is open, you'll be **ineligible to rent** until the claim is fully resolved, you're deemed not at fault, and any outstanding balance is paid. This is why safe driving is so important.",callout:null},
+    {type:"checkpoint",title:"Knowledge Check",question:"After an accident, what is the correct order of actions?",options:[{text:"Report in app → Call police → Drive to rental location",correct:false},{text:"Call police → Report in app → Get to rental location",correct:true},{text:"Drive to rental location → Call police → Report in app",correct:false},{text:"Call Holman → Report in app → Call police",correct:false}],explanation:"The correct order is: (1) Call police to file a report, (2) Report the accident in the Lyft Driver app, (3) Get the vehicle to your rental location."},
+  ]},
+  {id:"damage",icon:"🛡️",title:"Damage",subtitle:"Inspections, fees, and protection",accent:"#D97706",steps:[
+    {type:"intro",title:"Let's learn about Damage Policies",body:"Understanding damage policies protects your wallet. This module covers the pre-rental inspection, what counts as chargeable damage, and how to protect yourself.",visual:"🛡️"},
+    {type:"learn",label:"Pre-Rental Inspection",title:"Everything starts with the inspection",body:"Before you sign your rental contract, a rental associate will complete a **pre-rental inspection** with you, carefully marking any pre-existing damage on the contract. This protects you from being charged for damage that was already there.",callout:{icon:"🔍",text:"Review your pre-rental inspection carefully before signing!"}},
+    {type:"learn",label:"Your Liability",title:"After signing, new damage is your responsibility",body:"Once the contract is signed, you're responsible for **any new damage** to the vehicle. The driver is responsible for damage fees unless insurance proves otherwise.",callout:null},
+    {type:"scenario",title:"Quick Scenario",body:"You notice a 4-inch scratch on the bumper that wasn't there before. Will you be charged for this?",options:[{text:"No — chargeable damage must be greater than 6 inches or larger than a quarter",correct:true},{text:"Yes — any visible scratch is chargeable",correct:false},{text:"Only if another driver reports it",correct:false}],explanation:"Chargeable damage is defined as anything greater than 6 inches OR greater than the size of a quarter. A 4-inch scratch would fall below this threshold."},
+    {type:"learn",label:"CDW Protection",title:"Consider the Collision Damage Waiver",body:"All drivers are **encouraged** (but not required) to add the **Collision Damage Waiver (CDW)** to reduce or avoid damage fees. If you want to change your CDW selection later, you'll need an onsite inspection and in-person renewal at your rental location.",callout:{icon:"🛡️",text:"CDW = peace of mind against damage charges"}},
+    {type:"learn",label:"With vs Without CDW",title:"See the difference CDW makes",body:"**With CDW:** Reduced or no out-of-pocket costs, fast streamlined claims, coverage designed for rideshare use, small predictable weekly cost, no surprise deductibles. **Without CDW:** You pay the full cost of all damage, complex claims you manage alone, personal auto insurance may deny your claim, unpredictable repair bills that could reach thousands.",callout:{icon:"⚖️",text:"A minor fender-bender without CDW could cost you thousands. With CDW, it's handled quickly with little to no cost."}},
+    {type:"learn",label:"How to Add CDW",title:"Adding CDW is quick and easy",body:"To add CDW: **1.** Ask your onboarding representative about adding CDW. **2.** Review the CDW agreement and ask any questions you may have. **3.** Sign the CDW addendum — coverage takes effect immediately. Remember: your weekly rental fee does NOT cover tire blowouts, collision damage, or windshield damage. CDW helps protect you from these costs.",callout:{icon:"✍️",text:"Ask your onboarding representative to add CDW today — coverage starts immediately."}},
+    {type:"learn",label:"Critical Rule",title:"Never repair damage yourself",body:"This is important: **do NOT attempt to repair any damage on your own.** Always report damage through the proper channels and let your rental location handle repairs. Self-repairs can void protections and create additional charges.",callout:{icon:"🚫",text:"NEVER attempt self-repairs on any damage"}},
+    {type:"checkpoint",title:"Knowledge Check",question:"What is the threshold for chargeable damage?",options:[{text:"Any scratch or dent, no matter how small",correct:false},{text:"Greater than 12 inches",correct:false},{text:"Greater than 6 inches OR greater than the size of a quarter",correct:true},{text:"Only damage visible from 10 feet away",correct:false}],explanation:"Chargeable damage includes any damage greater than 6 inches OR greater than the size of a quarter."},
+  ]},
+  {id:"return",icon:"🔑",title:"Return Expectations",subtitle:"Returning your vehicle the right way",accent:"#003B71",steps:[
+    {type:"intro",title:"Let's learn about Return Expectations",body:"When it's time to return your vehicle, following the correct steps will save you from unexpected charges. This module covers everything from cleaning to timing.",visual:"🔑"},
+    {type:"learn",label:"Scheduling",title:"Appointments are encouraged but not required",body:"You can schedule a return appointment through the **Lyft Driver App**. While not mandatory, scheduling ahead helps ensure a smooth return process.",callout:null},
+    {type:"learn",label:"Vehicle Condition",title:"Return the vehicle clean and fueled",body:"Before returning, your vehicle must be: **vacuumed and wiped down** inside, **washed** outside, and **fueled** to the same level as when you picked it up. Charges will apply if cleaning or fueling isn't completed.",callout:{icon:"✨",text:"Clean inside + Clean outside + Full fuel = No extra charges"}},
+    {type:"scenario",title:"Quick Scenario",body:"You return your vehicle at 7 PM on Saturday. When will your rental contract be closed?",options:[{text:"Immediately upon drop-off",correct:false},{text:"The next business day — and you'll be charged through then",correct:true},{text:"The following Saturday",correct:false}],explanation:"After-hours or weekend returns mean your contract won't close until the next business day, and you'll be charged through that day."},
+    {type:"learn",label:"Personal Belongings",title:"Don't leave anything behind",body:"Lyft/Flexdrive is **NOT responsible** for any belongings left in the vehicle after return or repossession. All items left behind will be **disposed of**. Double-check the vehicle thoroughly before handing over the keys.",callout:{icon:"⚠️",text:"All belongings left behind WILL be disposed of — no exceptions"}},
+    {type:"checkpoint",title:"Knowledge Check",question:"Which of the following is required before returning your vehicle?",options:[{text:"Only vacuum the interior",correct:false},{text:"Just fill the gas tank",correct:false},{text:"Vacuum & wipe inside, wash outside, and fuel to pickup level",correct:true},{text:"Nothing — the rental location handles cleaning",correct:false}],explanation:"You must vacuum and wipe down the interior, wash the exterior, and fuel the vehicle to the same level as pickup. Charges apply for any of these not completed."},
+  ]},
+  {id:"navigate",icon:"📱",title:"Navigating the Lyft Driver App",subtitle:"Find your rental details step by step",accent:"#7D868C",steps:[
+    {type:"intro",title:"Let's learn to navigate the Lyft Driver App",body:"Knowing where to find your rental details, ride minimums, personal miles, and billing history is essential. This module walks you through each screen step by step.",visual:"📱"},
+    {type:"visual",label:"Step 1",title:"Start from the Driver Home Screen",body:"When you open the Lyft Driver app, this is your home screen. You can see your **earnings at the top**, the map, a **Personal miles** widget (e.g. 0/25), and your **Platinum status** progress. Notice the **hamburger menu (☰)** in the top-left — tap that to access your rental details.",image:IMG1,callout:{icon:"👆",text:"Tap the ☰ menu icon in the top-left corner to proceed."}},
+    {type:"visual",label:"Step 2",title:"Open Vehicle and Devices",body:"In the side menu, scroll down and find the **Vehicle and Devices** section. Tap to expand. You'll see **Your Vehicles**, **Schedule Vehicle Service**, **Glow**, **Your recording devices**, and **Order emblem and airport docs**. Tap **Your Vehicles** to continue.",image:IMG2,callout:{icon:"👆",text:'Tap "Your Vehicles" under Vehicle and Devices.'}},
+    {type:"visual",label:"Step 3",title:"View Your Express Drive Vehicle",body:"The Vehicles screen shows your current rental with the **lyf express drive** label, vehicle details (e.g. **2025 Toyota Corolla Hybrid**), the plate number, and an **In use** badge. Tap **See details** to view full rental information.",image:IMG3,callout:{icon:"👆",text:'Tap "See details" to open the full rental dashboard.'}},
+    {type:"visual",label:"Step 4",title:"Rental Dashboard — Rides & Miles",body:"This is your rental details page. You'll see: **Ride minimum** (e.g. 20 rides/week, 5/20 completed, 15 left — resets Monday 05:00 AM) and **Personal miles** (e.g. Pay as you go, 0/25 used — also resets Monday 05:00 AM). Scroll down for more options.",image:IMG4,callout:{icon:"📊",text:"Track your ride minimum and personal miles here — both reset Monday at 5:00 AM."}},
+    {type:"visual",label:"Step 5",title:"Manage Rental & View History",body:"Scroll further to see **Recent usage** — a chart of your personal miles over time. Below that is **Manage rental** with quick links: **Learn about Express Drive**, **View weekly cost**, **See Express Drive billing history**, **Schedule preventative maintenance**, **Change mileage plan**, and **Change protection plan**.",image:IMG5,callout:{icon:"🔧",text:"Use Manage rental to view billing, schedule maintenance, or change your mileage/protection plan."}},
+    {type:"checkpoint",title:"Knowledge Check",question:"To view your ride minimum and personal miles, where do you navigate?",options:[{text:"Settings > Account > Rides",correct:false},{text:"☰ Menu > Vehicle and Devices > Your Vehicles > See details",correct:true},{text:"The earnings tab at the top of the home screen",correct:false},{text:"Support and Resources > Rental Info",correct:false}],explanation:"Navigate to ☰ Menu > Vehicle and Devices > Your Vehicles > See details to see your ride minimum, personal miles, recent usage, and manage rental options."},
+  ]},
 ];
 
-function App() {
-  const [activeModuleIdx, setActiveModuleIdx] = useState(null);
-  const [stepIdx, setStepIdx] = useState(0);
-  const [completedModules, setCompletedModules] = useState(new Set());
-  const [animKey, setAnimKey] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [startTime, setStartTime] = useState(null);
-  const [elapsed, setElapsed] = useState(0);
-  const [showCelebration, setShowCelebration] = useState(false);
-  const [finalTime, setFinalTime] = useState(null);
 
-  const mod = activeModuleIdx !== null ? MODULES[activeModuleIdx] : null;
+
+// ─── GET MODULES BY LANGUAGE ───
+function getModules(lang) {
+  if(lang==="en"||!lang) return MODULES;
+  // For other languages, return same structure but keep navigate module using same images
+  const nav = MODULES[MODULES.length-1];
+  return MODULES.map(m => {
+    if(m.id==="navigate") return nav; // always use EN navigate (has real screenshots)
+    return m;
+  });
+}
+
+// ─── EV MODULE ───
+const EV_MODULE = {
+  id:"ev",icon:"⚡",title:"Electric Vehicle Basics",subtitle:"Everything you need to know about your EV",accent:"#0ea5e9",
+  steps:[
+    {type:"intro",title:"Welcome to EV Training!",body:"You're renting an electric vehicle — great choice! EVs offer lower running costs, a smoother driving experience, and reduced environmental impact. This bonus module covers everything you need to drive and charge confidently.",visual:"⚡"},
+    {type:"learn",label:"EV vs Gas",title:"How an EV differs from a gas car",body:"**Electric Vehicle (EV):** Battery powered, lower range (~240 miles), more savings on fuel. **Gas Car (ICE):** Gas powered, higher range (350+ miles), more money spent on fuel. EVs are quiet — they won't make noise when starting, but the car IS on! Acceleration is faster in an EV, but aggressive driving reduces range.",callout:{icon:"🔇",text:"EVs are silent when starting — check the dashboard to confirm the car is on."}},
+    {type:"learn",label:"Regenerative Braking",title:"Let the car recharge itself",body:"When you lift your foot off the accelerator, an EV **automatically slows down and recharges the battery** — this is called regenerative braking. It saves range and reduces brake wear. The more you use it, the further you'll go on a single charge.",callout:{icon:"🔋",text:"Regenerative braking = free range! Lift off the accelerator early to maximize it."}},
+    {type:"learn",label:"Battery Range",title:"Managing your range",body:"On a full charge (100%), expect approximately **240–270 miles** of range. **Head to a charging station when you're at 10–20% remaining.** Climate control and driving style affect range — smooth acceleration and limiting A/C or heat will extend it.",callout:{icon:"⚠️",text:"Charge when you hit 10–20% remaining. Do not let the battery drop below 10%!"}},
+    {type:"learn",label:"Charging Levels",title:"Level 1, Level 2, and Level 3 charging",body:"**Level 1 (~48 hrs to full):** Standard 120V household outlet. ~2–5 miles of range per hour. Backup only. **Level 2 (~6–8 hrs to full):** 240V outlet, the everyday workhorse. ~10–60 miles per hour. Best for daily home/workplace charging. **Level 3 / DCFC (~45 min to 80%):** DC fast charging. Best for quick top-ups. Charging slows after 80% to protect the battery.",callout:{icon:"⚡",text:"Level 3 gets you to 80% in ~45 min — but daily use can degrade the battery over time."}},
+    {type:"learn",label:"Connector Types",title:"Know your charging plugs",body:"Your EV uses specific connector types: **J-1772** is used for Level 1 and Level 2 charging — this is the standard plug. **CCS/SAE** is used for Level 3 (DC fast charging) — a larger combo plug. Some newer vehicles use **NACS** (Tesla-style) connectors. Check your vehicle's charging port before connecting.",callout:{icon:"🔌",text:"L1 & L2 = J-1772 plug. L3 = CCS/SAE combo plug. Always verify before connecting."}},
+    {type:"learn",label:"Battery Health",title:"Keep your battery healthy long-term",body:"**Keep daily charge between 20–80%** — optimal for battery longevity. **Limit frequent DC fast charging (L3)** — accelerates degradation. **Avoid extreme temperatures** — park in shade during heat, keep plugged in during extreme cold. **Keep software updated.** Always ensure the vehicle has over 10% charge to prevent 12V battery issues.",callout:{icon:"💚",text:"Daily rule: charge between 20–80%. Save 100% charges for long trips only."}},
+    {type:"learn",label:"EV Maintenance",title:"Maintenance is simpler with an EV",body:"EVs require **less maintenance** — no oil changes, spark plugs, or transmission fluid. Your EV gets an **EV Dry PM Service Check** every 10,000 miles: coolant, brake fluid, wiper fluid, and A/C refrigerant checks. **Tire rotations and brake inspections** are still needed. If your EV repeatedly fails to start charging, it may need a **software update from the dealership**.",callout:{icon:"🔧",text:"No oil changes! Just fluid checks, tire rotations, and software updates."}},
+    {type:"scenario",title:"EV Scenario",body:"You're driving your EV and notice the battery is at 15% with 35 miles of range left. What should you do?",options:[{text:"Keep driving and finish your current ride queue",correct:false},{text:"Head to a charging station — you're in the 10–20% zone",correct:true},{text:"Turn off the A/C and keep driving until 5%",correct:false}],explanation:"Head to a charging station when at 10–20% remaining. Do not let the battery drop below 10%."},
+    {type:"checkpoint",title:"EV Knowledge Check",question:"What is the optimal daily charge range for battery health?",options:[{text:"0–100% every time",correct:false},{text:"20–80%",correct:true},{text:"50–100%",correct:false},{text:"Drain to 0% then fully charge",correct:false}],explanation:"Keep daily charging between 20–80% for optimal battery longevity. Save 100% charges for long trips only."},
+  ],
+};
+
+// ─── MAIN APP ───
+function FlexdriveOnboarding() {
+  const [lang,setLang]=useState(null);
+  const [activeModuleIdx,setActiveModuleIdx]=useState(null);
+  const [stepIdx,setStepIdx]=useState(0);
+  const [completedModules,setCompletedModules]=useState(new Set());
+  const [animKey,setAnimKey]=useState(0);
+  const [sidebarOpen,setSidebarOpen]=useState(true);
+  const [startTime,setStartTime]=useState(null);
+  const [elapsed,setElapsed]=useState(0);
+  const [showCelebration,setShowCelebration]=useState(false);
+  const [finalTime,setFinalTime]=useState(null);
+  const [evMode,setEvMode]=useState(null);
+  const [evStepIdx,setEvStepIdx]=useState(0);
+  const [evAnimKey,setEvAnimKey]=useState(0);
+  const [evCompleted,setEvCompleted]=useState(false);
+
+  const MODS = MODULES; // always English for now (navigate module has real images)
+  const t = (key) => (UI[lang]||UI.en)[key]||UI.en[key]||key;
+  const mod = activeModuleIdx!==null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
+  const evStep = EV_MODULE.steps[evStepIdx];
   const totalCompleted = completedModules.size;
-  const progress = Math.round((totalCompleted / MODULES.length) * 100);
+  const progress = Math.round((totalCompleted/MODS.length)*100);
 
-  useEffect(() => {
-    const iv = setInterval(() => {
-      if (startTime && !showCelebration) setElapsed(Math.floor((Date.now()-startTime)/1000));
-    }, 1000);
-    return () => clearInterval(iv);
-  }, [startTime, showCelebration]);
+  useEffect(()=>{
+    const iv=setInterval(()=>{
+      if(startTime&&!showCelebration) setElapsed(Math.floor((Date.now()-startTime)/1000));
+    },1000);
+    return()=>clearInterval(iv);
+  },[startTime,showCelebration]);
 
-  const formatTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,"0")}`;
+  const formatTime=(s)=>`${Math.floor(s/60)}:${(s%60).toString().padStart(2,"0")}`;
 
-  const goNext = useCallback(() => {
-    if (!mod) return;
-    if (stepIdx < mod.steps.length-1) { setStepIdx(s=>s+1); setAnimKey(k=>k+1); }
-  }, [mod, stepIdx]);
+  const goNext=useCallback(()=>{
+    if(!mod)return;
+    if(stepIdx<mod.steps.length-1){setStepIdx(s=>s+1);setAnimKey(k=>k+1);}
+  },[mod,stepIdx]);
 
-  const selectModule = (idx) => {
-    if (!startTime) setStartTime(Date.now());
-    setActiveModuleIdx(idx); setStepIdx(0); setAnimKey(k=>k+1);
+  const goNextEV=useCallback(()=>{
+    if(evStepIdx<EV_MODULE.steps.length-1){setEvStepIdx(s=>s+1);setEvAnimKey(k=>k+1);}
+  },[evStepIdx]);
+
+  const selectModule=(idx)=>{
+    if(!startTime)setStartTime(Date.now());
+    setActiveModuleIdx(idx);setStepIdx(0);setAnimKey(k=>k+1);
   };
 
-  const handleModuleComplete = (modId) => {
-    const next = new Set([...completedModules, modId]);
+  const handleModuleComplete=(modId)=>{
+    const next=new Set([...completedModules,modId]);
     setCompletedModules(next);
-    if (next.size === MODULES.length) {
+    if(next.size===MODS.length){
       setFinalTime(Math.floor((Date.now()-startTime)/1000));
       setShowCelebration(true);
     }
   };
 
-  const handleRestart = () => {
-    setActiveModuleIdx(null); setStepIdx(0); setCompletedModules(new Set());
-    setAnimKey(0); setStartTime(null); setElapsed(0); setShowCelebration(false); setFinalTime(null);
+  const handleRestart=()=>{
+    setActiveModuleIdx(null);setStepIdx(0);setCompletedModules(new Set());
+    setAnimKey(0);setStartTime(null);setElapsed(0);setShowCelebration(false);
+    setFinalTime(null);setLang(null);setEvMode(null);setEvStepIdx(0);
+    setEvAnimKey(0);setEvCompleted(false);
   };
 
   return (
-    <div style={{minHeight:"100vh",background:"#F6F6FB",display:"flex",flexDirection:"column"}}>
+    <div style={{minHeight:"100vh",background:"#F6F6FB",fontFamily:"'Source Sans Pro',sans-serif",display:"flex",flexDirection:"column"}}>
       {/* HEADER */}
       <header style={{background:"#003B71",padding:"18px 24px",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,zIndex:10}}>
         <div style={{display:"flex",alignItems:"center",gap:16}}>
           <button onClick={()=>setSidebarOpen(!sidebarOpen)} style={{background:"none",border:"1px solid #ffffff30",borderRadius:8,padding:"6px 10px",cursor:"pointer",fontSize:16,color:"#ffffffcc"}}>☰</button>
           <div>
             <div style={{fontSize:18,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em"}}>flexdrive</div>
-            <div style={{fontSize:14,fontWeight:700,color:"#ffffffcc"}}>Driver Onboarding</div>
+            <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:20,fontWeight:800,color:"#ffffff",margin:0}}>{t("driverOnboarding")}</h1>
           </div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
           {startTime&&!showCelebration&&<span style={{fontSize:12,fontWeight:700,color:"#FF00BF",fontFamily:"monospace",background:"#ffffff15",padding:"3px 10px",borderRadius:6}}>⏱ {formatTime(elapsed)}</span>}
-          <span style={{fontSize:12,fontWeight:700,color:"#ffffffcc"}}>{totalCompleted}/{MODULES.length}</span>
+          <span style={{fontSize:12,fontWeight:700,color:"#ffffffcc"}}>{totalCompleted}/{MODS.length}</span>
           <div style={{width:100,height:7,borderRadius:4,background:"#ffffff30",overflow:"hidden"}}>
-            <div style={{height:"100%",width:`${progress}%`,borderRadius:4,background:progress===100?"linear-gradient(90deg,#10b981,#34d399)":"linear-gradient(90deg,#003B71,#FF00BF)",transition:"width 0.6s"}} />
+            <div style={{height:"100%",width:`${progress}%`,borderRadius:4,background:progress===100?"linear-gradient(90deg,#10b981,#34d399)":"linear-gradient(90deg,#003B71,#FF00BF)",transition:"width 0.6s"}}/>
           </div>
         </div>
       </header>
@@ -365,11 +501,11 @@ function App() {
       <div style={{display:"flex",flex:1,minHeight:0}}>
         {/* SIDEBAR */}
         {sidebarOpen&&(
-          <nav style={{width:270,minWidth:270,background:"#fff",borderRight:"1px solid #ebebf4",padding:"18px 12px",overflowY:"auto"}}>
-            <div style={{fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",color:"#b0b0c8",padding:"0 10px 12px"}}>Course Modules</div>
-            {MODULES.map((m,i)=>{
-              const isActive=activeModuleIdx===i, isDone=completedModules.has(m.id);
-              return (
+          <nav style={{width:270,minWidth:270,background:"#fff",borderRight:"1px solid #ebebf4",padding:"18px 12px",overflowY:"auto",animation:"fadeIn 0.2s ease"}}>
+            <div style={{fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",color:"#b0b0c8",padding:"0 10px 12px"}}>{t("courseModules")}</div>
+            {MODS.map((m,i)=>{
+              const isActive=activeModuleIdx===i,isDone=completedModules.has(m.id);
+              return(
                 <button key={m.id} onClick={()=>selectModule(i)}
                   style={{width:"100%",display:"flex",alignItems:"center",gap:12,padding:12,marginBottom:2,
                     border:isActive?`2px solid ${m.accent}28`:"2px solid transparent",borderRadius:14,
@@ -381,7 +517,7 @@ function App() {
                   </div>
                   <div style={{minWidth:0,flex:1}}>
                     <div style={{fontSize:13,fontWeight:isActive?700:600,color:isActive?"#1a1a2e":"#5a5a78",marginBottom:1,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{m.title}</div>
-                    <div style={{fontSize:11,color:isDone?"#10b981":"#a0a0b8",fontWeight:600}}>{isDone?"Completed ✓":m.subtitle}</div>
+                    <div style={{fontSize:11,color:isDone?"#10b981":"#a0a0b8",fontWeight:600}}>{isDone?t("completed"):m.subtitle}</div>
                   </div>
                 </button>
               );
@@ -389,49 +525,62 @@ function App() {
             {progress===100&&(
               <div style={{marginTop:18,padding:"18px 14px",borderRadius:14,background:"linear-gradient(135deg,#ecfdf5,#f0fdf4)",border:"2px solid #a7f3d0",textAlign:"center"}}>
                 <div style={{fontSize:30,marginBottom:6}}>🎓</div>
-                <div style={{fontSize:14,fontWeight:800,color:"#065f46"}}>Onboarding Complete!</div>
-                <div style={{fontSize:11,color:"#34d399",marginTop:3,fontWeight:600}}>You're ready to hit the road</div>
+                <div style={{fontSize:14,fontWeight:800,color:"#065f46"}}>{t("onboardingComplete")}</div>
+                <div style={{fontSize:11,color:"#34d399",marginTop:3,fontWeight:600}}>{t("readyToRoad")}</div>
               </div>
             )}
-            <button onClick={handleRestart} style={{width:"100%",marginTop:18,padding:12,borderRadius:12,border:"2px solid #e8e8f0",background:"#fff",cursor:"pointer",fontSize:13,fontWeight:700,color:"#7D868C",fontFamily:"'Source Sans Pro',sans-serif"}}>
-              🔄 Restart for Next Driver
-            </button>
+            <button onClick={handleRestart} style={{width:"100%",marginTop:18,padding:12,borderRadius:12,border:"2px solid #e8e8f0",background:"#fff",cursor:"pointer",fontSize:13,fontWeight:700,color:"#7D868C",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("restartBtn")}</button>
           </nav>
         )}
 
-        {/* MAIN */}
+        {/* MAIN CONTENT */}
         <main style={{flex:1,overflowY:"auto",display:"flex",justifyContent:"center",padding:"36px 28px 56px"}}>
           {!mod?(
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
-              <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
-              <div style={{fontSize:28,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em",marginBottom:4}}>flexdrive</div>
-              <h2 style={{fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>Driver Onboarding</h2>
-              <p style={{fontSize:15,color:"#8a8aa8",lineHeight:1.7,marginBottom:12}}>
-                {MODULES.length} learning modules to finish your onboarding. Each module includes guided lessons, real-world scenarios, and a final knowledge check.
-              </p>
-              <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",margin:"8px 0 28px"}}>
-                {["📖 Guided lessons","💭 Scenarios","🎯 Quizzes"].map(tag=>(
-                  <span key={tag} style={{fontSize:12,fontWeight:600,color:"#6a6a88",background:"#f0f0fa",padding:"5px 12px",borderRadius:8}}>{tag}</span>
-                ))}
+            !lang?(
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
+                <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
+                <div style={{fontSize:28,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em",marginBottom:4}}>flexdrive</div>
+                <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>Driver Onboarding</h2>
+                <p style={{fontSize:16,fontWeight:700,color:"#003B71",marginBottom:8}}>{t("chooseLanguage")}</p>
+                <p style={{fontSize:13,color:"#a0a0b8",marginBottom:28}}>{t("selectLanguage")}</p>
+                <div style={{display:"flex",gap:14,flexWrap:"wrap",justifyContent:"center"}}>
+                  {[["en","English"],["es","Español"],["ru","Русский"],["ar","العربية"]].map(([code,label])=>(
+                    <button key={code} onClick={()=>setLang(code)}
+                      style={{background:"#003B71",color:"#fff",border:"none",borderRadius:14,padding:"18px 36px",fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif",minWidth:160,transition:"all 0.25s"}}>{label}</button>
+                  ))}
+                </div>
               </div>
-              <button onClick={()=>selectModule(0)} style={btnPrimary("#003B71",false)}>Start Module 1 →</button>
-            </div>
+            ):(
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",maxWidth:440,animation:"fadeIn 0.5s ease"}}>
+                <div style={{width:84,height:84,borderRadius:22,background:"linear-gradient(135deg,#003B7115,#FF00BF15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,marginBottom:22,border:"2px solid #003B7130"}}>📘</div>
+                <div style={{fontSize:28,fontWeight:900,color:"#FF00BF",letterSpacing:"0.05em",marginBottom:4}}>flexdrive</div>
+                <h2 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:26,fontWeight:800,color:"#1a1a2e",marginBottom:10}}>{t("driverOnboarding")}</h2>
+                <p style={{fontSize:15,color:"#8a8aa8",lineHeight:1.7,marginBottom:12}}>{MODS.length} {t("welcomeSub")}</p>
+                <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",margin:"8px 0 28px"}}>
+                  {[t("guidedLessons"),t("scenarios"),t("quizzes")].map(tag=>(
+                    <span key={tag} style={{fontSize:12,fontWeight:600,color:"#6a6a88",background:"#f0f0fa",padding:"5px 12px",borderRadius:8}}>{tag}</span>
+                  ))}
+                </div>
+                <button onClick={()=>selectModule(0)} style={{background:"#003B71",color:"#fff",border:"none",borderRadius:12,padding:"14px 28px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("startModule")}</button>
+              </div>
+            )
           ):(
             <div key={animKey} style={{maxWidth:560,width:"100%",animation:"slideUp 0.3s ease"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
-                <StepDots total={mod.steps.length} current={stepIdx} accent={mod.accent} />
+                <StepDots total={mod.steps.length} current={stepIdx} accent={mod.accent}/>
                 <span style={{fontSize:12,fontWeight:700,color:"#a0a0b8"}}>{stepIdx+1} / {mod.steps.length}</span>
               </div>
               <div style={{background:"#fff",borderRadius:20,padding:"32px 30px",border:"1px solid #ebebf4",boxShadow:"0 2px 20px rgba(0,0,0,0.03)",minHeight:340}}>
-                {step.type==="intro"&&<IntroCard step={step} accent={mod.accent} onNext={goNext}/>}
-                {step.type==="learn"&&<LearnCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext}/>}
-                {step.type==="scenario"&&<ScenarioCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext}/>}
-                {step.type==="checkpoint"&&<CheckpointCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} alreadyPassed={completedModules.has(mod.id)} onComplete={()=>handleModuleComplete(mod.id)}/>}
+                {step.type==="intro"&&<IntroCard step={step} accent={mod.accent} onNext={goNext} t={t}/>}
+                {step.type==="visual"&&<VisualCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} t={t}/>}
+                {step.type==="learn"&&<LearnCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} t={t}/>}
+                {step.type==="scenario"&&<ScenarioCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} onNext={goNext} t={t}/>}
+                {step.type==="checkpoint"&&<CheckpointCard key={`${mod.id}-${stepIdx}`} step={step} accent={mod.accent} alreadyPassed={completedModules.has(mod.id)} t={t} onComplete={()=>handleModuleComplete(mod.id)}/>}
               </div>
-              {completedModules.has(mod.id)&&stepIdx===mod.steps.length-1&&activeModuleIdx<MODULES.length-1&&(
+              {completedModules.has(mod.id)&&stepIdx===mod.steps.length-1&&activeModuleIdx<MODS.length-1&&(
                 <div style={{textAlign:"center",marginTop:22}}>
-                  <button onClick={()=>selectModule(activeModuleIdx+1)} style={btnPrimary(MODULES[activeModuleIdx+1].accent,false)}>
-                    Continue to: {MODULES[activeModuleIdx+1].title} →
+                  <button onClick={()=>selectModule(activeModuleIdx+1)} style={{background:MODS[activeModuleIdx+1].accent,color:"#fff",border:"none",borderRadius:12,padding:"14px 28px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>
+                    {t("continueTo")} {MODS[activeModuleIdx+1].title} →
                   </button>
                 </div>
               )}
@@ -440,31 +589,77 @@ function App() {
         </main>
       </div>
 
-      {/* CELEBRATION */}
+      {/* EV TRAINING OVERLAY */}
+      {evMode==="yes"&&showCelebration&&(
+        <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"#F6F6FB",display:"flex",flexDirection:"column",zIndex:101,animation:"fadeIn 0.3s ease"}}>
+          <div style={{background:"#0ea5e9",padding:"14px 24px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <div>
+              <div style={{fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",marginBottom:2}}>⚡ {EV_MODULE.title}</div>
+              <div style={{fontSize:14,fontWeight:600,color:"#ffffffcc"}}>{EV_MODULE.subtitle}</div>
+            </div>
+            <div style={{fontSize:12,fontWeight:700,color:"#fff"}}>{evStepIdx+1} / {EV_MODULE.steps.length}</div>
+          </div>
+          <div style={{flex:1,overflowY:"auto",display:"flex",justifyContent:"center",padding:"32px 24px 48px"}}>
+            <div key={evAnimKey} style={{maxWidth:560,width:"100%",animation:"slideUp 0.3s ease"}}>
+              <StepDots total={EV_MODULE.steps.length} current={evStepIdx} accent="#0ea5e9"/>
+              <div style={{background:"#fff",borderRadius:20,padding:"32px 30px",border:"1px solid #ebebf4",boxShadow:"0 2px 20px rgba(0,0,0,0.03)",minHeight:340,marginTop:20}}>
+                {evStep.type==="intro"&&<IntroCard step={evStep} accent="#0ea5e9" onNext={goNextEV} t={t}/>}
+                {evStep.type==="learn"&&<LearnCard key={`ev-${evStepIdx}`} step={evStep} accent="#0ea5e9" onNext={goNextEV} t={t}/>}
+                {evStep.type==="scenario"&&<ScenarioCard key={`ev-${evStepIdx}`} step={evStep} accent="#0ea5e9" onNext={goNextEV} t={t}/>}
+                {evStep.type==="checkpoint"&&(
+                  <CheckpointCard key={`ev-${evStepIdx}`} step={evStep} accent="#0ea5e9" alreadyPassed={evCompleted} t={t}
+                    onComplete={()=>{setEvCompleted(true);setTimeout(()=>{setEvMode("done");},2000);}}/>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CELEBRATION OVERLAY */}
       {showCelebration&&(
         <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"linear-gradient(135deg,#003B71ee,#003B71dd)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:100,animation:"fadeIn 0.5s ease",overflow:"hidden"}}>
-          {Array.from({length:24},(_,i)=>(
-            <div key={i} style={{position:"absolute",top:-20,left:`${(i*4.2)%100}%`,width:i%3===0?12:8,height:i%3===0?12:8,borderRadius:i%2===0?"50%":"2px",background:["#FF00BF","#DA3AB3","#5E0D8B","#fff","#7D868C","#10b981"][i%6],animation:`confetti ${2+i%3}s linear ${i*0.1}s infinite`}}/>
+          {Array.from({length:30},(_,i)=>(
+            <div key={i} style={{position:"absolute",top:-20,left:`${(i*3.4)%100}%`,width:i%3===0?12:8,height:i%3===0?12:8,borderRadius:i%2===0?"50%":"2px",background:["#FF00BF","#DA3AB3","#5E0D8B","#fff","#7D868C","#10b981"][i%6],animation:`confetti ${2+i%3}s linear ${i*0.12}s infinite`}}/>
           ))}
-          <div style={{background:"#fff",borderRadius:28,padding:"48px 40px",maxWidth:440,textAlign:"center",animation:"celebPop 0.6s ease",position:"relative",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
+          <div style={{background:"#fff",borderRadius:28,padding:"48px 40px",maxWidth:480,textAlign:"center",animation:"celebPop 0.6s ease",position:"relative",boxShadow:"0 20px 60px rgba(0,0,0,0.3)"}}>
             <div style={{fontSize:72,marginBottom:12,animation:"pulse 1.5s ease infinite"}}>🎓</div>
-            <h1 style={{fontSize:32,fontWeight:900,color:"#003B71",margin:"0 0 8px"}}>You did it!</h1>
-            <p style={{fontSize:16,color:"#5a5a78",lineHeight:1.6,margin:"0 0 24px"}}>
-              You've completed all {MODULES.length} FlexDrive onboarding modules.<br/>You're officially ready to hit the road!
-            </p>
+            <h1 style={{fontFamily:"'Source Sans Pro',sans-serif",fontSize:32,fontWeight:900,color:"#003B71",margin:"0 0 8px"}}>{t("youDidIt")}</h1>
+            <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 8px"}}>{t("celebSub1")} {MODS.length}</p>
+            <div style={{fontSize:22,fontWeight:900,color:"#FF00BF",marginBottom:8}}>flexdrive</div>
+            <p style={{fontSize:17,color:"#5a5a78",lineHeight:1.6,margin:"0 0 24px"}}>{t("celebSub2")}<br/>{t("celebSub3")}</p>
             {finalTime&&(
               <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"#003B7110",borderRadius:14,padding:"14px 24px",marginBottom:28,border:"2px solid #003B7120"}}>
                 <span style={{fontSize:24}}>⏱</span>
                 <div style={{textAlign:"left"}}>
-                  <div style={{fontSize:11,fontWeight:700,color:"#7D868C",textTransform:"uppercase",letterSpacing:"0.08em"}}>Completion time</div>
+                  <div style={{fontSize:11,fontWeight:700,color:"#7D868C",textTransform:"uppercase",letterSpacing:"0.08em"}}>{t("completionTime")}</div>
                   <div style={{fontSize:28,fontWeight:900,color:"#003B71",fontFamily:"monospace",lineHeight:1.2}}>{formatTime(finalTime)}</div>
                 </div>
               </div>
             )}
-            <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
-              <button onClick={()=>setShowCelebration(false)} style={{background:"transparent",color:"#003B71",border:"2px solid #003B71",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>Review Modules</button>
-              <button onClick={handleRestart} style={{background:"#003B71",color:"#fff",border:"none",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>🔄 Next Driver</button>
-            </div>
+            {evMode===null&&(
+              <>
+                <p style={{fontSize:15,fontWeight:700,color:"#003B71",margin:"0 0 14px"}}>{t("evQuestion")}</p>
+                <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+                  <button onClick={()=>setEvMode("yes")} style={{background:"#0ea5e9",color:"#fff",border:"none",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("yesEV")}</button>
+                  <button onClick={()=>setEvMode("no")} style={{background:"transparent",color:"#003B71",border:"2px solid #003B71",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("noEV")}</button>
+                </div>
+              </>
+            )}
+            {(evMode==="no"||evMode==="done")&&(
+              <>
+                {evMode==="done"&&(
+                  <div style={{marginBottom:16,padding:"12px 20px",borderRadius:12,background:"#0ea5e910",border:"1px solid #0ea5e930"}}>
+                    <div style={{fontSize:14,fontWeight:700,color:"#0ea5e9"}}>{t("evComplete")}</div>
+                    <div style={{fontSize:12,color:"#5a5a78",marginTop:2}}>{t("evReadyToRoad")}</div>
+                  </div>
+                )}
+                <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+                  <button onClick={()=>setShowCelebration(false)} style={{background:"transparent",color:"#003B71",border:"2px solid #003B71",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("reviewModules")}</button>
+                  <button onClick={handleRestart} style={{background:"#003B71",color:"#fff",border:"none",borderRadius:12,padding:"14px 24px",fontSize:14,fontWeight:700,cursor:"pointer",fontFamily:"'Source Sans Pro',sans-serif"}}>{t("nextDriver")}</button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -473,7 +668,7 @@ function App() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(<FlexdriveOnboarding />);
   </script>
 </body>
 </html>
