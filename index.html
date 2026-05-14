@@ -792,6 +792,101 @@ const MODULES_AR = [
 ];
 
 
+const MARKETS = {
+  SFO: {
+    code: "SFO",
+    en: { name: "San Francisco", bonusTitle: "EV Incentive Bonus", bonusNote: "Available for EV rentals only.", tiers: [
+      { rides: 50, reward: "$50 off your weekly rental rate" },
+      { rides: 70, reward: "$70 off your weekly rental rate" },
+      { rides: 90, reward: "$140 off your weekly rental rate" },
+    ]},
+    es: { name: "San Francisco", bonusTitle: "Bono de Incentivo EV", bonusNote: "Disponible solo para alquileres de VE.", tiers: [
+      { rides: 50, reward: "$50 de descuento en tu tarifa semanal" },
+      { rides: 70, reward: "$70 de descuento en tu tarifa semanal" },
+      { rides: 90, reward: "$140 de descuento en tu tarifa semanal" },
+    ]},
+    ru: { name: "Сан-Франциско", bonusTitle: "Бонус за ЭМ", bonusNote: "Доступно только для аренды ЭМ.", tiers: [
+      { rides: 50, reward: "$50 скидка на еженедельную плату" },
+      { rides: 70, reward: "$70 скидка на еженедельную плату" },
+      { rides: 90, reward: "$140 скидка на еженедельную плату" },
+    ]},
+    ar: { name: "سان فرانسيسكو", bonusTitle: "مكافأة حافز المركبة الكهربائية", bonusNote: "متاح فقط لإيجارات المركبات الكهربائية.", tiers: [
+      { rides: 50, reward: "$50 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 70, reward: "$70 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 90, reward: "$140 خصم على سعر الإيجار الأسبوعي" },
+    ]},
+  },
+  PDX: {
+    code: "PDX",
+    en: { name: "Portland", bonusTitle: "Weekly Ride Bonus", tiers: [
+      { rides: 60, reward: "$90 off your weekly rental rate" },
+      { rides: 80, reward: "$110 off your weekly rental rate" },
+      { rides: 100, reward: "$150 off your weekly rental rate" },
+    ]},
+    es: { name: "Portland", bonusTitle: "Bono Semanal de Viajes", tiers: [
+      { rides: 60, reward: "$90 de descuento en tu tarifa semanal" },
+      { rides: 80, reward: "$110 de descuento en tu tarifa semanal" },
+      { rides: 100, reward: "$150 de descuento en tu tarifa semanal" },
+    ]},
+    ru: { name: "Портленд", bonusTitle: "Еженедельный Бонус", tiers: [
+      { rides: 60, reward: "$90 скидка на еженедельную плату" },
+      { rides: 80, reward: "$110 скидка на еженедельную плату" },
+      { rides: 100, reward: "$150 скидка на еженедельную плату" },
+    ]},
+    ar: { name: "بورتلاند", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+      { rides: 60, reward: "$90 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 80, reward: "$110 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 100, reward: "$150 خصم على سعر الإيجار الأسبوعي" },
+    ]},
+  },
+  SAN: {
+    code: "SAN",
+    en: { name: "San Diego", bonusTitle: "Weekly Ride Bonus", tiers: [
+      { rides: 30, reward: "$60 off your weekly rental rate" },
+      { rides: 50, reward: "$80 off your weekly rental rate" },
+      { rides: 80, reward: "$120 off your weekly rental rate" },
+    ]},
+    es: { name: "San Diego", bonusTitle: "Bono Semanal de Viajes", tiers: [
+      { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
+      { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
+      { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
+    ]},
+    ru: { name: "Сан-Диего", bonusTitle: "Еженедельный Бонус", tiers: [
+      { rides: 30, reward: "$60 скидка на еженедельную плату" },
+      { rides: 50, reward: "$80 скидка на еженедельную плату" },
+      { rides: 80, reward: "$120 скидка на еженедельную плату" },
+    ]},
+    ar: { name: "سان دييغو", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+      { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
+    ]},
+  },
+  LAX: {
+    code: "LAX",
+    en: { name: "Los Angeles", bonusTitle: "Weekly Ride Bonus", tiers: [
+      { rides: 30, reward: "$60 off your weekly rental rate" },
+      { rides: 50, reward: "$80 off your weekly rental rate" },
+      { rides: 80, reward: "$120 off your weekly rental rate" },
+    ]},
+    es: { name: "Los Angeles", bonusTitle: "Bono Semanal de Viajes", tiers: [
+      { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
+      { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
+      { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
+    ]},
+    ru: { name: "Лос-Анджелес", bonusTitle: "Еженедельный Бонус", tiers: [
+      { rides: 30, reward: "$60 скидка на еженедельную плату" },
+      { rides: 50, reward: "$80 скидка на еженедельную плату" },
+      { rides: 80, reward: "$120 скидка на еженедельную плату" },
+    ]},
+    ar: { name: "لوس أنجلوس", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+      { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
+      { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
+    ]},
+  },
+};
+
 const EV_MODULE = {
   en: {
     id: "ev", icon: "", title: "Electric Vehicle Basics", subtitle: "Everything you need to know about your EV", accent: "#003B71",
@@ -891,6 +986,12 @@ const UI = {
     finalCheck: "Final Check",
     chooseLanguage: "Choose your language",
     selectLanguage: "Select your preferred language to begin",
+    selectMarket: "Select Your Market",
+    selectMarketSub: "Choose the location where you are renting",
+    yourBonus: "Your Ride Bonus",
+    ridesRequired: "rides",
+    beforeYouBegin: "Before You Begin",
+    licenseNotice: "Please give the associate your driver's license and the debit/credit card UNDER YOUR NAME that you used for the deposit before starting.",
     evQuestion: "Are you renting an Electric Vehicle?",
     yesEV: "Yes \u2014 I have an EV",
     noEV: "No \u2014 Not an EV",
@@ -932,6 +1033,12 @@ const UI = {
     finalCheck: "Verificación Final",
     chooseLanguage: "Elige tu idioma",
     selectLanguage: "Selecciona tu idioma preferido para comenzar",
+    selectMarket: "Selecciona Tu Mercado",
+    selectMarketSub: "Elige la ubicación donde estás rentando",
+    yourBonus: "Tu Bono de Viajes",
+    ridesRequired: "viajes",
+    beforeYouBegin: "Antes de Comenzar",
+    licenseNotice: "Entregue al asociado su licencia de conducir y la tarjeta de débito/crédito A SU NOMBRE que utilizó para el depósito antes de comenzar.",
     evQuestion: "\u00bfEst\u00e1s rentando un Veh\u00edculo El\u00e9ctrico?",
     yesEV: "S\u00ed \u2014 Tengo un VE",
     noEV: "No \u2014 No es un VE",
@@ -973,6 +1080,12 @@ const UI = {
     finalCheck: "Итоговая Проверка",
     chooseLanguage: "Выберите язык",
     selectLanguage: "Выберите предпочтительный язык для начала",
+    selectMarket: "Выберите Ваш Рынок",
+    selectMarketSub: "Выберите локацию, где вы арендуете",
+    yourBonus: "Ваш Бонус за Поездки",
+    ridesRequired: "поездок",
+    beforeYouBegin: "Перед Началом",
+    licenseNotice: "Передайте сотруднику водительские права и дебетовую/кредитную карту НА ВАШЕ ИМЯ, которую вы использовали для депозита, перед началом.",
     evQuestion: "\u0412\u044b \u0430\u0440\u0435\u043d\u0434\u0443\u0435\u0442\u0435 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043c\u043e\u0431\u0438\u043b\u044c?",
     yesEV: "\u0414\u0430 \u2014 \u042d\u041c",
     noEV: "\u041d\u0435\u0442 \u2014 \u043d\u0435 \u042d\u041c",
@@ -1014,6 +1127,12 @@ const UI = {
     finalCheck: "الاختبار النهائي",
     chooseLanguage: "اختر لغتك",
     selectLanguage: "اختر لغتك المفضلة للبدء",
+    selectMarket: "اختر سوقك",
+    selectMarketSub: "اختر الموقع الذي تستأجر منه",
+    yourBonus: "مكافأة رحلاتك",
+    ridesRequired: "رحلات",
+    beforeYouBegin: "قبل البدء",
+    licenseNotice: "يرجى تسليم الموظف رخصة القيادة وبطاقة الخصم/الائتمان باسمك التي استخدمتها للإيداع قبل البدء.",
     evQuestion: "\u0647\u0644 \u062a\u0633\u062a\u0623\u062c\u0631 \u0645\u0631\u0643\u0628\u0629 \u0643\u0647\u0631\u0628\u0627\u0626\u064a\u0629\u061f",
     yesEV: "\u0646\u0639\u0645 \u2014 \u0643\u0647\u0631\u0628\u0627\u0626\u064a\u0629",
     noEV: "\u0644\u0627 \u2014 \u0644\u064a\u0633\u062a \u0643\u0647\u0631\u0628\u0627\u0626\u064a\u0629",
@@ -1327,11 +1446,9 @@ function FlexdriveOnboarding() {
   const [elapsed, setElapsed] = useState(0);
   const [showCelebration, setShowCelebration] = useState(false);
   const [finalTime, setFinalTime] = useState(null);
-  const [evMode, setEvMode] = useState(null);
-  const [evChoice, setEvChoice] = useState(null); // null=not asked, true=EV, false=not EV
-  const [evStepIdx, setEvStepIdx] = useState(0);
-  const [evAnimKey, setEvAnimKey] = useState(0);
-  const [evCompleted, setEvCompleted] = useState(false);
+  const [evChoice, setEvChoice] = useState(null);
+  const [market, setMarket] = useState(null);
+  const [bonusSeen, setBonusSeen] = useState(false); // null=not asked, true=EV, false=not EV
 
   // ─── Tracking State ───
   const [quizResults, setQuizResults] = useState([]);
@@ -1339,10 +1456,11 @@ function FlexdriveOnboarding() {
   const moduleStartRef = useRef(null);
   const trackingSentRef = useRef(false);
 
-  const MODS = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : MODULES;
-  const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
+  const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : MODULES;
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
-  const evStep = evMod ? evMod.steps[evStepIdx] : null;
+  const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
+  const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
+  const marketData = market && MARKETS[market] ? (MARKETS[market][lang] || MARKETS[market].en) : null;
   const mod = activeModuleIdx !== null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
   const totalCompleted = completedModules.size;
@@ -1372,19 +1490,20 @@ function FlexdriveOnboarding() {
     }
   }, [mod, stepIdx]);
 
-  const goNextEV = useCallback(() => {
-    if (evStepIdx < evMod.steps.length - 1) {
-      setEvStepIdx((s) => s + 1);
-      setEvAnimKey((k) => k + 1);
-    }
-  }, [evMod, evStepIdx]);
-
   // Auto-send tracking when celebration shows
   useEffect(() => {
     if (showCelebration && !trackingSentRef.current) {
-      sendTrackingData(!!evChoice, evMode === "done");
+      sendTrackingData(!!evChoice, !!evChoice);
     }
   }, [showCelebration]);
+
+  const selectMarket = (code) => {
+    setMarket(code);
+  };
+
+  const handleBonusContinue = () => {
+    setBonusSeen(true);
+  };
 
   const selectModule = (idx) => {
     if (!startTime) setStartTime(Date.now());
@@ -1423,8 +1542,9 @@ function FlexdriveOnboarding() {
       completionTimeFormatted: finalTime ? formatTime(finalTime) : "0:00",
       modulesCompleted: completedModules.size,
       totalModules: MODS.length,
+      market: market || "",
       isEV: isEV ? "Yes" : "No",
-      evCompleted: evDone ? "Yes" : isEV ? "No" : "N/A",
+      evCompleted: isEV ? "Yes" : "N/A",
       quizResults,
       moduleTimes,
     };
@@ -1446,11 +1566,9 @@ function FlexdriveOnboarding() {
     setShowCelebration(false);
     setFinalTime(null);
     setLang(null);
-    setEvMode(null);
     setEvChoice(null);
-    setEvStepIdx(0);
-    setEvAnimKey(0);
-    setEvCompleted(false);
+    setMarket(null);
+    setBonusSeen(false);
     setQuizResults([]);
     setModuleTimes([]);
     moduleStartRef.current = null;
@@ -1566,6 +1684,7 @@ function FlexdriveOnboarding() {
               <p style={{ fontSize: 13, color: "#ffffff88", lineHeight: 1.5, marginBottom: 28 }}>
                 Select your preferred language to begin
               </p>
+
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
                 <button onClick={() => setLang("en")}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
@@ -1588,14 +1707,15 @@ function FlexdriveOnboarding() {
             ) : evChoice === null ? (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
 
-              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 10, lineHeight: 1.25 }}>
+              <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "16px 20px", marginBottom: 24, textAlign: "left", width: "100%" }}>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "#FF00BF", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>{t("beforeYouBegin")}</p>
+                <p style={{ fontSize: 13, color: "#ffffffdd", lineHeight: 1.6 }}>{t("licenseNotice")}</p>
+              </div>
+              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 24, lineHeight: 1.25 }}>
                 {t("evQuestion")}
               </h2>
-              <p style={{ fontSize: 13, color: "#ffffff88", lineHeight: 1.5, marginBottom: 28 }}>
-                {t("evQuestion")}
-              </p>
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
-                <button onClick={() => { setEvChoice(true); setEvMode("yes"); }}
+                <button onClick={() => { setEvChoice(true); }}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("yesEV")}
                 </button>
@@ -1604,6 +1724,59 @@ function FlexdriveOnboarding() {
                   {t("noEV")}
                 </button>
               </div>
+            </div>
+            ) : market === null ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
+
+              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 6, lineHeight: 1.25 }}>
+                {t("selectMarket")}
+              </h2>
+              <p style={{ fontSize: 13, color: "#ffffff88", lineHeight: 1.5, marginBottom: 24 }}>
+                {t("selectMarketSub")}
+              </p>
+              <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
+                <button onClick={() => selectMarket("SFO")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  SFO — San Francisco
+                </button>
+                <button onClick={() => selectMarket("PDX")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  PDX — Portland
+                </button>
+                <button onClick={() => selectMarket("SAN")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  SAN — San Diego
+                </button>
+                <button onClick={() => selectMarket("LAX")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  LAX — Los Angeles
+                </button>
+              </div>
+            </div>
+            ) : !bonusSeen ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
+
+              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 6, lineHeight: 1.25 }}>
+                {t("yourBonus")}
+              </h2>
+              <p style={{ fontSize: 14, color: "#ffffffcc", marginBottom: 24 }}>
+                {marketData ? marketData.name : ""}
+              </p>
+              {marketData && marketData.tiers.length > 0 && (
+                <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "20px 24px", marginBottom: 24, textAlign: "left", width: "100%" }}>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "#FF00BF", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>{marketData.bonusTitle}</p>
+                  {marketData.tiers.map((tier, i) => (
+                    <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < marketData.tiers.length - 1 ? "1px solid #ffffff15" : "none" }}>
+                      <span style={{ fontSize: 16, color: "#ffffffdd", fontWeight: 600 }}>{tier.rides} {t("ridesRequired")}</span>
+                      <span style={{ fontSize: 16, color: "#ffffff", fontWeight: 700 }}>{tier.reward}</span>
+                    </div>
+                  ))}
+                  {marketData.bonusNote && <p style={{ fontSize: 13, color: "#ffffff88", marginTop: 10, fontStyle: "italic" }}>{marketData.bonusNote}</p>}
+                </div>
+              )}
+              <button onClick={handleBonusContinue} style={btnPrimary("#FF00BF", false)}>
+                {t("continue")}
+              </button>
             </div>
             ) : (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
@@ -1668,48 +1841,8 @@ function FlexdriveOnboarding() {
         </main>
       </div>
 
-      {/* EV TRAINING OVERLAY */}
-      {evMode === "yes" && (
-        <div style={{
-          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-          background: "#ffffff", display: "flex", flexDirection: "column",
-          zIndex: 101, animation: "fadeIn 0.3s ease",
-        }}>
-          <div style={{ background: "#003B71", padding: "14px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fff", marginBottom: 2 }}>{evMod.title}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#ffffffcc" }}>{evMod.subtitle}</div>
-            </div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{evStepIdx + 1} / {evMod.steps.length}</div>
-          </div>
-          <div style={{ flex: 1, overflowY: "auto", display: "flex", justifyContent: "center", padding: "32px 24px 48px" }}>
-            <div key={evAnimKey} style={{ maxWidth: 560, width: "100%", animation: "slideUp 0.3s ease" }}>
-              <StepDots total={evMod.steps.length} current={evStepIdx} accent="#003B71" />
-              <div style={{ background: "#003B71", borderRadius: 20, padding: "32px 30px", border: "none", boxShadow: "0 4px 24px rgba(0,59,113,0.15)", minHeight: 340, marginTop: 20 }}>
-                {evStep.type === "intro" && <IntroCard step={evStep} accent="#003B71" onNext={goNextEV} t={t} />}
-                {evStep.type === "learn" && <LearnCard key={`ev-${evStepIdx}`} step={evStep} accent="#003B71" onNext={goNextEV} t={t} />}
-                {evStep.type === "scenario" && <ScenarioCard key={`ev-${evStepIdx}`} step={evStep} accent="#003B71" onNext={goNextEV} t={t} />}
-                {evStep.type === "checkpoint" && (
-                  <CheckpointCard
-                    key={`ev-${evStepIdx}`}
-                    step={evStep}
-                    accent="#003B71"
-                    alreadyPassed={evCompleted}
-                    t={t}
-                    onComplete={() => {
-                      setEvCompleted(true);
-                      setTimeout(() => { setEvMode("done"); setEvStepIdx(0); }, 2000);
-                    }}
-                    onQuizResult={(q, firstTry, attempts) => trackQuizResult("ev", q, firstTry, attempts)}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
-      {/* CELEBRATION OVERLAY */}
+            {/* CELEBRATION OVERLAY */}
       {showCelebration && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
@@ -1768,12 +1901,7 @@ function FlexdriveOnboarding() {
               </div>
             </div>
 
-            {evMode === "done" && (
-              <div style={{ marginBottom: 16, padding: "12px 20px", borderRadius: 12, background: "#ffffff12", border: "1px solid #ffffff25" }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#ffffff" }}>{t("evComplete")}</div>
-                <div style={{ fontSize: 12, color: "#ffffffaa", marginTop: 2 }}>{t("evReadyToRoad")}</div>
-              </div>
-            )}
+
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <button onClick={() => setShowCelebration(false)}
                 style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 12, padding: "14px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>
