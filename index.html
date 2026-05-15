@@ -1719,7 +1719,7 @@ function FlexdriveOnboarding() {
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("yesEV")}
                 </button>
-                <button onClick={() => setEvChoice(false)}
+                <button onClick={() => { setEvChoice(false); setMarket("none"); setBonusSeen(true); }}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("noEV")}
                 </button>
