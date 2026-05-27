@@ -990,6 +990,7 @@ const UI = {
     selectMarketSub: "Choose the location where you are renting",
     yourBonus: "Your Ride Bonus",
     ridesRequired: "rides",
+    noneOfTheseMarkets: "None of these markets",
     quickRef: "Quick Reference Card",
     quickRefSub: "Screenshot this for your records",
     qrBilling: "Billing week: Monday 5:00 AM to Monday 4:59 AM. Earnings apply to rental fees first.",
@@ -1048,6 +1049,7 @@ const UI = {
     selectMarketSub: "Elige la ubicación donde estás rentando",
     yourBonus: "Tu Bono de Viajes",
     ridesRequired: "viajes",
+    noneOfTheseMarkets: "Ninguno de estos mercados",
     quickRef: "Tarjeta de Referencia Rápida",
     quickRefSub: "Toma una captura de pantalla para tus registros",
     qrBilling: "Semana de facturación: Lunes 5:00 AM a Lunes 4:59 AM. Las ganancias se aplican primero a la tarifa de alquiler.",
@@ -1106,6 +1108,7 @@ const UI = {
     selectMarketSub: "Выберите локацию, где вы арендуете",
     yourBonus: "Ваш Бонус за Поездки",
     ridesRequired: "поездок",
+    noneOfTheseMarkets: "Ни один из этих рынков",
     quickRef: "Краткая Справка",
     quickRefSub: "Сделайте скриншот для ваших записей",
     qrBilling: "Неделя оплаты: Понедельник 5:00 — Понедельник 4:59. Заработок сначала покрывает аренду.",
@@ -1164,6 +1167,7 @@ const UI = {
     selectMarketSub: "اختر الموقع الذي تستأجر منه",
     yourBonus: "مكافأة رحلاتك",
     ridesRequired: "رحلات",
+    noneOfTheseMarkets: "لا شيء من هذه الأسواق",
     quickRef: "بطاقة المرجع السريع",
     quickRefSub: "التقط صورة شاشة لسجلاتك",
     qrBilling: "أسبوع الفوترة: الاثنين 5:00 ص إلى الاثنين 4:59 ص. الأرباح تُطبق أولاً على رسوم الإيجار.",
@@ -1794,6 +1798,10 @@ function FlexdriveOnboarding() {
                 <button onClick={() => selectMarket("LAX")}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   LAX — Los Angeles
+                </button>
+                <button onClick={() => { setMarket("none"); setBonusSeen(true); }}
+                  style={{ background: "transparent", color: "#ffffff", border: "2px solid #ffffff30", borderRadius: 14, padding: "14px 36px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s", width: "100%", marginTop: 4 }}>
+                  {t("noneOfTheseMarkets")}
                 </button>
               </div>
             </div>
