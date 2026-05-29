@@ -991,6 +991,9 @@ const UI = {
     yourBonus: "Your Ride Bonus",
     ridesRequired: "rides",
     noneOfTheseMarkets: "None of these markets",
+    appTourQuestion: "Want a hands-on tour of the Lyft Driver App?",
+    startAppTour: "Start App Tour",
+    skipAppTour: "Skip",
     quickRef: "Quick Reference Card",
     quickRefSub: "Screenshot this for your records",
     qrBilling: "Billing week: Monday 5:00 AM to Monday 4:59 AM. Earnings apply to rental fees first.",
@@ -1050,6 +1053,9 @@ const UI = {
     yourBonus: "Tu Bono de Viajes",
     ridesRequired: "viajes",
     noneOfTheseMarkets: "Ninguno de estos mercados",
+    appTourQuestion: "Quieres un recorrido interactivo de la app Lyft Driver?",
+    startAppTour: "Iniciar Recorrido",
+    skipAppTour: "Omitir",
     quickRef: "Tarjeta de Referencia Rápida",
     quickRefSub: "Toma una captura de pantalla para tus registros",
     qrBilling: "Semana de facturación: Lunes 5:00 AM a Lunes 4:59 AM. Las ganancias se aplican primero a la tarifa de alquiler.",
@@ -1109,6 +1115,9 @@ const UI = {
     yourBonus: "Ваш Бонус за Поездки",
     ridesRequired: "поездок",
     noneOfTheseMarkets: "Ни один из этих рынков",
+    appTourQuestion: "Хотите интерактивный тур по приложению Lyft Driver?",
+    startAppTour: "Начать Тур",
+    skipAppTour: "Пропустить",
     quickRef: "Краткая Справка",
     quickRefSub: "Сделайте скриншот для ваших записей",
     qrBilling: "Неделя оплаты: Понедельник 5:00 — Понедельник 4:59. Заработок сначала покрывает аренду.",
@@ -1168,6 +1177,9 @@ const UI = {
     yourBonus: "مكافأة رحلاتك",
     ridesRequired: "رحلات",
     noneOfTheseMarkets: "لا شيء من هذه الأسواق",
+    appTourQuestion: "هل تريد جولة تفاعلية في تطبيق Lyft Driver؟",
+    startAppTour: "بدء الجولة",
+    skipAppTour: "تخطي",
     quickRef: "بطاقة المرجع السريع",
     quickRefSub: "التقط صورة شاشة لسجلاتك",
     qrBilling: "أسبوع الفوترة: الاثنين 5:00 ص إلى الاثنين 4:59 ص. الأرباح تُطبق أولاً على رسوم الإيجار.",
@@ -1496,7 +1508,8 @@ function FlexdriveOnboarding() {
   const [finalTime, setFinalTime] = useState(null);
   const [evChoice, setEvChoice] = useState(null);
   const [market, setMarket] = useState(null);
-  const [bonusSeen, setBonusSeen] = useState(false); // null=not asked, true=EV, false=not EV
+  const [bonusSeen, setBonusSeen] = useState(false);
+  const [showAppTour, setShowAppTour] = useState(false); // null=not asked, true=EV, false=not EV
 
   // ─── Tracking State ───
   const [quizResults, setQuizResults] = useState([]);
@@ -1617,6 +1630,7 @@ function FlexdriveOnboarding() {
     setEvChoice(null);
     setMarket(null);
     setBonusSeen(false);
+    setShowAppTour(false);
     setQuizResults([]);
     setModuleTimes([]);
     moduleStartRef.current = null;
@@ -1894,7 +1908,29 @@ function FlexdriveOnboarding() {
       </div>
 
 
-            {/* CELEBRATION OVERLAY */}
+            {/* APP TOUR OVERLAY */}
+      {showAppTour && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+          background: "#000", zIndex: 200, display: "flex", flexDirection: "column",
+          animation: "fadeIn 0.3s ease",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", background: "#003B71" }}>
+            <span style={{ color: "#fff", fontSize: 14, fontWeight: 700, fontFamily: "'Source Sans Pro', sans-serif" }}>Lyft Driver App Guide</span>
+            <button onClick={() => setShowAppTour(false)}
+              style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>
+              Close
+            </button>
+          </div>
+          <iframe
+            src="app-guide.html"
+            style={{ flex: 1, border: "none", width: "100%", height: "100%" }}
+            title="Lyft Driver App Guide"
+          />
+        </div>
+      )}
+
+      {/* CELEBRATION OVERLAY */}
       {showCelebration && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
@@ -1972,6 +2008,18 @@ function FlexdriveOnboarding() {
                   {item}
                 </div>
               ))}
+            </div>
+
+            <p style={{ fontSize: 14, fontWeight: 600, color: "#ffffffcc", margin: "0 0 12px" }}>{t("appTourQuestion")}</p>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+              <button onClick={() => setShowAppTour(true)}
+                style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 12, padding: "14px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>
+                {t("startAppTour")}
+              </button>
+              <button onClick={() => {}}
+                style={{ background: "transparent", color: "#ffffff88", border: "1px solid #ffffff30", borderRadius: 12, padding: "14px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif" }}>
+                {t("skipAppTour")}
+              </button>
             </div>
 
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
