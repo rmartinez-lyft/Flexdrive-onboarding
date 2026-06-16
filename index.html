@@ -27,11 +27,6 @@
   <script type="text/babel" data-presets="react">
 // ═══ GOOGLE SHEETS TRACKING ═══
 // Paste your Google Apps Script Web App URL below:
-// ═══ SLACK NOTIFICATIONS (per market) ═══
-const SLACK_WEBHOOKS = {
-  PDX: "https://hooks.slack.com/triggers/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",
-};
-
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyP33U9l_lohpo9RR3FB4cXjhrux3y7Ahz0Kk9aNS6mnyB5EMDF0qB7KZkCl9OMs3Bb/exec";
 
 
@@ -1609,7 +1604,6 @@ function FlexdriveOnboarding() {
   useEffect(() => {
     if (showCelebration && !trackingSentRef.current) {
       sendTrackingData(!!evChoice, !!evChoice);
-      sendSlackNotification();
     }
   }, [showCelebration]);
 
@@ -1647,25 +1641,6 @@ function FlexdriveOnboarding() {
 
   const trackQuizResult = (moduleId, question, firstTryCorrect, attempts) => {
     setQuizResults((prev) => [...prev, { module: moduleId, question, firstTryCorrect, attempts }]);
-  };
-
-  const sendSlackNotification = () => {
-    const webhookUrl = SLACK_WEBHOOKS[market];
-    if (!webhookUrl) return;
-    console.log("Sending Slack notification for market:", market);
-    fetch(webhookUrl, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        driver_name: driverName || "Unknown",
-        market: market || "",
-        language: lang === "es" ? "Spanish" : lang === "ru" ? "Russian" : lang === "ar" ? "Arabic" : "English",
-        vehicle_type: evChoice ? "EV" : "Non-EV",
-        completion_time: finalTime ? formatTime(finalTime) : "N/A",
-        modules_completed: completedModules.size + "/" + MODS.length,
-      }),
-    }).then(() => console.log("Slack request sent")).catch((e) => console.log("Slack error:", e));
   };
 
   const sendTrackingData = (isEV, evDone) => {
