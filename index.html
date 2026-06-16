@@ -27,11 +27,6 @@
   <script type="text/babel" data-presets="react">
 // ═══ GOOGLE SHEETS TRACKING ═══
 // Paste your Google Apps Script Web App URL below:
-// ═══ SLACK NOTIFICATIONS (per market) ═══
-const SLACK_WEBHOOKS = {
-  PDX: "https://hooks.slack.com/triggers/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",
-};
-
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyP33U9l_lohpo9RR3FB4cXjhrux3y7Ahz0Kk9aNS6mnyB5EMDF0qB7KZkCl9OMs3Bb/exec";
 
 
@@ -1609,7 +1604,6 @@ function FlexdriveOnboarding() {
   useEffect(() => {
     if (showCelebration && !trackingSentRef.current) {
       sendTrackingData(!!evChoice, !!evChoice);
-      sendSlackNotification();
     }
   }, [showCelebration]);
 
@@ -1647,22 +1641,6 @@ function FlexdriveOnboarding() {
 
   const trackQuizResult = (moduleId, question, firstTryCorrect, attempts) => {
     setQuizResults((prev) => [...prev, { module: moduleId, question, firstTryCorrect, attempts }]);
-  };
-
-  const sendSlackNotification = () => {
-    const webhookUrl = SLACK_WEBHOOKS[market];
-    if (!webhookUrl) return;
-    const marketInfo = MARKET_REGIONS.flatMap(r => r.markets).find(m => m.code === market);
-    const marketName = marketInfo ? marketInfo.name : market;
-    const payload = {
-      text: "*Driver Completed Onboarding*\nName: " + (driverName || "Unknown") + "\nMarket: " + market + " \u2014 " + marketName + "\nLanguage: " + (lang === "es" ? "Spanish" : lang === "ru" ? "Russian" : lang === "ar" ? "Arabic" : "English") + "\nVehicle: " + (evChoice ? "EV" : "Non-EV") + "\nCompletion time: " + (finalTime ? formatTime(finalTime) : "N/A") + "\nModules: " + completedModules.size + "/" + MODS.length,
-    };
-    fetch(webhookUrl, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }).catch(() => {});
   };
 
   const sendTrackingData = (isEV, evDone) => {
