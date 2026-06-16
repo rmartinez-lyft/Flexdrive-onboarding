@@ -1031,7 +1031,7 @@ const UI = {
     selectMarketSub: "Choose the location where you are renting",
     yourBonus: "Your Ride Bonus",
     ridesRequired: "rides",
-    enterPhone: "Enter your phone number",
+    enterName: "Enter your first name",
     noBonus: "Your market does not have any EV bonuses currently.",
     noneOfTheseMarkets: "None of these markets",
     appTourQuestion: "Want a hands-on tour of the Lyft Driver App?",
@@ -1095,7 +1095,7 @@ const UI = {
     selectMarketSub: "Elige la ubicación donde estás rentando",
     yourBonus: "Tu Bono de Viajes",
     ridesRequired: "viajes",
-    enterPhone: "Ingresa tu numero de telefono",
+    enterName: "Ingresa tu nombre",
     noBonus: "Tu mercado no tiene bonos de VE actualmente.",
     noneOfTheseMarkets: "Ninguno de estos mercados",
     appTourQuestion: "Quieres un recorrido interactivo de la app Lyft Driver?",
@@ -1159,7 +1159,7 @@ const UI = {
     selectMarketSub: "Выберите локацию, где вы арендуете",
     yourBonus: "Ваш Бонус за Поездки",
     ridesRequired: "поездок",
-    enterPhone: "Введите номер телефона",
+    enterName: "Введите ваше имя",
     noBonus: "В вашем регионе нет бонусов за ЭМ в настоящее время.",
     noneOfTheseMarkets: "Ни один из этих рынков",
     appTourQuestion: "Хотите интерактивный тур по приложению Lyft Driver?",
@@ -1223,7 +1223,7 @@ const UI = {
     selectMarketSub: "اختر الموقع الذي تستأجر منه",
     yourBonus: "مكافأة رحلاتك",
     ridesRequired: "رحلات",
-    enterPhone: "ادخل رقم هاتفك",
+    enterName: "ادخل اسمك الأول",
     noBonus: "سوقك لا يملك أي مكافآت للمركبات الكهربائية حالياً.",
     noneOfTheseMarkets: "لا شيء من هذه الأسواق",
     appTourQuestion: "هل تريد جولة تفاعلية في تطبيق Lyft Driver؟",
@@ -1558,7 +1558,7 @@ function FlexdriveOnboarding() {
   const [evChoice, setEvChoice] = useState(null);
   const [market, setMarket] = useState(null);
   const [bonusSeen, setBonusSeen] = useState(false);
-  const [driverPhone, setDriverPhone] = useState(""); // null=not asked, true=EV, false=not EV
+  const [driverName, setDriverName] = useState(""); // null=not asked, true=EV, false=not EV
 
   // ─── Tracking State ───
   const [quizResults, setQuizResults] = useState([]);
@@ -1652,7 +1652,7 @@ function FlexdriveOnboarding() {
       completionTimeFormatted: finalTime ? formatTime(finalTime) : "0:00",
       modulesCompleted: completedModules.size,
       totalModules: MODS.length,
-      driverPhone: driverPhone || "",
+      driverName: driverName || "",
       market: market || "",
       isEV: isEV ? "Yes" : "No",
       evCompleted: isEV ? "Yes" : "N/A",
@@ -1680,7 +1680,7 @@ function FlexdriveOnboarding() {
     setEvChoice(null);
     setMarket(null);
     setBonusSeen(false);
-    setDriverPhone("");
+    setDriverName("");
     setQuizResults([]);
     setModuleTimes([]);
     moduleStartRef.current = null;
@@ -1828,10 +1828,10 @@ function FlexdriveOnboarding() {
 
               <div style={{ width: "100%", marginBottom: 16 }}>
                 <input
-                  type="tel"
-                  placeholder={t("enterPhone")}
-                  value={driverPhone}
-                  onChange={(e) => setDriverPhone(e.target.value)}
+                  type="text"
+                  placeholder={t("enterName")}
+                  value={driverName}
+                  onChange={(e) => setDriverName(e.target.value)}
                   style={{ width: "100%", padding: "12px 16px", borderRadius: 10, border: "1px solid #ffffff30", background: "#ffffff12", color: "#fff", fontSize: 15, fontFamily: "'Source Sans Pro', sans-serif", outline: "none", textAlign: "center", letterSpacing: "0.05em" }}
                 />
               </div>
@@ -1842,8 +1842,8 @@ function FlexdriveOnboarding() {
                     <p style={{ fontSize: 10, fontWeight: 800, color: "#FF00BF", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6, textAlign: "left", paddingLeft: 4 }}>{region.region}</p>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {region.markets.map((m) => (
-                        <button key={m.code} onClick={() => selectMarket(m.code)} disabled={driverPhone.length < 7}
-                          style={{ background: driverPhone.length < 7 ? "#ffffff20" : "#FF00BF", color: "#fff", border: "none", borderRadius: 10, padding: "10px 14px", fontSize: 12, fontWeight: 700, cursor: driverPhone.length < 7 ? "not-allowed" : "pointer", fontFamily: "'Source Sans Pro', sans-serif", flex: "1 1 calc(50% - 4px)", minWidth: 120, transition: "all 0.25s", opacity: driverPhone.length < 7 ? 0.4 : 1 }}>
+                        <button key={m.code} onClick={() => selectMarket(m.code)} disabled={driverName.length < 2}
+                          style={{ background: driverName.length < 2 ? "#ffffff20" : "#FF00BF", color: "#fff", border: "none", borderRadius: 10, padding: "10px 14px", fontSize: 12, fontWeight: 700, cursor: driverName.length < 2 ? "not-allowed" : "pointer", fontFamily: "'Source Sans Pro', sans-serif", flex: "1 1 calc(50% - 4px)", minWidth: 120, transition: "all 0.25s", opacity: driverName.length < 2 ? 0.4 : 1 }}>
                           {m.code} — {m.name}
                         </button>
                       ))}
