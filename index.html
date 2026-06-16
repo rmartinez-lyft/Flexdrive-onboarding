@@ -802,101 +802,132 @@ const MODULES_AR = [
 ];
 
 
-const MARKETS = {
+const MARKET_REGIONS = [
+  { region: "West Pacific", markets: [
+    { code: "LAX", name: "Los Angeles" },
+    { code: "SFO", name: "San Francisco" },
+    { code: "SAN", name: "San Diego" },
+    { code: "PDX", name: "Portland" },
+  ]},
+  { region: "Midwest Rockies", markets: [
+    { code: "CHI", name: "Chicago" },
+    { code: "CVG", name: "Cincinnati" },
+    { code: "CLE", name: "Cleveland" },
+    { code: "MKE", name: "Milwaukee" },
+    { code: "DEN", name: "Denver" },
+  ]},
+  { region: "Northeast", markets: [
+    { code: "BWI", name: "Baltimore" },
+    { code: "BOS", name: "Boston" },
+    { code: "DCA", name: "Washington DC" },
+    { code: "PIT", name: "Pittsburgh" },
+    { code: "PHI", name: "Philadelphia" },
+  ]},
+  { region: "Southeast", markets: [
+    { code: "ATL", name: "Atlanta" },
+    { code: "ORF", name: "Norfolk" },
+    { code: "CLT", name: "Charlotte" },
+  ]},
+  { region: "Southwest Plains", markets: [
+    { code: "AUS", name: "Austin" },
+    { code: "DFW", name: "Dallas-Fort Worth" },
+    { code: "IAH", name: "Houston" },
+    { code: "SAT", name: "San Antonio" },
+    { code: "PHX", name: "Phoenix" },
+  ]},
+];
+
+const MARKET_BONUSES = {
   SFO: {
-    code: "SFO",
-    en: { name: "San Francisco", bonusTitle: "EV Incentive Bonus", bonusNote: "Available for EV rentals only.", tiers: [
+    evOnly: true,
+    en: { bonusTitle: "EV Incentive Bonus", bonusNote: "Available for EV rentals only.", tiers: [
       { rides: 50, reward: "$50 off your weekly rental rate" },
       { rides: 70, reward: "$70 off your weekly rental rate" },
       { rides: 90, reward: "$140 off your weekly rental rate" },
     ]},
-    es: { name: "San Francisco", bonusTitle: "Bono de Incentivo EV", bonusNote: "Disponible solo para alquileres de VE.", tiers: [
+    es: { bonusTitle: "Bono de Incentivo EV", bonusNote: "Disponible solo para alquileres de VE.", tiers: [
       { rides: 50, reward: "$50 de descuento en tu tarifa semanal" },
       { rides: 70, reward: "$70 de descuento en tu tarifa semanal" },
       { rides: 90, reward: "$140 de descuento en tu tarifa semanal" },
     ]},
-    ru: { name: "Сан-Франциско", bonusTitle: "Бонус за ЭМ", bonusNote: "Доступно только для аренды ЭМ.", tiers: [
+    ru: { bonusTitle: "Бонус за ЭМ", bonusNote: "Доступно только для аренды ЭМ.", tiers: [
       { rides: 50, reward: "$50 скидка на еженедельную плату" },
       { rides: 70, reward: "$70 скидка на еженедельную плату" },
       { rides: 90, reward: "$140 скидка на еженедельную плату" },
     ]},
-    ar: { name: "سان فرانسيسكو", bonusTitle: "مكافأة حافز المركبة الكهربائية", bonusNote: "متاح فقط لإيجارات المركبات الكهربائية.", tiers: [
+    ar: { bonusTitle: "مكافأة حافز المركبة الكهربائية", bonusNote: "متاح فقط لإيجارات المركبات الكهربائية.", tiers: [
       { rides: 50, reward: "$50 خصم على سعر الإيجار الأسبوعي" },
       { rides: 70, reward: "$70 خصم على سعر الإيجار الأسبوعي" },
       { rides: 90, reward: "$140 خصم على سعر الإيجار الأسبوعي" },
     ]},
   },
   PDX: {
-    code: "PDX",
-    en: { name: "Portland", bonusTitle: "Weekly Ride Bonus", tiers: [
+    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
       { rides: 60, reward: "$90 off your weekly rental rate" },
       { rides: 80, reward: "$110 off your weekly rental rate" },
       { rides: 100, reward: "$150 off your weekly rental rate" },
     ]},
-    es: { name: "Portland", bonusTitle: "Bono Semanal de Viajes", tiers: [
+    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
       { rides: 60, reward: "$90 de descuento en tu tarifa semanal" },
       { rides: 80, reward: "$110 de descuento en tu tarifa semanal" },
       { rides: 100, reward: "$150 de descuento en tu tarifa semanal" },
     ]},
-    ru: { name: "Портленд", bonusTitle: "Еженедельный Бонус", tiers: [
+    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
       { rides: 60, reward: "$90 скидка на еженедельную плату" },
       { rides: 80, reward: "$110 скидка на еженедельную плату" },
       { rides: 100, reward: "$150 скидка на еженедельную плату" },
     ]},
-    ar: { name: "بورتلاند", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
       { rides: 60, reward: "$90 خصم على سعر الإيجار الأسبوعي" },
       { rides: 80, reward: "$110 خصم على سعر الإيجار الأسبوعي" },
       { rides: 100, reward: "$150 خصم على سعر الإيجار الأسبوعي" },
     ]},
   },
   SAN: {
-    code: "SAN",
-    en: { name: "San Diego", bonusTitle: "Weekly Ride Bonus", tiers: [
+    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
       { rides: 30, reward: "$60 off your weekly rental rate" },
       { rides: 50, reward: "$80 off your weekly rental rate" },
       { rides: 80, reward: "$120 off your weekly rental rate" },
     ]},
-    es: { name: "San Diego", bonusTitle: "Bono Semanal de Viajes", tiers: [
+    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
       { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
       { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
       { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
     ]},
-    ru: { name: "Сан-Диего", bonusTitle: "Еженедельный Бонус", tiers: [
+    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
       { rides: 30, reward: "$60 скидка на еженедельную плату" },
       { rides: 50, reward: "$80 скидка на еженедельную плату" },
       { rides: 80, reward: "$120 скидка на еженедельную плату" },
     ]},
-    ar: { name: "سان دييغو", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
       { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
       { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
       { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
     ]},
   },
   LAX: {
-    code: "LAX",
-    en: { name: "Los Angeles", bonusTitle: "Weekly Ride Bonus", tiers: [
+    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
       { rides: 30, reward: "$60 off your weekly rental rate" },
       { rides: 50, reward: "$80 off your weekly rental rate" },
       { rides: 80, reward: "$120 off your weekly rental rate" },
     ]},
-    es: { name: "Los Angeles", bonusTitle: "Bono Semanal de Viajes", tiers: [
+    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
       { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
       { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
       { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
     ]},
-    ru: { name: "Лос-Анджелес", bonusTitle: "Еженедельный Бонус", tiers: [
+    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
       { rides: 30, reward: "$60 скидка на еженедельную плату" },
       { rides: 50, reward: "$80 скидка на еженедельную плату" },
       { rides: 80, reward: "$120 скидка на еженедельную плату" },
     ]},
-    ar: { name: "لوس أنجلوس", bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
+    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
       { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
       { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
       { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
     ]},
   },
 };
-
 const EV_MODULE = {
   en: {
     id: "ev", icon: "", title: "Electric Vehicle Basics", subtitle: "Everything you need to know about your EV", accent: "#003B71",
@@ -1000,6 +1031,8 @@ const UI = {
     selectMarketSub: "Choose the location where you are renting",
     yourBonus: "Your Ride Bonus",
     ridesRequired: "rides",
+    enterPhone: "Enter your phone number",
+    noBonus: "Your market does not have any EV bonuses currently.",
     noneOfTheseMarkets: "None of these markets",
     appTourQuestion: "Want a hands-on tour of the Lyft Driver App?",
     startAppTour: "Start App Tour",
@@ -1062,6 +1095,8 @@ const UI = {
     selectMarketSub: "Elige la ubicación donde estás rentando",
     yourBonus: "Tu Bono de Viajes",
     ridesRequired: "viajes",
+    enterPhone: "Ingresa tu numero de telefono",
+    noBonus: "Tu mercado no tiene bonos de VE actualmente.",
     noneOfTheseMarkets: "Ninguno de estos mercados",
     appTourQuestion: "Quieres un recorrido interactivo de la app Lyft Driver?",
     startAppTour: "Iniciar Recorrido",
@@ -1124,6 +1159,8 @@ const UI = {
     selectMarketSub: "Выберите локацию, где вы арендуете",
     yourBonus: "Ваш Бонус за Поездки",
     ridesRequired: "поездок",
+    enterPhone: "Введите номер телефона",
+    noBonus: "В вашем регионе нет бонусов за ЭМ в настоящее время.",
     noneOfTheseMarkets: "Ни один из этих рынков",
     appTourQuestion: "Хотите интерактивный тур по приложению Lyft Driver?",
     startAppTour: "Начать Тур",
@@ -1186,6 +1223,8 @@ const UI = {
     selectMarketSub: "اختر الموقع الذي تستأجر منه",
     yourBonus: "مكافأة رحلاتك",
     ridesRequired: "رحلات",
+    enterPhone: "ادخل رقم هاتفك",
+    noBonus: "سوقك لا يملك أي مكافآت للمركبات الكهربائية حالياً.",
     noneOfTheseMarkets: "لا شيء من هذه الأسواق",
     appTourQuestion: "هل تريد جولة تفاعلية في تطبيق Lyft Driver؟",
     startAppTour: "بدء الجولة",
@@ -1518,7 +1557,8 @@ function FlexdriveOnboarding() {
   const [finalTime, setFinalTime] = useState(null);
   const [evChoice, setEvChoice] = useState(null);
   const [market, setMarket] = useState(null);
-  const [bonusSeen, setBonusSeen] = useState(false); // null=not asked, true=EV, false=not EV
+  const [bonusSeen, setBonusSeen] = useState(false);
+  const [driverPhone, setDriverPhone] = useState(""); // null=not asked, true=EV, false=not EV
 
   // ─── Tracking State ───
   const [quizResults, setQuizResults] = useState([]);
@@ -1530,7 +1570,7 @@ function FlexdriveOnboarding() {
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
   const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
-  const marketData = market && MARKETS[market] ? (MARKETS[market][lang] || MARKETS[market].en) : null;
+  const marketData = market && MARKET_BONUSES[market] ? (MARKET_BONUSES[market][lang] || MARKET_BONUSES[market].en) : null;
   const mod = activeModuleIdx !== null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
   const totalCompleted = completedModules.size;
@@ -1612,6 +1652,7 @@ function FlexdriveOnboarding() {
       completionTimeFormatted: finalTime ? formatTime(finalTime) : "0:00",
       modulesCompleted: completedModules.size,
       totalModules: MODS.length,
+      driverPhone: driverPhone || "",
       market: market || "",
       isEV: isEV ? "Yes" : "No",
       evCompleted: isEV ? "Yes" : "N/A",
@@ -1639,6 +1680,7 @@ function FlexdriveOnboarding() {
     setEvChoice(null);
     setMarket(null);
     setBonusSeen(false);
+    setDriverPhone("");
     setQuizResults([]);
     setModuleTimes([]);
     moduleStartRef.current = null;
@@ -1774,6 +1816,42 @@ function FlexdriveOnboarding() {
                 </button>
               </div>
             </div>
+            ) : market === null ? (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 520, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "32px 28px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
+
+              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 22, fontWeight: 800, color: "#ffffff", marginBottom: 6, lineHeight: 1.25 }}>
+                {t("selectMarket")}
+              </h2>
+              <p style={{ fontSize: 12, color: "#ffffff88", lineHeight: 1.5, marginBottom: 6 }}>
+                {t("selectMarketSub")}
+              </p>
+
+              <div style={{ width: "100%", marginBottom: 16 }}>
+                <input
+                  type="tel"
+                  placeholder={t("enterPhone")}
+                  value={driverPhone}
+                  onChange={(e) => setDriverPhone(e.target.value)}
+                  style={{ width: "100%", padding: "12px 16px", borderRadius: 10, border: "1px solid #ffffff30", background: "#ffffff12", color: "#fff", fontSize: 15, fontFamily: "'Source Sans Pro', sans-serif", outline: "none", textAlign: "center", letterSpacing: "0.05em" }}
+                />
+              </div>
+
+              <div style={{ width: "100%", maxHeight: 340, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+                {MARKET_REGIONS.map((region) => (
+                  <div key={region.region} style={{ marginBottom: 12 }}>
+                    <p style={{ fontSize: 10, fontWeight: 800, color: "#FF00BF", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6, textAlign: "left", paddingLeft: 4 }}>{region.region}</p>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {region.markets.map((m) => (
+                        <button key={m.code} onClick={() => selectMarket(m.code)} disabled={driverPhone.length < 7}
+                          style={{ background: driverPhone.length < 7 ? "#ffffff20" : "#FF00BF", color: "#fff", border: "none", borderRadius: 10, padding: "10px 14px", fontSize: 12, fontWeight: 700, cursor: driverPhone.length < 7 ? "not-allowed" : "pointer", fontFamily: "'Source Sans Pro', sans-serif", flex: "1 1 calc(50% - 4px)", minWidth: 120, transition: "all 0.25s", opacity: driverPhone.length < 7 ? 0.4 : 1 }}>
+                          {m.code} — {m.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
             ) : evChoice === null ? (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
 
@@ -1789,41 +1867,9 @@ function FlexdriveOnboarding() {
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("yesEV")}
                 </button>
-                <button onClick={() => { setEvChoice(false); setMarket("none"); setBonusSeen(true); }}
+                <button onClick={() => { setEvChoice(false); setBonusSeen(true); }}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("noEV")}
-                </button>
-              </div>
-            </div>
-            ) : market === null ? (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
-
-              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 6, lineHeight: 1.25 }}>
-                {t("selectMarket")}
-              </h2>
-              <p style={{ fontSize: 13, color: "#ffffff88", lineHeight: 1.5, marginBottom: 24 }}>
-                {t("selectMarketSub")}
-              </p>
-              <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
-                <button onClick={() => selectMarket("SFO")}
-                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
-                  SFO — San Francisco
-                </button>
-                <button onClick={() => selectMarket("PDX")}
-                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
-                  PDX — Portland
-                </button>
-                <button onClick={() => selectMarket("SAN")}
-                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
-                  SAN — San Diego
-                </button>
-                <button onClick={() => selectMarket("LAX")}
-                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
-                  LAX — Los Angeles
-                </button>
-                <button onClick={() => { setMarket("none"); setBonusSeen(true); }}
-                  style={{ background: "transparent", color: "#ffffff", border: "2px solid #ffffff30", borderRadius: 14, padding: "14px 36px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s", width: "100%", marginTop: 4 }}>
-                  {t("noneOfTheseMarkets")}
                 </button>
               </div>
             </div>
@@ -1836,7 +1882,7 @@ function FlexdriveOnboarding() {
               <p style={{ fontSize: 14, color: "#ffffffcc", marginBottom: 24 }}>
                 {marketData ? marketData.name : ""}
               </p>
-              {marketData && marketData.tiers.length > 0 && (
+              {marketData && marketData.tiers.length > 0 ? (
                 <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "20px 24px", marginBottom: 24, textAlign: "left", width: "100%" }}>
                   <p style={{ fontSize: 14, fontWeight: 700, color: "#FF00BF", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>{marketData.bonusTitle}</p>
                   {marketData.tiers.map((tier, i) => (
@@ -1846,6 +1892,10 @@ function FlexdriveOnboarding() {
                     </div>
                   ))}
                   {marketData.bonusNote && <p style={{ fontSize: 13, color: "#ffffff88", marginTop: 10, fontStyle: "italic" }}>{marketData.bonusNote}</p>}
+                </div>
+              ) : (
+                <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "20px 24px", marginBottom: 24, width: "100%" }}>
+                  <p style={{ fontSize: 14, color: "#ffffffcc", lineHeight: 1.6, textAlign: "center" }}>{t("noBonus")}</p>
                 </div>
               )}
               <button onClick={handleBonusContinue} style={btnPrimary("#FF00BF", false)}>
