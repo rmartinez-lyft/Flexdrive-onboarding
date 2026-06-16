@@ -1652,9 +1652,11 @@ function FlexdriveOnboarding() {
   const sendSlackNotification = () => {
     const webhookUrl = SLACK_WEBHOOKS[market];
     if (!webhookUrl) return;
+    console.log("Sending Slack notification for market:", market);
     fetch(webhookUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
         driver_name: driverName || "Unknown",
         market: market || "",
@@ -1663,7 +1665,7 @@ function FlexdriveOnboarding() {
         completion_time: finalTime ? formatTime(finalTime) : "N/A",
         modules_completed: completedModules.size + "/" + MODS.length,
       }),
-    }).catch(() => {});
+    }).then(() => console.log("Slack request sent")).catch((e) => console.log("Slack error:", e));
   };
 
   const sendTrackingData = (isEV, evDone) => {
