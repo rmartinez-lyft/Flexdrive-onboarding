@@ -1033,6 +1033,7 @@ const UI = {
     ridesRequired: "rides",
     enterName: "Enter your first name",
     noBonus: "Your market does not have any EV bonuses currently.",
+    associateNotified: "An associate has been notified that you are finished. They will call you up shortly.",
     noneOfTheseMarkets: "None of these markets",
     appTourQuestion: "Want a hands-on tour of the Lyft Driver App?",
     startAppTour: "Start App Tour",
@@ -1097,6 +1098,7 @@ const UI = {
     ridesRequired: "viajes",
     enterName: "Ingresa tu nombre",
     noBonus: "Tu mercado no tiene bonos de VE actualmente.",
+    associateNotified: "Un asociado ha sido notificado de que terminaste. Te llamarán en breve.",
     noneOfTheseMarkets: "Ninguno de estos mercados",
     appTourQuestion: "Quieres un recorrido interactivo de la app Lyft Driver?",
     startAppTour: "Iniciar Recorrido",
@@ -1161,6 +1163,7 @@ const UI = {
     ridesRequired: "поездок",
     enterName: "Введите ваше имя",
     noBonus: "В вашем регионе нет бонусов за ЭМ в настоящее время.",
+    associateNotified: "Сотрудник уведомлён, что вы закончили. Вас вызовут в ближайшее время.",
     noneOfTheseMarkets: "Ни один из этих рынков",
     appTourQuestion: "Хотите интерактивный тур по приложению Lyft Driver?",
     startAppTour: "Начать Тур",
@@ -1225,6 +1228,7 @@ const UI = {
     ridesRequired: "رحلات",
     enterName: "ادخل اسمك الأول",
     noBonus: "سوقك لا يملك أي مكافآت للمركبات الكهربائية حالياً.",
+    associateNotified: "تم إخطار الموظف بأنك انتهيت. سيتم استدعاؤك قريباً.",
     noneOfTheseMarkets: "لا شيء من هذه الأسواق",
     appTourQuestion: "هل تريد جولة تفاعلية في تطبيق Lyft Driver؟",
     startAppTour: "بدء الجولة",
@@ -2001,9 +2005,14 @@ function FlexdriveOnboarding() {
             boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
           }}>
 
-            <h1 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 24, fontWeight: 900, color: "#ffffff", margin: "0 0 6px" }}>
+            <h1 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 24, fontWeight: 900, color: "#ffffff", margin: "0 0 12px" }}>
               {t("youDidIt")}
             </h1>
+            <div style={{ background: "#FF00BF", borderRadius: 12, padding: "16px 20px", marginBottom: 16, width: "100%", maxWidth: 400 }}>
+              <p style={{ fontSize: 16, fontWeight: 800, color: "#ffffff", lineHeight: 1.5, textAlign: "center" }}>
+                {t("associateNotified")}
+              </p>
+            </div>
             <p style={{ fontSize: 14, color: "#ffffffcc", lineHeight: 1.5, margin: "0 0 6px" }}>
               {t("celebSub1")} {MODS.length}
             </p>
