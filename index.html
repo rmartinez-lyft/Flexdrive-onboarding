@@ -803,6 +803,92 @@ const MODULES_AR = [
 ];
 
 
+const MODULES_FR = [
+  {
+    id: "billing", icon: "1", title: "Facturation et Revenus", subtitle: "Comment fonctionne votre semaine de facturation", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Facturation et Revenus", body: "Ce module explique comment fonctionne votre semaine de facturation, comment vos revenus s'appliquent aux frais de location, et ce que vous devez savoir sur les charges." },
+      { type: "learn", label: "Semaine de Facturation", title: "Votre semaine de facturation va du lundi au lundi", body: "La semaine de facturation commence le **lundi a 5h00** et se termine le **lundi suivant a 4h59**. Tout — vos revenus, nombre de courses et miles personnels — est reinitialise au debut de chaque semaine. **Vous devez garder le vehicule pendant un minimum de 7 jours.**", callout: { icon: "", text: "Lundi 5h00 - Lundi 4h59" } },
+      { type: "learn", label: "Les Revenus d'Abord", title: "Vos revenus couvrent d'abord les frais de location", body: "Tous vos revenus Lyft seront **d'abord appliques a vos frais de location**. Tout montant restant apres deduction des frais vous est verse. Si vos revenus ne couvrent pas entierement la location, le solde sera debite de votre carte le **mardi** suivant.", callout: { icon: "", text: "Revenus - frais de location d'abord - le reste vous revient" } },
+      { type: "learn", label: "Grille Tarifaire", title: "Les tarifs sont ajustes pour les conducteurs Flexdrive", body: "Les conducteurs en vehicules Express Drive gagnent avec une **grille tarifaire ajustee** car Flexdrive couvre de nombreux couts d'assurance et d'entretien. Consultez le **Tableau de Bord Conducteur** dans votre app Lyft Driver.", callout: null },
+      { type: "learn", label: "Exigence Minimum", title: "Il peut y avoir un minimum de courses par semaine", body: "Certains marches necessitent un nombre minimum de courses par semaine. Verifiez dans l'**app Lyft Driver** les details. **Conseil : Visez au moins 40-60 courses/semaine** pour augmenter vos chances de couvrir votre location.", callout: { icon: "", text: "Conseil : 40-60 courses/semaine" } },
+      { type: "learn", label: "Premiere Semaine", title: "Votre premiere semaine est au prorata", body: "Votre premiere semaine de location est **au prorata** selon le jour ou vous commencez. Vous ne paierez que pour les jours ou vous avez le vehicule.", callout: null },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Quand commence et se termine votre semaine de facturation ?", options: [ { text: "Dimanche minuit a Samedi 23h59", correct: false }, { text: "Lundi 5h00 au Lundi suivant 4h59", correct: true }, { text: "Vendredi minuit a Jeudi 23h59", correct: false }, { text: "Mercredi midi au Mercredi suivant 11h59", correct: false } ], explanation: "La semaine de facturation va du Lundi 5h00 au Lundi suivant 4h59." },
+    ],
+  },
+  {
+    id: "maintenance", icon: "2", title: "Entretien", subtitle: "Ce qui est couvert et ce qui ne l'est pas", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Entretien", body: "Ce module couvre vos responsabilites d'entretien, ce qui est inclus dans votre location, et comment gerer les problemes courants." },
+      { type: "learn", label: "Votre Responsabilite", title: "Vous etes responsable de faire effectuer l'entretien", body: "Vous serez **notifie via l'application** quand il est temps pour l'entretien. Utilisez les **filtres de courses** pour limiter les miles personnels lors des deplacements pour l'entretien.", callout: { icon: "", text: "Notifie via l'app - aller chez un prestataire agree" } },
+      { type: "learn", label: "Ce Qui Est Inclus", title: "L'entretien preventif est inclus dans vos frais hebdomadaires", body: "L'entretien preventif regulier est inclus. Cela ne couvre **PAS** : les crevaisons, clous dans les pneus, dommages de collision, dommages au pare-brise, etc.", callout: null },
+      { type: "learn", label: "Prestataires Agrees", title: "Utilisez uniquement les prestataires agrees", body: "Consultez le livret dans votre vehicule et la liste dans l'**App Conducteur** pour les prestataires agrees.", callout: null },
+      { type: "learn", label: "Problemes Mineurs", title: "Pour les problemes mineurs — visitez un prestataire agree", body: "Si votre vehicule a besoin d'un **changement d'ampoule**, de **liquide lave-glace**, ou affiche un **voyant moteur**, visitez un prestataire agree.", callout: { icon: "", text: "Ampoule, lave-glace, voyant moteur - prestataire agree" } },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "L'entretien preventif est-il inclus dans vos frais hebdomadaires ?", options: [ { text: "Non, tout est a vos frais", correct: false }, { text: "Oui, l'entretien preventif est inclus", correct: true }, { text: "Seulement si vous faites 50+ courses/semaine", correct: false }, { text: "Seulement la premiere annee", correct: false } ], explanation: "L'entretien preventif est inclus. Les crevaisons, dommages de collision et pare-brise ne sont PAS couverts." },
+    ],
+  },
+  {
+    id: "miles", icon: "3", title: "Miles Personnels", subtitle: "Suivi et gestion de vos miles hors ligne", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Miles Personnels", body: "Toute conduite en dehors de Lyft compte comme miles personnels. Ce module explique comment ils s'accumulent et sont factures." },
+      { type: "learn", label: "Quand Ils S'Accumulent", title: "Les miles comptent quand vous etes hors ligne", body: "Les miles personnels s'accumulent chaque fois que le vehicule bouge et que vous n'etes **pas en ligne sur Lyft**. Cela inclut les desactivations, les passagers personnels, les pauses obligatoires et les deplacements pour l'entretien.", callout: { icon: "", text: "Hors ligne + vehicule en mouvement = miles personnels" } },
+      { type: "learn", label: "Comptage", title: "Les miles commencent des 1/10 de mile", body: "Les miles personnels commencent des **1/10 de mile**. Les miles inutilises **ne sont pas reportes** — ils se reinitialisent chaque lundi a 5h00.", callout: null },
+      { type: "learn", label: "Changement de Forfait", title: "Vous pouvez changer votre forfait de miles", body: "Les modifications dans l'app ne prendront **pas effet avant la nouvelle semaine** (Lundi 5h00). Planifiez a l'avance.", callout: null },
+      { type: "learn", label: "Frais de Depassement", title: "Des frais s'appliquent au-dela de votre forfait", body: "Si vous depassez vos miles de **1/10 de mile**, des frais de depassement s'appliquent. Surveillez dans l'app.", callout: { icon: "", text: "Conseil : Filtres de courses pour limiter les miles" } },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Les miles inutilises sont-ils reportes ?", options: [ { text: "Oui, ils s'accumulent", correct: false }, { text: "Oui, jusqu'a 50 miles", correct: false }, { text: "Non, reinitialises chaque semaine", correct: true }, { text: "Non, ils expirent apres 24h", correct: false } ], explanation: "Les miles inutilises ne sont PAS reportes. Reinitialisation chaque lundi a 5h00." },
+    ],
+  },
+  {
+    id: "accidents", icon: "4", title: "Accidents", subtitle: "Que faire en cas de collision", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Accidents", body: "En cas d'accident, suivez les bonnes etapes. Ce module vous guide a travers le processus." },
+      { type: "learn", label: "Etape 1", title: "Appelez d'abord la police", body: "Apres tout accident, **appelez la police** pour deposer un rapport. Ce rapport est indispensable pour l'assurance.", callout: { icon: "", text: "Toujours appeler la police en premier" } },
+      { type: "learn", label: "Etape 2", title: "Signalez dans l'application Lyft", body: "Apres la police, **signalez l'accident dans l'app Lyft Driver**. Le vehicule sera **desactive une fois signale**.", callout: null },
+      { type: "scenario", title: "Scenario Rapide", body: "Accrochage mineur. Le vehicule peut rouler. Apres la police et le signalement, que faire ?", options: [ { text: "Continuer les courses", correct: false }, { text: "Conduire au lieu de location pour inspection", correct: true }, { text: "Aller chez un mecanicien", correct: false } ], explanation: "Si le vehicule peut rouler, conduisez-le au lieu de location pour inspection des que possible." },
+      { type: "learn", label: "Non Roulable", title: "Si le vehicule ne peut pas rouler — appelez Holman", body: "Appelez **Holman Roadside Assistance** au **833-274-5938** (sur le **pare-brise cote conducteur**). Ils organiseront un remorquage.", callout: { icon: "", text: "Numero Holman - pare-brise cote conducteur" } },
+      { type: "learn", label: "Periode de Reclamation", title: "Les reclamations ouvertes suspendent votre eligibilite", body: "Tant qu'une reclamation est ouverte, vous serez **ineligible a la location** jusqu'a resolution complete.", callout: null },
+      { type: "learn", label: "Politique de Re-Location", title: "Regles cles pour relouer apres un accident", body: "**Vous ne pouvez pas relouer le meme jour** — meme avec CDW. Flexdrive facturera **jusqu'a 1 000 $ par incident** (plus taxes). L'assureur doit determiner la responsabilite — cela peut prendre **plusieurs mois.**", callout: { icon: "", text: "Pas de re-location le meme jour — meme avec CDW." } },
+      { type: "learn", label: "Eligibilite Re-Location", title: "Ce qui determine si vous pouvez relouer", body: "**Vous N'ETES PAS eligible si :** plus d'1 incident en 12 mois OU 3+ incidents au total. **Sans faute :** revision FNOL complete, compte en regle (pas de solde, pas de retards, 6 semaines minimum avec courses atteintes), frais payes, cooperation avec assurance. **Avec faute :** tout ce qui precede PLUS evenement naturel inevitable.", callout: { icon: "", text: "En regle = pas de solde + pas de retards + 6 semaines + minimums atteints." } },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Apres un accident, quand pouvez-vous relouer ?", options: [ { text: "Le meme jour avec CDW", correct: false }, { text: "Apres determination de responsabilite, frais payes et compte en regle", correct: true }, { text: "Immediatement apres le rapport de police", correct: false }, { text: "Apres 24 heures", correct: false } ], explanation: "Re-location jamais le meme jour. L'assureur doit determiner la responsabilite, tous les frais payes et compte en regle." },
+    ],
+  },
+  {
+    id: "damage", icon: "5", title: "Dommages", subtitle: "Inspections, frais et protection CDW", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Dommages", body: "Comprendre les seuils de dommages, vos responsabilites et les options CDW." },
+      { type: "learn", label: "Inspection Pre-Location", title: "Inspection avec votre associe", body: "Une **inspection pre-location** est effectuee avant la signature. **Apres signature, vous etes responsable de tout nouveau dommage.**", callout: { icon: "", text: "Verifiez bien lors de l'inspection" } },
+      { type: "learn", label: "Seuil de Dommages", title: "Facturables : plus de 15 cm ou plus grand qu'une piece", body: "Dommage facturable : **superieur a 15 cm OU plus grand qu'une piece de 25 cents**. **Ne reparez jamais vous-meme.**", callout: { icon: "", text: "Plus de 15 cm ou plus grand qu'une piece = facturable" } },
+      { type: "learn", label: "Avec vs Sans CDW", title: "Comment le CDW vous protege", body: "**Avec CDW :** Responsabilite limitee a la franchise ajustee. **Sans CDW :** Responsable jusqu'a 1 000 $ par incident (plus taxes).", callout: null },
+      { type: "learn", label: "Comment Ajouter le CDW", title: "Ajoutez ou modifiez le CDW sur place", body: "Ajoutez le CDW lors de la signature. **Les modifications necessitent une inspection sur place** et un renouvellement en personne.", callout: { icon: "", text: "Modifications CDW = visite sur place" } },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Quel est le seuil de dommage facturable ?", options: [ { text: "Tout dommage visible", correct: false }, { text: "Plus de 15 cm ou plus grand qu'une piece de 25 cents", correct: true }, { text: "Seulement les dommages structurels", correct: false }, { text: "Plus de 30 cm uniquement", correct: false } ], explanation: "Dommage facturable : plus de 15 cm OU plus grand qu'une piece. Ne reparez jamais vous-meme." },
+    ],
+  },
+  {
+    id: "return", icon: "6", title: "Attentes de Retour", subtitle: "Rendez-vous, etat du vehicule et procedures", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Attentes de Retour", body: "Exigences pour l'etat du vehicule, la planification et les effets personnels au retour." },
+      { type: "learn", label: "Rendez-vous", title: "Planifiez votre retour a l'avance", body: "Planifiez via l'**App Lyft Driver**. Bien que non obligatoire, cela assure un processus fluide. **Vous serez facture pour le jour de retour, quelle que soit l'heure.** Retours acceptes jusqu'a 30 minutes avant la fermeture.", callout: null },
+      { type: "learn", label: "Etat du Vehicule", title: "Rendez le vehicule propre et avec le plein", body: "Le vehicule doit etre **aspire et essuye a l'interieur**, **lave a l'exterieur**, et le **carburant au meme niveau qu'a la prise en charge**.", callout: { icon: "", text: "Propre dedans + lave dehors + plein de carburant" } },
+      { type: "learn", label: "Retour Apres les Heures", title: "Retours apres les heures = factures jusqu'au prochain jour ouvre", body: "Si le vehicule est rendu **apres les heures/le week-end**, votre contrat ne sera pas cloture avant le **prochain jour ouvre**.", callout: null },
+      { type: "learn", label: "Effets Personnels", title: "Tous les effets laisses seront elimines", body: "Lyft/Flexdrive n'est pas responsable des effets laisses. **TOUS LES EFFETS SERONT ELIMINES** lors du retour.", callout: { icon: "", text: "Retirez TOUT avant de rendre le vehicule" } },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Dans quel etat doit etre le vehicule au retour ?", options: [ { text: "N'importe quel etat", correct: false }, { text: "Propre dedans et dehors, carburant au niveau de prise en charge", correct: true }, { text: "Juste le plein", correct: false }, { text: "Juste aspire", correct: false } ], explanation: "Aspire et essuye dedans, lave dehors, carburant au meme niveau." },
+    ],
+  },
+  {
+    id: "app", icon: "7", title: "Naviguer dans l'App Lyft Driver", subtitle: "Fonctionnalites cles de l'application", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Naviguer dans l'App Lyft Driver", body: "Apprenez a naviguer dans les fonctionnalites cles de l'app Lyft Driver pour votre location Flexdrive." },
+      { type: "visual", label: "Etape 1", title: "Ouvrez l'application Lyft Driver", body: "Lancez l'app Lyft Driver. Vous verrez le tableau de bord conducteur.", image: null, callout: { icon: "", text: "Utilisez l'app Lyft Driver, pas l'app passager" } },
+      { type: "visual", label: "Etape 2", title: "Accedez au menu de votre compte", body: "Appuyez sur l'**icone de profil** ou le **menu** pour acceder aux parametres.", image: null, callout: null },
+      { type: "visual", label: "Etape 3", title: "Trouvez votre section vehicule", body: "Naviguez vers **Vos Vehicules** pour voir les details de votre location.", image: null, callout: null },
+      { type: "visual", label: "Etape 4", title: "Tableau de bord de location", body: "Le **Tableau de Bord** affiche votre semaine, vos revenus, l'utilisation des miles et l'entretien.", image: null, callout: { icon: "", text: "Verifiez regulierement" } },
+      { type: "visual", label: "Etape 5", title: "Gerez votre location", body: "Depuis **Gerer la Location**, voyez le contrat, planifiez les retours et contactez le support.", image: null, callout: null },
+      { type: "checkpoint", title: "Verification des Connaissances", question: "Ou voir les details de votre location ?", options: [ { text: "Ecran d'accueil uniquement", correct: false }, { text: "Vos Vehicules - Tableau de Bord", correct: true }, { text: "Parametres - General", correct: false }, { text: "Pas dans l'app", correct: false } ], explanation: "Section Vos Vehicules, Tableau de Bord pour facturation, revenus et miles." },
+    ],
+  },
+];
+
+
 const MARKET_REGIONS = [
   { region: "West Pacific", markets: [
     { code: "LAX", name: "Los Angeles" },
@@ -990,6 +1076,22 @@ const EV_MODULE = {
       { type: "checkpoint", title: "\u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u0643\u0647\u0631\u0628\u0627\u0626\u064a", question: "\u0645\u0627 \u0647\u0648 \u0646\u0637\u0627\u0642 \u0627\u0644\u0634\u062d\u0646 \u0627\u0644\u064a\u0648\u0645\u064a \u0627\u0644\u0623\u0645\u062b\u0644\u061f", options: [ { text: "0\u2013100% \u0643\u0644 \u0645\u0631\u0629", correct: false }, { text: "20\u201380%", correct: true }, { text: "50\u2013100%", correct: false }, { text: "\u062a\u0641\u0631\u064a\u063a \u0644\u0640 0% \u062b\u0645 \u0634\u062d\u0646 \u0643\u0627\u0645\u0644", correct: false } ], explanation: "\u0634\u062d\u0646 20\u201380% \u064a\u0648\u0645\u064a\u0627\u064b. 100% \u0644\u0644\u0631\u062d\u0644\u0627\u062a \u0627\u0644\u0637\u0648\u064a\u0644\u0629 \u0641\u0642\u0637." },
     ],
   },
+  fr: {
+    id: "ev", icon: "EV", title: "Formation VE", subtitle: "Bases des vehicules electriques", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Formation Vehicule Electrique", body: "Ce module couvre les bases essentielles de la conduite et de l'entretien d'un vehicule electrique." },
+      { type: "learn", label: "VE vs Essence", title: "Differences cles", body: "Les VE utilisent un **moteur electrique** avec batterie. Pas de vidanges, pas de bougies, et le **freinage regeneratif** recupere de l'energie.", callout: null },
+      { type: "learn", label: "Freinage Regeneratif", title: "Recuperez de l'energie en freinant", body: "Quand vous levez le pied de l'accelerateur, le VE utilise le **freinage regeneratif** pour ralentir et recharger la batterie. Acceleration et freinage en douceur = meilleure autonomie.", callout: { icon: "", text: "Douceur = meilleure autonomie" } },
+      { type: "learn", label: "Autonomie", title: "Gerez votre autonomie intelligemment", body: "Chargez quand la batterie atteint **30%** (~80 miles). Charge quotidienne entre **20-80%**. Vitesses sous **65 mph**. Evitez le mode Sport — restez en **mode Eco**.", callout: { icon: "", text: "Chargez a 30% - Quotidien 20-80% - Mode Eco" } },
+      { type: "learn", label: "Niveaux de Charge", title: "N1, N2 et N3", body: "**Niveau 1** : Prise standard — tres lent. **Niveau 2** : Chargeurs 240V — 4-10h. **Niveau 3 (Rapide DC)** : 20-60 min a 80%. Priorisez le **Niveau 3**.", callout: null },
+      { type: "learn", label: "Connecteurs", title: "CCS, J1772 et NACS", body: "**J1772** : Niveau 1 et 2. **CCS/SAE** : Charge rapide Niveau 3. **NACS (Tesla)** : De plus en plus disponible. Stations recommandees : **EVGo et Electrify America**.", callout: { icon: "", text: "N1/N2 = J1772 - N3 = CCS/SAE - EVGo & Electrify America" } },
+      { type: "learn", label: "Sante Batterie", title: "La regle des 20-80%", body: "Maintenez la charge entre **20% et 80%** au quotidien. Evitez 100% regulierement ou sous 10%. Cela preserve la capacite a long terme.", callout: null },
+      { type: "learn", label: "Entretien VE", title: "Entretien simplifie", body: "Moins d'entretien que l'essence. **PM Sec VE** : rotation pneus, liquides, systeme electrique. Planifiez via l'App. **L'assistance routiere N'EST PAS pour les pannes de charge** — des frais s'appliquent.", callout: { icon: "", text: "Assistance routiere PAS pour les pannes de charge" } },
+      { type: "scenario", title: "Scenario VE", body: "Batterie a 25%, chargeur rapide N3 a 15 min. Que faire ?", options: [ { text: "Continuer jusqu'a 5%", correct: false }, { text: "Aller au chargeur N3 et charger a 80%", correct: true }, { text: "Appeler l'assistance routiere", correct: false } ], explanation: "A 25%, allez au chargeur N3. N'attendez pas. Conseil : activez le filtre Dispatch in Range." },
+      { type: "checkpoint", title: "Verification VE", question: "A quel % charger ?", options: [ { text: "5%", correct: false }, { text: "30%", correct: true }, { text: "50%", correct: false }, { text: "80%", correct: false } ], explanation: "Chargez a 30% (~80 miles). Quotidien 20-80%. EVGo ou Electrify America pour les remises." },
+    ],
+  },
+
 };
 
 const UI = {
@@ -1571,7 +1673,7 @@ function FlexdriveOnboarding() {
   const moduleStartRef = useRef(null);
   const trackingSentRef = useRef(false);
 
-  const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : MODULES;
+  const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : lang === "fr" ? MODULES_FR : MODULES;
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
   const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
@@ -1818,6 +1920,10 @@ function FlexdriveOnboarding() {
                 <button onClick={() => setLang("ar")}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   العربية
+                </button>
+                <button onClick={() => setLang("fr")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  Français
                 </button>
               </div>
             </div>
