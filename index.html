@@ -889,6 +889,178 @@ const MODULES_FR = [
 ];
 
 
+const MODULES_ZH = [
+  {
+    id: "billing", icon: "1", title: "账单与收入", subtitle: "了解您的账单周期如何运作", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "账单与收入", body: "本模块解释您的账单周期如何运作、收入如何用于支付租金以及您需要了解的费用信息。" },
+      { type: "learn", label: "账单周期", title: "您的账单周期从周一到周一", body: "租赁账单周期从**周一早上5:00**开始，到**下周一早上4:59**结束。所有内容——收入、行程数和个人里程——在每个账单周期开始时重置。**您必须保留车辆至少7天。**", callout: { icon: "", text: "周一5:00 - 下周一4:59" } },
+      { type: "learn", label: "收入优先", title: "您的收入首先用于支付租金", body: "所有Lyft收入将**首先用于支付租金**。扣除租金后的剩余金额将支付给您。如果收入不足以完全覆盖租金，余额将在周结束后的**周二**从您的卡中扣除。", callout: { icon: "", text: "收入 - 先付租金 - 余额归您" } },
+      { type: "learn", label: "费率表", title: "Flexdrive司机使用调整后的费率表", body: "Express Drive车辆的司机使用**调整后的费率表**，因为Flexdrive承担了许多保险和维护费用。请查看Lyft Driver应用中的**司机仪表板**。", callout: null },
+      { type: "learn", label: "最低要求", title: "每周可能有最低行程要求", body: "某些市场要求每周完成最低行程数。在**Lyft Driver应用**中查看详情。**建议：每周至少完成40-60次行程**以增加覆盖租金的可能性。", callout: { icon: "", text: "建议：每周40-60次行程" } },
+      { type: "learn", label: "第一周", title: "第一周按比例计算", body: "您的第一周租金将根据您开始的日期**按比例计算**。您只需支付拥有车辆那几天的费用。", callout: null },
+      { type: "checkpoint", title: "知识检查", question: "您的账单周期何时开始和结束？", options: [ { text: "周日午夜到周六23:59", correct: false }, { text: "周一5:00到下周一4:59", correct: true }, { text: "周五午夜到周四23:59", correct: false }, { text: "周三中午到下周三11:59", correct: false } ], explanation: "账单周期从周一5:00到下周一4:59。" },
+    ],
+  },
+  {
+    id: "maintenance", icon: "2", title: "维护保养", subtitle: "了解哪些包含在内，哪些不包含", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "维护保养", body: "本模块涵盖您的维护责任、租赁中包含的内容以及如何处理常见车辆问题。" },
+      { type: "learn", label: "您的责任", title: "您负责完成维护", body: "应用会**通知您**何时需要维护。使用**行程过滤器**完成行程以减少维护出行时的个人里程。", callout: { icon: "", text: "应用通知 - 前往认可供应商" } },
+      { type: "learn", label: "包含内容", title: "预防性维护包含在周租金中", body: "常规预防性维护已包含。**不包括**：爆胎、钉子扎胎、碰撞损坏、挡风玻璃损坏等。", callout: null },
+      { type: "learn", label: "认可供应商", title: "仅使用认可的服务供应商", body: "请查看车内手册和**司机应用**中的认可供应商列表。", callout: null },
+      { type: "learn", label: "小问题", title: "小问题请访问认可供应商", body: "如果需要**更换灯泡**、**雨刷液**或出现**发动机故障灯**，请访问认可供应商。", callout: { icon: "", text: "灯泡、雨刷液、发动机灯 - 认可供应商" } },
+      { type: "checkpoint", title: "知识检查", question: "预防性维护是否包含在周租金中？", options: [ { text: "不，所有维护自费", correct: false }, { text: "是，预防性维护已包含", correct: true }, { text: "仅当每周超过50次行程", correct: false }, { text: "仅第一年", correct: false } ], explanation: "预防性维护已包含。爆胎、碰撞损坏和挡风玻璃损坏不包含。" },
+    ],
+  },
+  {
+    id: "miles", icon: "3", title: "个人里程", subtitle: "跟踪和管理您的离线里程", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "个人里程", body: "任何非Lyft在线状态的驾驶都计为个人里程。本模块解释它们如何累积和计费。" },
+      { type: "learn", label: "何时累积", title: "离线时个人里程开始累积", body: "每当车辆移动且您**未在Lyft上线**时，个人里程就会累积。包括停用、个人乘客、必要休息和维护出行。", callout: { icon: "", text: "离线 + 车辆移动 = 个人里程累积" } },
+      { type: "learn", label: "里程计算", title: "从1/10英里开始计算", body: "个人里程从**1/10英里**开始累积。未使用的里程**不会结转**到下周——每周一5:00重置。", callout: null },
+      { type: "learn", label: "更改套餐", title: "您可以更改个人里程套餐", body: "在应用中的更改**在新一周开始前不会生效**（周一早上5:00）。请提前计划。", callout: null },
+      { type: "learn", label: "超额费用", title: "超出套餐将收取超额费用", body: "如果超出分配的个人里程**1/10英里**，就会产生超额费用。在应用中监控使用情况。", callout: { icon: "", text: "建议：使用行程过滤器减少个人出行" } },
+      { type: "checkpoint", title: "知识检查", question: "未使用的个人里程是否结转到下周？", options: [ { text: "是，无限累积", correct: false }, { text: "是，最多结转50英里", correct: false }, { text: "不，每个账单周期重置", correct: true }, { text: "不，24小时后过期", correct: false } ], explanation: "未使用的个人里程不会结转。每周一5:00重置。" },
+    ],
+  },
+  {
+    id: "accidents", icon: "4", title: "事故处理", subtitle: "发生碰撞时该怎么做", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "事故处理", body: "发生事故时，了解正确的步骤至关重要。本模块指导您完成报告流程。" },
+      { type: "learn", label: "步骤1", title: "首先报警", body: "发生任何事故后，首先**报警**并获取事故报告。这对保险和索赔流程至关重要。", callout: { icon: "", text: "始终先报警" } },
+      { type: "learn", label: "步骤2", title: "在Lyft应用中报告", body: "联系警方后，在**Lyft Driver应用中报告事故**。报告后车辆将被**停用**。", callout: null },
+      { type: "scenario", title: "快速场景", body: "轻微碰撞。车辆可以行驶。报警和应用报告后，该怎么做？", options: [ { text: "继续当天的行程", correct: false }, { text: "尽快将车辆开到租赁地点检查", correct: true }, { text: "开到最近的修理厂", correct: false } ], explanation: "如果车辆可以安全行驶，应尽快开到租赁地点进行检查。" },
+      { type: "learn", label: "无法行驶", title: "如果车辆无法行驶——打电话给Holman", body: "拨打**Holman道路救援**电话**833-274-5938**（也在**挡风玻璃驾驶员侧**）。他们将安排拖车到您的租赁地点。", callout: { icon: "", text: "Holman号码 - 挡风玻璃驾驶员侧" } },
+      { type: "learn", label: "索赔期", title: "未结索赔暂停您的租赁资格", body: "在事故索赔未结期间，您将**无资格租赁**，直到索赔完全解决。", callout: null },
+      { type: "learn", label: "续租政策", title: "事故后续租的关键规则", body: "**事故后当天不能续租**——无论是否有CDW。Flexdrive将收取**每次事故最高$1,000**（加税费）。保险公司必须确定责任——过程可能需要**数月或更长时间。**", callout: { icon: "", text: "事故后当天不能续租——即使有CDW。" } },
+      { type: "learn", label: "续租资格", title: "决定您能否再次租赁的因素", body: "**以下情况不符合续租资格：**12个月内超过1次事故，或总共3次以上。**无过错续租要求：**Lyft FNOL审查完成、账户良好（无欠款、无逾期、至少6周项目参与并达到行程最低要求）、所有费用已付、配合保险调查。**有过错续租**还需要损害来自不可避免的自然事件。", callout: { icon: "", text: "良好状态 = 无欠款 + 无逾期 + 6周 + 达到最低行程。" } },
+      { type: "checkpoint", title: "知识检查", question: "事故后何时可以续租？", options: [ { text: "有CDW当天即可", correct: false }, { text: "保险确定责任、费用已付且账户良好后", correct: true }, { text: "报警后立即", correct: false }, { text: "24小时后", correct: false } ], explanation: "当天永远不能续租。保险必须确定责任，所有费用已付，账户良好。" },
+    ],
+  },
+  {
+    id: "damage", icon: "5", title: "车辆损坏", subtitle: "检查、费用和CDW保护", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "车辆损坏", body: "了解损坏标准、您的责任和CDW保护选项。" },
+      { type: "learn", label: "租前检查", title: "工作人员将与您进行检查", body: "签约前进行**租前检查**。**签约后，您对任何新损坏负责。**", callout: { icon: "", text: "仔细检查" } },
+      { type: "learn", label: "损坏标准", title: "可收费损坏：超过15厘米或大于25美分硬币", body: "可收费损坏包括**超过15厘米或大于25美分硬币**的损坏。**切勿自行修理。**", callout: { icon: "", text: "超过15厘米或大于硬币 = 可收费" } },
+      { type: "learn", label: "有无CDW对比", title: "CDW如何保护您", body: "**有CDW：**责任限于调整后的免赔额。**无CDW：**承担每次事故最高$1,000的损坏费用（加税费）。", callout: null },
+      { type: "learn", label: "如何添加CDW", title: "现场添加或修改CDW", body: "签约时添加CDW。**CDW修改需要现场检查**和亲自续签。", callout: { icon: "", text: "CDW修改 = 现场办理" } },
+      { type: "checkpoint", title: "知识检查", question: "可收费损坏的标准是什么？", options: [ { text: "任何可见损坏", correct: false }, { text: "超过15厘米或大于25美分硬币", correct: true }, { text: "仅结构性损坏", correct: false }, { text: "仅超过30厘米", correct: false } ], explanation: "超过15厘米或大于25美分硬币。切勿自行修理。" },
+    ],
+  },
+  {
+    id: "return", icon: "6", title: "还车要求", subtitle: "预约、车辆状态和流程", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "还车要求", body: "还车时的车辆状态、预约和个人物品要求。" },
+      { type: "learn", label: "预约", title: "提前预约还车", body: "通过**Lyft Driver应用**预约。虽非必须，但能确保顺利还车。**无论何时还车，都将收取还车当天的费用。**还车截止到关门前30分钟。", callout: null },
+      { type: "learn", label: "车辆状态", title: "还车时车辆须清洁并加满油", body: "车辆须**内部吸尘擦拭**、**外部清洗**、**油量与取车时一致**。", callout: { icon: "", text: "内部清洁 + 外部清洗 + 加满油" } },
+      { type: "learn", label: "下班后还车", title: "下班后还车将收费至下个工作日", body: "**下班后/周末**还车，合同将在**下个工作日**才结束，费用收取至该日。", callout: null },
+      { type: "learn", label: "个人物品", title: "遗留物品将被处理", body: "Lyft/Flexdrive不对还车后遗留的物品负责。**所有遗留物品将被处理。**", callout: { icon: "", text: "还车前取走所有物品" } },
+      { type: "checkpoint", title: "知识检查", question: "还车时车辆应处于什么状态？", options: [ { text: "任何状态都可以", correct: false }, { text: "内外清洁，油量与取车时一致", correct: true }, { text: "只需加满油", correct: false }, { text: "只需吸尘", correct: false } ], explanation: "内部吸尘擦拭，外部清洗，油量与取车时一致。" },
+    ],
+  },
+  {
+    id: "app", icon: "7", title: "Lyft Driver应用导航", subtitle: "应用关键功能", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Lyft Driver应用导航", body: "了解Lyft Driver应用中与Flexdrive租赁相关的关键功能。" },
+      { type: "visual", label: "步骤1", title: "打开Lyft Driver应用", body: "启动Lyft Driver应用，您将看到司机仪表板。", image: null, callout: { icon: "", text: "使用Lyft Driver应用，不是乘客应用" } },
+      { type: "visual", label: "步骤2", title: "进入账户菜单", body: "点击**个人头像**或**菜单**进入账户设置。", image: null, callout: null },
+      { type: "visual", label: "步骤3", title: "找到车辆部分", body: "导航到**您的车辆**查看租赁详情。", image: null, callout: null },
+      { type: "visual", label: "步骤4", title: "租赁仪表板", body: "**租赁仪表板**显示当前账单周期、收入、个人里程和维护计划。", image: null, callout: { icon: "", text: "定期查看" } },
+      { type: "visual", label: "步骤5", title: "管理您的租赁", body: "在**管理租赁**中查看合同详情、预约还车和联系支持。", image: null, callout: null },
+      { type: "checkpoint", title: "知识检查", question: "在应用中哪里查看租赁详情？", options: [ { text: "仅主屏幕", correct: false }, { text: "您的车辆 - 租赁仪表板", correct: true }, { text: "设置 - 常规", correct: false }, { text: "应用中没有", correct: false } ], explanation: "在您的车辆部分的租赁仪表板中查看账单、收入和里程。" },
+    ],
+  },
+];
+
+
+const MODULES_YUE = [
+  {
+    id: "billing", icon: "1", title: "賬單同收入", subtitle: "了解你嘅賬單週期點運作", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "賬單同收入", body: "呢個模組解釋你嘅賬單週期點運作、收入點樣用嚟交租金、同你需要知嘅費用。" },
+      { type: "learn", label: "賬單週期", title: "你嘅賬單週期由星期一到星期一", body: "租賃賬單週期由**星期一朝早5:00**開始，到**下個星期一朝早4:59**結束。所有嘢——收入、行程數同個人里程——喺每個賬單週期開始時重置。**你必須保留車輛至少7日。**", callout: { icon: "", text: "星期一5:00 - 下星期一4:59" } },
+      { type: "learn", label: "收入優先", title: "你嘅收入首先用嚟交租金", body: "所有Lyft收入會**首先用嚟交租金**。扣除租金後嘅餘額會俾返你。如果收入唔夠交租金，餘額會喺週結束後嘅**星期二**由你張卡扣除。", callout: { icon: "", text: "收入 - 先交租金 - 餘額歸你" } },
+      { type: "learn", label: "費率表", title: "Flexdrive司機用調整過嘅費率表", body: "Express Drive車輛嘅司機用**調整過嘅費率表**，因為Flexdrive承擔咗好多保險同維護費用。請查看Lyft Driver應用入面嘅**司機儀表板**。", callout: null },
+      { type: "learn", label: "最低要求", title: "每週可能有最低行程要求", body: "某啲市場要求每週完成最低行程數。喺**Lyft Driver應用**入面查看詳情。**建議：每週至少完成40-60次行程**。", callout: { icon: "", text: "建議：每週40-60次行程" } },
+      { type: "learn", label: "第一週", title: "第一週按比例計算", body: "你嘅第一週租金會根據你開始嗰日**按比例計算**。", callout: null },
+      { type: "checkpoint", title: "知識測驗", question: "你嘅賬單週期幾時開始同結束？", options: [ { text: "星期日午夜到星期六23:59", correct: false }, { text: "星期一5:00到下星期一4:59", correct: true }, { text: "星期五午夜到星期四23:59", correct: false }, { text: "星期三中午到下星期三11:59", correct: false } ], explanation: "賬單週期由星期一5:00到下星期一4:59。" },
+    ],
+  },
+  {
+    id: "maintenance", icon: "2", title: "維護保養", subtitle: "邊啲包含喺內，邊啲唔包", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "維護保養", body: "呢個模組涵蓋你嘅維護責任同點樣處理常見車輛問題。" },
+      { type: "learn", label: "你嘅責任", title: "你負責完成維護", body: "應用會**通知你**幾時需要維護。用**行程過濾器**減少維護出行嘅個人里程。", callout: { icon: "", text: "應用通知 - 去認可供應商" } },
+      { type: "learn", label: "包含內容", title: "預防性維護包含喺週租金入面", body: "常規預防性維護已包含。**唔包括**：爆胎、釘扎胎、碰撞損壞、擋風玻璃損壞等。", callout: null },
+      { type: "learn", label: "認可供應商", title: "只可以用認可嘅服務供應商", body: "請查看車內手冊同**司機應用**入面嘅認可供應商列表。", callout: null },
+      { type: "learn", label: "小問題", title: "小問題請去認可供應商", body: "如果需要**換燈泡**、**雨刷液**或出現**引擎故障燈**，請去認可供應商。", callout: { icon: "", text: "燈泡、雨刷液、引擎燈 - 認可供應商" } },
+      { type: "checkpoint", title: "知識測驗", question: "預防性維護係咪包含喺週租金入面？", options: [ { text: "唔係，全部自費", correct: false }, { text: "係，預防性維護已包含", correct: true }, { text: "只有每週超過50次行程先有", correct: false }, { text: "只有第一年", correct: false } ], explanation: "預防性維護已包含。爆胎、碰撞損壞同擋風玻璃損壞唔包含。" },
+    ],
+  },
+  {
+    id: "miles", icon: "3", title: "個人里程", subtitle: "追蹤同管理你嘅離線里程", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "個人里程", body: "任何非Lyft上線狀態嘅駕駛都計為個人里程。" },
+      { type: "learn", label: "幾時累積", title: "離線時個人里程開始累積", body: "每當車輛移動且你**未喺Lyft上線**時，個人里程就會累積。包括停用、個人乘客、必要休息同維護出行。", callout: { icon: "", text: "離線 + 車輛移動 = 個人里程累積" } },
+      { type: "learn", label: "里程計算", title: "由1/10英里開始計算", body: "個人里程由**1/10英里**開始累積。未用嘅里程**唔會結轉**——每星期一5:00重置。", callout: null },
+      { type: "learn", label: "更改套餐", title: "你可以更改個人里程套餐", body: "喺應用入面嘅更改**喺新一週開始前唔會生效**（星期一朝早5:00）。", callout: null },
+      { type: "learn", label: "超額費用", title: "超出套餐會收超額費用", body: "如果超出**1/10英里**，就會產生超額費用。喺應用入面監控。", callout: { icon: "", text: "建議：用行程過濾器減少個人出行" } },
+      { type: "checkpoint", title: "知識測驗", question: "未用嘅個人里程會唔會結轉？", options: [ { text: "會，無限累積", correct: false }, { text: "會，最多結轉50英里", correct: false }, { text: "唔會，每個賬單週期重置", correct: true }, { text: "唔會，24小時後過期", correct: false } ], explanation: "未用嘅個人里程唔會結轉。每星期一5:00重置。" },
+    ],
+  },
+  {
+    id: "accidents", icon: "4", title: "事故處理", subtitle: "發生碰撞時點做", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "事故處理", body: "發生事故時，了解正確步驟好重要。" },
+      { type: "learn", label: "步驟1", title: "首先報警", body: "發生任何事故後，首先**報警**並攞事故報告。", callout: { icon: "", text: "一定要先報警" } },
+      { type: "learn", label: "步驟2", title: "喺Lyft應用報告", body: "聯繫警方後，喺**Lyft Driver應用報告事故**。報告後車輛會被**停用**。", callout: null },
+      { type: "scenario", title: "快速場景", body: "輕微碰撞。車輛可以行駛。報警同應用報告後，點做？", options: [ { text: "繼續做行程", correct: false }, { text: "盡快揸車去租賃地點檢查", correct: true }, { text: "去最近嘅修車鋪", correct: false } ], explanation: "如果車輛可以安全行駛，應盡快揸去租賃地點檢查。" },
+      { type: "learn", label: "唔可以行駛", title: "如果車輛唔可以行駛——打電話俾Holman", body: "打**Holman道路救援**電話**833-274-5938**（亦喺**擋風玻璃司機側**）。佢哋會安排拖車。", callout: { icon: "", text: "Holman號碼 - 擋風玻璃司機側" } },
+      { type: "learn", label: "索賠期", title: "未結索賠暫停你嘅租賃資格", body: "事故索賠未結期間，你會**冇資格租賃**直到完全解決。", callout: null },
+      { type: "learn", label: "續租政策", title: "事故後續租嘅關鍵規則", body: "**事故後當日唔可以續租**——即使有CDW。Flexdrive會收取**每次事故最高$1,000**（加稅費）。保險公司要確定責任——可能需要**幾個月。**", callout: { icon: "", text: "事故後當日唔可以續租——即使有CDW。" } },
+      { type: "learn", label: "續租資格", title: "決定你能唔能再租嘅因素", body: "**以下情況唔符合續租資格：**12個月內超過1次事故，或總共3次以上。**無過錯續租要求：**Lyft FNOL審查完成、賬戶良好、所有費用已付、配合保險調查。**有過錯續租**仲需要損害來自不可避免嘅自然事件。", callout: { icon: "", text: "良好狀態 = 冇欠款 + 冇逾期 + 6週 + 達到最低行程。" } },
+      { type: "checkpoint", title: "知識測驗", question: "事故後幾時可以續租？", options: [ { text: "有CDW當日即可", correct: false }, { text: "保險確定責任、費用已付且賬戶良好後", correct: true }, { text: "報警後即刻", correct: false }, { text: "24小時後", correct: false } ], explanation: "當日永遠唔可以續租。保險要確定責任，所有費用已付，賬戶良好。" },
+    ],
+  },
+  {
+    id: "damage", icon: "5", title: "車輛損壞", subtitle: "檢查、費用同CDW保護", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "車輛損壞", body: "了解損壞標準、你嘅責任同CDW保護選項。" },
+      { type: "learn", label: "租前檢查", title: "工作人員會同你進行檢查", body: "簽約前進行**租前檢查**。**簽約後，你對任何新損壞負責。**", callout: { icon: "", text: "仔細檢查" } },
+      { type: "learn", label: "損壞標準", title: "可收費損壞：超過15厘米或大過25仙硬幣", body: "**超過15厘米或大過25仙硬幣**嘅損壞可收費。**千祈唔好自己修理。**", callout: { icon: "", text: "超過15厘米或大過硬幣 = 可收費" } },
+      { type: "learn", label: "有冇CDW對比", title: "CDW點樣保護你", body: "**有CDW：**責任限於調整後嘅免賠額。**冇CDW：**承擔每次事故最高$1,000（加稅費）。", callout: null },
+      { type: "learn", label: "點樣加CDW", title: "現場添加或修改CDW", body: "簽約時添加CDW。**CDW修改需要現場檢查**同親自續簽。", callout: { icon: "", text: "CDW修改 = 現場辦理" } },
+      { type: "checkpoint", title: "知識測驗", question: "可收費損壞嘅標準係咩？", options: [ { text: "任何可見損壞", correct: false }, { text: "超過15厘米或大過25仙硬幣", correct: true }, { text: "只有結構性損壞", correct: false }, { text: "只有超過30厘米", correct: false } ], explanation: "超過15厘米或大過25仙硬幣。千祈唔好自己修理。" },
+    ],
+  },
+  {
+    id: "return", icon: "6", title: "還車要求", subtitle: "預約、車輛狀態同流程", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "還車要求", body: "還車時嘅車輛狀態、預約同個人物品要求。" },
+      { type: "learn", label: "預約", title: "提前預約還車", body: "透過**Lyft Driver應用**預約。雖然唔係必須，但能確保順利還車。**無論幾時還車，都會收取還車當日嘅費用。**還車截止到關門前30分鐘。", callout: null },
+      { type: "learn", label: "車輛狀態", title: "還車時車輛要清潔同入滿油", body: "車輛要**內部吸塵擦拭**、**外部清洗**、**油量同取車時一樣**。", callout: { icon: "", text: "內部清潔 + 外部清洗 + 入滿油" } },
+      { type: "learn", label: "收工後還車", title: "收工後還車會收費到下個工作日", body: "**收工後/週末**還車，合約喺**下個工作日**先結束。", callout: null },
+      { type: "learn", label: "個人物品", title: "遺留物品會被處理", body: "Lyft/Flexdrive唔負責還車後遺留嘅物品。**所有遺留物品會被處理。**", callout: { icon: "", text: "還車前攞走所有嘢" } },
+      { type: "checkpoint", title: "知識測驗", question: "還車時車輛應該係咩狀態？", options: [ { text: "咩狀態都得", correct: false }, { text: "內外清潔，油量同取車時一樣", correct: true }, { text: "只需入滿油", correct: false }, { text: "只需吸塵", correct: false } ], explanation: "內部吸塵擦拭，外部清洗，油量同取車時一樣。" },
+    ],
+  },
+  {
+    id: "app", icon: "7", title: "Lyft Driver應用導航", subtitle: "應用關鍵功能", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "Lyft Driver應用導航", body: "了解Lyft Driver應用入面同Flexdrive租賃相關嘅關鍵功能。" },
+      { type: "visual", label: "步驟1", title: "打開Lyft Driver應用", body: "啟動Lyft Driver應用，你會見到司機儀表板。", image: null, callout: { icon: "", text: "用Lyft Driver應用，唔係乘客應用" } },
+      { type: "visual", label: "步驟2", title: "進入賬戶選單", body: "撳**個人頭像**或**選單**進入賬戶設定。", image: null, callout: null },
+      { type: "visual", label: "步驟3", title: "搵到車輛部分", body: "導航到**你嘅車輛**查看租賃詳情。", image: null, callout: null },
+      { type: "visual", label: "步驟4", title: "租賃儀表板", body: "**租賃儀表板**顯示當前賬單週期、收入、個人里程同維護計劃。", image: null, callout: { icon: "", text: "定期查看" } },
+      { type: "visual", label: "步驟5", title: "管理你嘅租賃", body: "喺**管理租賃**查看合約詳情、預約還車同聯絡支援。", image: null, callout: null },
+      { type: "checkpoint", title: "知識測驗", question: "喺應用入面邊度查看租賃詳情？", options: [ { text: "只有主屏幕", correct: false }, { text: "你嘅車輛 - 租賃儀表板", correct: true }, { text: "設定 - 一般", correct: false }, { text: "應用入面冇", correct: false } ], explanation: "喺你嘅車輛部分嘅租賃儀表板查看賬單、收入同里程。" },
+    ],
+  },
+];
+
+
 const MARKET_REGIONS = [
   { region: "West Pacific", markets: [
     { code: "LAX", name: "Los Angeles" },
@@ -1074,6 +1246,36 @@ const EV_MODULE = {
       { type: "learn", label: "\u0635\u064a\u0627\u0646\u0629 \u0627\u0644\u0643\u0647\u0631\u0628\u0627\u0626\u064a", title: "\u0627\u0644\u0635\u064a\u0627\u0646\u0629 \u0623\u0628\u0633\u0637", body: "\u0628\u062f\u0648\u0646 \u0632\u064a\u062a \u0623\u0648 \u0634\u0645\u0639\u0627\u062a \u0625\u0634\u0639\u0627\u0644. **\u0641\u062d\u0635 \u0627\u0644\u0635\u064a\u0627\u0646\u0629 \u0627\u0644\u062c\u0627\u0641** \u0643\u0644 10,000 \u0645\u064a\u0644. \u062a\u062f\u0648\u064a\u0631 \u0627\u0644\u0625\u0637\u0627\u0631\u0627\u062a \u0648\u0641\u062d\u0635 \u0627\u0644\u0641\u0631\u0627\u0645\u0644 \u0636\u0631\u0648\u0631\u064a\u0627\u0646.", callout: { icon: "", text: "\u0628\u062f\u0648\u0646 \u0632\u064a\u062a! \u0641\u0642\u0637 \u0633\u0648\u0627\u0626\u0644 \u0648\u0625\u0637\u0627\u0631\u0627\u062a \u0648\u0628\u0631\u0645\u062c\u064a\u0627\u062a." } },
       { type: "scenario", title: "\u0633\u064a\u0646\u0627\u0631\u064a\u0648 \u0643\u0647\u0631\u0628\u0627\u0626\u064a", body: "\u0627\u0644\u0628\u0637\u0627\u0631\u064a\u0629 15%\u060c 35 \u0645\u064a\u0644 \u0645\u062a\u0628\u0642\u064a. \u0645\u0627\u0630\u0627 \u062a\u0641\u0639\u0644\u061f", options: [ { text: "\u0627\u0633\u062a\u0645\u0631 \u0641\u064a \u0627\u0644\u0642\u064a\u0627\u062f\u0629", correct: false }, { text: "\u062a\u0648\u062c\u0647 \u0644\u0644\u0634\u062d\u0646 \u2014 \u0645\u0646\u0637\u0642\u0629 10\u201320%", correct: true }, { text: "\u0623\u0637\u0641\u0626 \u0627\u0644\u0645\u0643\u064a\u0641 \u0648\u0627\u0633\u062a\u0645\u0631 \u062d\u062a\u0649 5%", correct: false } ], explanation: "\u062a\u0648\u062c\u0647 \u0644\u0644\u0634\u062d\u0646 \u0639\u0646\u062f 10\u201320%. \u0644\u0627 \u062a\u062f\u0639\u0647\u0627 \u062a\u0646\u062e\u0641\u0636 \u062a\u062d\u062a 10%." },
       { type: "checkpoint", title: "\u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u0643\u0647\u0631\u0628\u0627\u0626\u064a", question: "\u0645\u0627 \u0647\u0648 \u0646\u0637\u0627\u0642 \u0627\u0644\u0634\u062d\u0646 \u0627\u0644\u064a\u0648\u0645\u064a \u0627\u0644\u0623\u0645\u062b\u0644\u061f", options: [ { text: "0\u2013100% \u0643\u0644 \u0645\u0631\u0629", correct: false }, { text: "20\u201380%", correct: true }, { text: "50\u2013100%", correct: false }, { text: "\u062a\u0641\u0631\u064a\u063a \u0644\u0640 0% \u062b\u0645 \u0634\u062d\u0646 \u0643\u0627\u0645\u0644", correct: false } ], explanation: "\u0634\u062d\u0646 20\u201380% \u064a\u0648\u0645\u064a\u0627\u064b. 100% \u0644\u0644\u0631\u062d\u0644\u0627\u062a \u0627\u0644\u0637\u0648\u064a\u0644\u0629 \u0641\u0642\u0637." },
+    ],
+  },
+  zh: {
+    id: "ev", icon: "EV", title: "电动车培训", subtitle: "电动车基础知识", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "电动车培训", body: "本模块涵盖驾驶和维护电动车的基本知识。" },
+      { type: "learn", label: "电动vs汽油", title: "关键区别", body: "电动车使用**电动马达**和电池。无需换油、无火花塞，**再生制动**可回收能量。", callout: null },
+      { type: "learn", label: "再生制动", title: "制动时回收能量", body: "松开油门时，电动车使用**再生制动**减速并充电。平稳加速和制动 = 更好的续航。", callout: { icon: "", text: "平稳驾驶 = 更好续航" } },
+      { type: "learn", label: "续航管理", title: "智能管理续航", body: "电量到**30%**（~80英里）时充电。日常充电保持**20-80%**。速度低于**65mph**。避免运动模式——使用**节能模式**。", callout: { icon: "", text: "30%充电 - 日常20-80% - 节能模式" } },
+      { type: "learn", label: "充电级别", title: "了解1级、2级和3级", body: "**1级**：标准插座——很慢。**2级**：240V——4-10小时。**3级（快充）**：20-60分钟到80%。优先使用**3级**。", callout: null },
+      { type: "learn", label: "接口类型", title: "CCS、J1772和NACS", body: "**J1772**：1/2级。**CCS/SAE**：3级快充。**NACS（特斯拉）**。推荐：**EVGo和Electrify America**。", callout: { icon: "", text: "1/2级 = J1772 - 3级 = CCS/SAE - EVGo推荐" } },
+      { type: "learn", label: "电池健康", title: "20-80%规则", body: "日常保持充电在**20%到80%**之间。避免经常充到100%或低于10%。", callout: null },
+      { type: "learn", label: "电动车维护", title: "维护更简单", body: "比汽油车需要**更少维护**。**道路救援不适用于电量耗尽**——拖车充电需收费。", callout: { icon: "", text: "道路救援不适用于电量耗尽" } },
+      { type: "scenario", title: "电动车场景", body: "电量25%，15分钟到3级快充站。怎么做？", options: [ { text: "继续到5%", correct: false }, { text: "去快充站充到80%", correct: true }, { text: "打道路救援", correct: false } ], explanation: "25%时去最近的3级充电站。建议：开启Dispatch in Range过滤器。" },
+      { type: "checkpoint", title: "电动车测验", question: "应该在多少电量时开始充电？", options: [ { text: "5%", correct: false }, { text: "30%", correct: true }, { text: "50%", correct: false }, { text: "80%", correct: false } ], explanation: "30%时充电（~80英里）。日常20-80%。使用EVGo或Electrify America。" },
+    ],
+  },
+  yue: {
+    id: "ev", icon: "EV", title: "電動車培訓", subtitle: "電動車基礎知識", accent: "#DA3AB3",
+    steps: [
+      { type: "intro", visual: "", title: "電動車培訓", body: "呢個模組涵蓋駕駛同維護電動車嘅基本知識。" },
+      { type: "learn", label: "電動vs汽油", title: "關鍵區別", body: "電動車用**電動馬達**同電池。唔使換油、冇火花塞，**再生制動**可以回收能量。", callout: null },
+      { type: "learn", label: "再生制動", title: "制動時回收能量", body: "鬆開油門時，電動車用**再生制動**減速同充電。平穩加速同制動 = 更好嘅續航。", callout: { icon: "", text: "平穩駕駛 = 更好續航" } },
+      { type: "learn", label: "續航管理", title: "智能管理續航", body: "電量到**30%**（~80英里）時充電。日常充電保持**20-80%**。速度低過**65mph**。避免運動模式——用**節能模式**。", callout: { icon: "", text: "30%充電 - 日常20-80% - 節能模式" } },
+      { type: "learn", label: "充電級別", title: "了解1級、2級同3級", body: "**1級**：標準插座——好慢。**2級**：240V——4-10小時。**3級（快充）**：20-60分鐘到80%。優先用**3級**。", callout: null },
+      { type: "learn", label: "接口類型", title: "CCS、J1772同NACS", body: "**J1772**：1/2級。**CCS/SAE**：3級快充。**NACS（Tesla）**。推薦：**EVGo同Electrify America**。", callout: { icon: "", text: "1/2級 = J1772 - 3級 = CCS/SAE - EVGo推薦" } },
+      { type: "learn", label: "電池健康", title: "20-80%規則", body: "日常保持充電喺**20%到80%**之間。避免經常充到100%或低過10%。", callout: null },
+      { type: "learn", label: "電動車維護", title: "維護更簡單", body: "比汽油車需要**更少維護**。**道路救援唔適用於電量耗盡**——拖車充電需收費。", callout: { icon: "", text: "道路救援唔適用於電量耗盡" } },
+      { type: "scenario", title: "電動車場景", body: "電量25%，15分鐘到3級快充站。點做？", options: [ { text: "繼續到5%", correct: false }, { text: "去快充站充到80%", correct: true }, { text: "打道路救援", correct: false } ], explanation: "25%時去最近嘅3級充電站。建議：開啟Dispatch in Range過濾器。" },
+      { type: "checkpoint", title: "電動車測驗", question: "應該喺幾多電量時開始充電？", options: [ { text: "5%", correct: false }, { text: "30%", correct: true }, { text: "50%", correct: false }, { text: "80%", correct: false } ], explanation: "30%時充電（~80英里）。日常20-80%。用EVGo或Electrify America。" },
     ],
   },
   fr: {
@@ -1673,7 +1875,7 @@ function FlexdriveOnboarding() {
   const moduleStartRef = useRef(null);
   const trackingSentRef = useRef(false);
 
-  const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : lang === "fr" ? MODULES_FR : MODULES;
+  const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : lang === "fr" ? MODULES_FR : lang === "zh" ? MODULES_ZH : lang === "yue" ? MODULES_YUE : MODULES;
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
   const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
@@ -1924,6 +2126,14 @@ function FlexdriveOnboarding() {
                 <button onClick={() => setLang("fr")}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   Français
+                </button>
+                <button onClick={() => setLang("zh")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  中文（普通话）
+                </button>
+                <button onClick={() => setLang("yue")}
+                  style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
+                  中文（廣東話）
                 </button>
               </div>
             </div>
