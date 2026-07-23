@@ -1096,97 +1096,6 @@ const MARKET_REGIONS = [
   ]},
 ];
 
-const MARKET_BONUSES = {
-  SFO: {
-    evOnly: true,
-    en: { bonusTitle: "EV Incentive Bonus", bonusNote: "Available for EV rentals only.", tiers: [
-      { rides: 50, reward: "$50 off your weekly rental rate" },
-      { rides: 70, reward: "$70 off your weekly rental rate" },
-      { rides: 90, reward: "$140 off your weekly rental rate" },
-    ]},
-    es: { bonusTitle: "Bono de Incentivo EV", bonusNote: "Disponible solo para alquileres de VE.", tiers: [
-      { rides: 50, reward: "$50 de descuento en tu tarifa semanal" },
-      { rides: 70, reward: "$70 de descuento en tu tarifa semanal" },
-      { rides: 90, reward: "$140 de descuento en tu tarifa semanal" },
-    ]},
-    ru: { bonusTitle: "Бонус за ЭМ", bonusNote: "Доступно только для аренды ЭМ.", tiers: [
-      { rides: 50, reward: "$50 скидка на еженедельную плату" },
-      { rides: 70, reward: "$70 скидка на еженедельную плату" },
-      { rides: 90, reward: "$140 скидка на еженедельную плату" },
-    ]},
-    ar: { bonusTitle: "مكافأة حافز المركبة الكهربائية", bonusNote: "متاح فقط لإيجارات المركبات الكهربائية.", tiers: [
-      { rides: 50, reward: "$50 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 70, reward: "$70 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 90, reward: "$140 خصم على سعر الإيجار الأسبوعي" },
-    ]},
-  },
-  PDX: {
-    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
-      { rides: 60, reward: "$90 off your weekly rental rate" },
-      { rides: 80, reward: "$110 off your weekly rental rate" },
-      { rides: 100, reward: "$150 off your weekly rental rate" },
-    ]},
-    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
-      { rides: 60, reward: "$90 de descuento en tu tarifa semanal" },
-      { rides: 80, reward: "$110 de descuento en tu tarifa semanal" },
-      { rides: 100, reward: "$150 de descuento en tu tarifa semanal" },
-    ]},
-    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
-      { rides: 60, reward: "$90 скидка на еженедельную плату" },
-      { rides: 80, reward: "$110 скидка на еженедельную плату" },
-      { rides: 100, reward: "$150 скидка на еженедельную плату" },
-    ]},
-    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
-      { rides: 60, reward: "$90 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 80, reward: "$110 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 100, reward: "$150 خصم على سعر الإيجار الأسبوعي" },
-    ]},
-  },
-  SAN: {
-    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
-      { rides: 30, reward: "$60 off your weekly rental rate" },
-      { rides: 50, reward: "$80 off your weekly rental rate" },
-      { rides: 80, reward: "$120 off your weekly rental rate" },
-    ]},
-    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
-      { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
-      { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
-      { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
-    ]},
-    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
-      { rides: 30, reward: "$60 скидка на еженедельную плату" },
-      { rides: 50, reward: "$80 скидка на еженедельную плату" },
-      { rides: 80, reward: "$120 скидка на еженедельную плату" },
-    ]},
-    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
-      { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
-    ]},
-  },
-  LAX: {
-    en: { bonusTitle: "Weekly Ride Bonus", tiers: [
-      { rides: 30, reward: "$60 off your weekly rental rate" },
-      { rides: 50, reward: "$80 off your weekly rental rate" },
-      { rides: 80, reward: "$120 off your weekly rental rate" },
-    ]},
-    es: { bonusTitle: "Bono Semanal de Viajes", tiers: [
-      { rides: 30, reward: "$60 de descuento en tu tarifa semanal" },
-      { rides: 50, reward: "$80 de descuento en tu tarifa semanal" },
-      { rides: 80, reward: "$120 de descuento en tu tarifa semanal" },
-    ]},
-    ru: { bonusTitle: "Еженедельный Бонус", tiers: [
-      { rides: 30, reward: "$60 скидка на еженедельную плату" },
-      { rides: 50, reward: "$80 скидка на еженедельную плату" },
-      { rides: 80, reward: "$120 скидка на еженедельную плату" },
-    ]},
-    ar: { bonusTitle: "مكافأة الرحلات الأسبوعية", tiers: [
-      { rides: 30, reward: "$60 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 50, reward: "$80 خصم على سعر الإيجار الأسبوعي" },
-      { rides: 80, reward: "$120 خصم على سعر الإيجار الأسبوعي" },
-    ]},
-  },
-};
 const EV_MODULE = {
   en: {
     id: "ev", icon: "", title: "Electric Vehicle Basics", subtitle: "Everything you need to know about your EV", accent: "#003B71",
@@ -1334,13 +1243,9 @@ const UI = {
     selectLanguage: "Select your preferred language to begin",
     selectMarket: "Select Your Flexdrive Location",
     selectMarketSub: "Choose the flexdrive location nearest to you",
-    yourBonus: "Your Ride Bonus",
-    ridesRequired: "rides",
     yourFirstName: "YOUR FIRST NAME",
     enterName: "Enter your first name",
-    noBonus: "Your market does not have any EV bonuses currently.",
     associateNotified: "An associate has been notified that you are finished. They will call you up shortly.",
-    thenSelectLocation: "THEN SELECT YOUR LOCATION BELOW",
     noneOfTheseMarkets: "None of these markets",
     appTourQuestion: "Want a hands-on tour of the Lyft Driver App?",
     startAppTour: "Start App Tour",
@@ -1401,13 +1306,9 @@ const UI = {
     selectLanguage: "Selecciona tu idioma preferido para comenzar",
     selectMarket: "Selecciona Tu Ubicacion Flexdrive",
     selectMarketSub: "Elige la ubicación donde estás rentando",
-    yourBonus: "Tu Bono de Viajes",
-    ridesRequired: "viajes",
     yourFirstName: "TU NOMBRE",
     enterName: "Ingresa tu nombre",
-    noBonus: "Tu mercado no tiene bonos de VE actualmente.",
     associateNotified: "Un asociado ha sido notificado de que terminaste. Te llamarán en breve.",
-    thenSelectLocation: "LUEGO SELECCIONA TU UBICACION ABAJO",
     noneOfTheseMarkets: "Ninguno de estos mercados",
     appTourQuestion: "Quieres un recorrido interactivo de la app Lyft Driver?",
     startAppTour: "Iniciar Recorrido",
@@ -1468,13 +1369,9 @@ const UI = {
     selectLanguage: "Выберите предпочтительный язык для начала",
     selectMarket: "Выберите Вашу Локацию Flexdrive",
     selectMarketSub: "Выберите ближайшую к вам локацию flexdrive",
-    yourBonus: "Ваш Бонус за Поездки",
-    ridesRequired: "поездок",
     yourFirstName: "ВАШЕ ИМЯ",
     enterName: "Введите ваше имя",
-    noBonus: "В вашем регионе нет бонусов за ЭМ в настоящее время.",
     associateNotified: "Сотрудник уведомлён, что вы закончили. Вас вызовут в ближайшее время.",
-    thenSelectLocation: "ЗАТЕМ ВЫБЕРИТЕ ЛОКАЦИЮ НИЖЕ",
     noneOfTheseMarkets: "Ни один из этих рынков",
     appTourQuestion: "Хотите интерактивный тур по приложению Lyft Driver?",
     startAppTour: "Начать Тур",
@@ -1535,13 +1432,9 @@ const UI = {
     selectLanguage: "اختر لغتك المفضلة للبدء",
     selectMarket: "اختر موقع Flexdrive الخاص بك",
     selectMarketSub: "اختر أقرب موقع flexdrive إليك",
-    yourBonus: "مكافأة رحلاتك",
-    ridesRequired: "رحلات",
     yourFirstName: "اسمك الأول",
     enterName: "ادخل اسمك الأول",
-    noBonus: "سوقك لا يملك أي مكافآت للمركبات الكهربائية حالياً.",
     associateNotified: "تم إخطار الموظف بأنك انتهيت. سيتم استدعاؤك قريباً.",
-    thenSelectLocation: "ثم اختر موقعك أدناه",
     noneOfTheseMarkets: "لا شيء من هذه الأسواق",
     appTourQuestion: "هل تريد جولة تفاعلية في تطبيق Lyft Driver؟",
     startAppTour: "بدء الجولة",
@@ -1874,7 +1767,6 @@ function FlexdriveOnboarding() {
   const [finalTime, setFinalTime] = useState(null);
   const [evChoice, setEvChoice] = useState(null);
   const [market, setMarket] = useState(null);
-  const [bonusSeen, setBonusSeen] = useState(false);
   const [driverName, setDriverName] = useState(""); // null=not asked, true=EV, false=not EV
 
   // ─── Tracking State ───
@@ -1887,7 +1779,6 @@ function FlexdriveOnboarding() {
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
   const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
-  const marketData = market && MARKET_BONUSES[market] ? (MARKET_BONUSES[market][lang] || MARKET_BONUSES[market].en) : null;
   const mod = activeModuleIdx !== null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
   const totalCompleted = completedModules.size;
@@ -1926,10 +1817,6 @@ function FlexdriveOnboarding() {
 
   const selectMarket = (code) => {
     setMarket(code);
-  };
-
-  const handleBonusContinue = () => {
-    setBonusSeen(true);
   };
 
   const selectModule = (idx) => {
@@ -1996,7 +1883,6 @@ function FlexdriveOnboarding() {
     setLang(null);
     setEvChoice(null);
     setMarket(null);
-    setBonusSeen(false);
     setDriverName("");
     setQuizResults([]);
     setModuleTimes([]);
@@ -2197,40 +2083,11 @@ function FlexdriveOnboarding() {
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("yesEV")}
                 </button>
-                <button onClick={() => { setEvChoice(false); setBonusSeen(true); }}
+                <button onClick={() => { setEvChoice(false); }}
                   style={{ background: "#FF00BF", color: "#fff", border: "none", borderRadius: 14, padding: "18px 36px", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", minWidth: 160, transition: "all 0.25s" }}>
                   {t("noEV")}
                 </button>
               </div>
-            </div>
-            ) : !bonusSeen ? (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
-
-              <h2 style={{ fontFamily: "'Source Sans Pro', sans-serif", fontSize: 26, fontWeight: 800, color: "#ffffff", marginBottom: 6, lineHeight: 1.25 }}>
-                {t("yourBonus")}
-              </h2>
-              <p style={{ fontSize: 14, color: "#ffffffcc", marginBottom: 24 }}>
-                {marketData ? marketData.name : ""}
-              </p>
-              {marketData && marketData.tiers.length > 0 ? (
-                <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "20px 24px", marginBottom: 24, textAlign: "left", width: "100%" }}>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "#FF00BF", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>{marketData.bonusTitle}</p>
-                  {marketData.tiers.map((tier, i) => (
-                    <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < marketData.tiers.length - 1 ? "1px solid #ffffff15" : "none" }}>
-                      <span style={{ fontSize: 16, color: "#ffffffdd", fontWeight: 600 }}>{tier.rides} {t("ridesRequired")}</span>
-                      <span style={{ fontSize: 16, color: "#ffffff", fontWeight: 700 }}>{tier.reward}</span>
-                    </div>
-                  ))}
-                  {marketData.bonusNote && <p style={{ fontSize: 13, color: "#ffffff88", marginTop: 10, fontStyle: "italic" }}>{marketData.bonusNote}</p>}
-                </div>
-              ) : (
-                <div style={{ background: "#ffffff15", border: "1px solid #ffffff30", borderRadius: 14, padding: "20px 24px", marginBottom: 24, width: "100%" }}>
-                  <p style={{ fontSize: 14, color: "#ffffffcc", lineHeight: 1.6, textAlign: "center" }}>{t("noBonus")}</p>
-                </div>
-              )}
-              <button onClick={handleBonusContinue} style={btnPrimary("#FF00BF", false)}>
-                {t("continue")}
-              </button>
             </div>
             ) : (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", maxWidth: 480, animation: "fadeIn 0.5s ease", background: "#003B71", borderRadius: 20, padding: "40px 36px", boxShadow: "0 4px 24px rgba(0,59,113,0.15)" }}>
