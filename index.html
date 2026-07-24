@@ -2036,12 +2036,14 @@ function FlexdriveOnboarding() {
 
               <div style={{ width: "100%", marginBottom: 20, background: "#ffffff10", borderRadius: 14, padding: "16px 20px", border: "2px solid #FF00BF" }}>
                 <p style={{ fontSize: 14, fontWeight: 800, color: "#FF00BF", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8, textAlign: "center" }}>{t("yourFirstName")}</p>
+                <style>{"input.name-input::placeholder { color: #ffffff; opacity: 0.9; font-weight: 700; }"}</style>
                 <input
+                  className="name-input"
                   type="text"
                   placeholder={t("enterName")}
                   value={driverName}
                   onChange={(e) => setDriverName(e.target.value)}
-                  style={{ width: "100%", padding: "14px 16px", borderRadius: 10, border: "2px solid #FF00BF", background: "#ffffff20", color: "#fff", fontSize: 18, fontWeight: 700, fontFamily: "'Source Sans Pro', sans-serif", outline: "none", textAlign: "center", letterSpacing: "0.05em" }}
+                  style={{ width: "100%", padding: "16px 16px", borderRadius: 10, border: "2px solid #FF00BF", background: "#FF00BF30", color: "#fff", fontSize: 20, fontWeight: 700, fontFamily: "'Source Sans Pro', sans-serif", outline: "none", textAlign: "center", letterSpacing: "0.05em" }}
                 />
               </div>
 
