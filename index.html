@@ -1777,7 +1777,137 @@ function FlexdriveOnboarding() {
 
   const baseMods = lang === "es" ? MODULES_ES : lang === "ru" ? MODULES_RU : lang === "ar" ? MODULES_AR : lang === "fr" ? MODULES_FR : lang === "zh" ? MODULES_ZH : lang === "yue" ? MODULES_YUE : MODULES;
   const evMod = EV_MODULE[lang] || EV_MODULE.en;
-  const MODS = evChoice ? [evMod, ...baseMods] : baseMods;
+  const MODS = evChoice ? [evMod, ...baseMods.map(m => ({...m, steps: [...m.steps]}))] : baseMods.map(m => ({...m, steps: [...m.steps]}));
+  // MKE market override: tires ARE covered under base rate (no CDW required)
+  const MKE_OVERRIDES = {
+    en: {
+      scenarioOpt: [
+        { text: "Yes — tire repairs and blowouts are covered", correct: true },
+        { text: "No — tire blowouts and nail damage are not included", correct: false },
+        { text: "Only if it happens during a Lyft ride", correct: false },
+      ],
+      scenarioExp: "In Milwaukee, tire blowouts and general tire repairs are covered under your base rental rate — no CDW required. Always use an approved vendor for repairs.",
+      checkQ: "In Milwaukee, are tire blowouts covered by included preventative maintenance?",
+      checkOpt: [
+        { text: "Yes — tire repairs are included in the base rate", correct: true },
+        { text: "No — you must pay out of pocket", correct: false },
+        { text: "Only with Full CDW", correct: false },
+        { text: "Only during scheduled maintenance", correct: false },
+      ],
+      checkExp: "In Milwaukee, tire blowouts and general tire repairs are covered under your base rental rate. No CDW is required for tire coverage at this location.",
+    },
+    es: {
+      scenarioOpt: [
+        { text: "Sí — las reparaciones y reventones de llantas están cubiertos", correct: true },
+        { text: "No — los reventones y daños por clavos no están incluidos", correct: false },
+        { text: "Solo si ocurre durante un viaje de Lyft", correct: false },
+      ],
+      scenarioExp: "En Milwaukee, los reventones de llantas y las reparaciones generales de llantas están cubiertos bajo tu tarifa base de alquiler — no se requiere CDW. Siempre usa un proveedor aprobado.",
+      checkQ: "En Milwaukee, ¿están cubiertos los reventones de llantas por el mantenimiento preventivo incluido?",
+      checkOpt: [
+        { text: "Sí — las reparaciones de llantas están incluidas en la tarifa base", correct: true },
+        { text: "No — debes pagar de tu bolsillo", correct: false },
+        { text: "Solo con CDW Completo", correct: false },
+        { text: "Solo durante el mantenimiento programado", correct: false },
+      ],
+      checkExp: "En Milwaukee, los reventones de llantas y las reparaciones generales están cubiertos bajo tu tarifa base. No se requiere CDW para la cobertura de llantas en esta ubicación.",
+    },
+    ru: {
+      scenarioOpt: [
+        { text: "Да — ремонт и проколы шин покрываются", correct: true },
+        { text: "Нет — проколы шин и повреждения гвоздями не включены", correct: false },
+        { text: "Только если это произошло во время поездки Lyft", correct: false },
+      ],
+      scenarioExp: "В Милуоки проколы шин и общий ремонт шин покрываются базовой арендной ставкой — CDW не требуется. Всегда используйте одобренного поставщика.",
+      checkQ: "В Милуоки, покрываются ли проколы шин включённым профилактическим обслуживанием?",
+      checkOpt: [
+        { text: "Да — ремонт шин включён в базовую ставку", correct: true },
+        { text: "Нет — вы должны платить самостоятельно", correct: false },
+        { text: "Только с Полным CDW", correct: false },
+        { text: "Только при плановом обслуживании", correct: false },
+      ],
+      checkExp: "В Милуоки проколы шин и общий ремонт шин покрываются базовой арендной ставкой. CDW не требуется для покрытия шин в этой локации.",
+    },
+    ar: {
+      scenarioOpt: [
+        { text: "نعم — إصلاحات وانفجارات الإطارات مغطاة", correct: true },
+        { text: "لا — انفجارات الإطارات وأضرار المسامير غير مشمولة", correct: false },
+        { text: "فقط إذا حدث أثناء رحلة Lyft", correct: false },
+      ],
+      scenarioExp: "في ميلووكي، انفجارات الإطارات وإصلاحات الإطارات العامة مغطاة ضمن سعر الإيجار الأساسي — لا يتطلب CDW. استخدم دائماً مزود خدمة معتمد.",
+      checkQ: "في ميلووكي، هل انفجارات الإطارات مغطاة بالصيانة الوقائية المشمولة؟",
+      checkOpt: [
+        { text: "نعم — إصلاحات الإطارات مشمولة في السعر الأساسي", correct: true },
+        { text: "لا — يجب أن تدفع من جيبك", correct: false },
+        { text: "فقط مع CDW الكامل", correct: false },
+        { text: "فقط أثناء الصيانة المجدولة", correct: false },
+      ],
+      checkExp: "في ميلووكي، انفجارات الإطارات والإصلاحات العامة مغطاة ضمن سعر الإيجار الأساسي. لا يتطلب CDW لتغطية الإطارات في هذا الموقع.",
+    },
+    fr: {
+      scenarioOpt: [
+        { text: "Oui — les reparations et crevaisons sont couvertes", correct: true },
+        { text: "Non — les crevaisons et dommages par clous ne sont pas inclus", correct: false },
+        { text: "Seulement si cela arrive pendant un trajet Lyft", correct: false },
+      ],
+      scenarioExp: "A Milwaukee, les crevaisons et reparations generales de pneus sont couvertes par votre tarif de base — aucun CDW requis. Utilisez toujours un fournisseur agree.",
+      checkQ: "A Milwaukee, les crevaisons sont-elles couvertes par l'entretien preventif inclus?",
+      checkOpt: [
+        { text: "Oui — les reparations de pneus sont incluses dans le tarif de base", correct: true },
+        { text: "Non — vous devez payer de votre poche", correct: false },
+        { text: "Seulement avec le CDW Complet", correct: false },
+        { text: "Seulement lors de l'entretien programme", correct: false },
+      ],
+      checkExp: "A Milwaukee, les crevaisons et reparations generales de pneus sont couvertes par votre tarif de base. Aucun CDW requis pour la couverture des pneus.",
+    },
+    zh: {
+      scenarioOpt: [
+        { text: "是的 — 轮胎维修和爆胎都被覆盖", correct: true },
+        { text: "不 — 爆胎和钉子损坏不包括", correct: false },
+        { text: "仅在Lyft行程中发生时", correct: false },
+      ],
+      scenarioExp: "在密尔沃基，爆胎和一般轮胎维修包含在您的基本租金中 — 不需要CDW。请始终使用批准的供应商。",
+      checkQ: "在密尔沃基，爆胎是否被包含的预防性维护覆盖？",
+      checkOpt: [
+        { text: "是的 — 轮胎维修包含在基本费率中", correct: true },
+        { text: "不 — 您必须自费支付", correct: false },
+        { text: "仅限完整CDW", correct: false },
+        { text: "仅在计划维护期间", correct: false },
+      ],
+      checkExp: "在密尔沃基，爆胎和一般轮胎维修包含在您的基本租金中。此地点不需要CDW来覆盖轮胎。",
+    },
+    yue: {
+      scenarioOpt: [
+        { text: "係 — 輪胎維修同爆胎都包", correct: true },
+        { text: "唔係 — 爆胎同釘損壞唔包", correct: false },
+        { text: "只有喺Lyft行程中先包", correct: false },
+      ],
+      scenarioExp: "喺密爾沃基，爆胎同一般輪胎維修包含喺你嘅基本租金入面 — 唔需要CDW。請一定用批准嘅供應商。",
+      checkQ: "喺密爾沃基，爆胎係咪被包含嘅預防性維護覆蓋？",
+      checkOpt: [
+        { text: "係 — 輪胎維修包含喺基本費率入面", correct: true },
+        { text: "唔係 — 你要自己俾錢", correct: false },
+        { text: "只限完整CDW", correct: false },
+        { text: "只有喺計劃維護期間", correct: false },
+      ],
+      checkExp: "喺密爾沃基，爆胎同一般輪胎維修包含喺你嘅基本租金入面。呢個地點唔需要CDW嚟覆蓋輪胎。",
+    },
+  };
+
+  // Apply MKE overrides to maintenance module
+  if (market === "MKE") {
+    const ov = MKE_OVERRIDES[lang] || MKE_OVERRIDES.en;
+    MODS.forEach((m) => {
+      if (m.id === "maintenance") {
+        m.steps = m.steps.map((s) => {
+          if (s.type === "scenario") return { ...s, options: ov.scenarioOpt, explanation: ov.scenarioExp };
+          if (s.type === "checkpoint") return { ...s, question: ov.checkQ, options: ov.checkOpt, explanation: ov.checkExp };
+          return s;
+        });
+      }
+    });
+  }
+
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
   const mod = activeModuleIdx !== null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
