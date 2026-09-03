@@ -15,7 +15,7 @@
   <script>
     window.onerror = function(msg, url, line, col, error) {
       var el = document.getElementById('error-display');
-      if (el) { el.style.display = 'block'; el.textContent = 'ERROR: ' + msg + '\nLine: ' + line + '\n' + (error ? error.stack : ''); }
+      if (el) { el.style.display = 'block'; el.textContent = 'ERROR: ' + msg + '\nLine: ' + line + '\n' + (error ? error.stack : ''; }
     };
   </script>
 </head>
@@ -1904,6 +1904,57 @@ function FlexdriveOnboarding() {
           if (s.type === "checkpoint") return { ...s, question: ov.checkQ, options: ov.checkOpt, explanation: ov.checkExp };
           return s;
         });
+      }
+    });
+  }
+
+  // CLE market override: 6-week probationary period after accidents
+  const CLE_PROBATION = {
+    en: {
+      title: "Cleveland: 6-Week Probationary Period",
+      body: "In Cleveland, if you are involved in an accident, you will be placed on a **6-week probationary period**. During this time your driving record and rental standing will be closely monitored. Any additional incidents during the probationary period may result in removal from the program.",
+      callout: { icon: "", text: "Cleveland policy — 6-week probation after any accident" },
+    },
+    es: {
+      title: "Cleveland: Período de Prueba de 6 Semanas",
+      body: "En Cleveland, si estás involucrado en un accidente, serás puesto en un **período de prueba de 6 semanas**. Durante este tiempo, tu historial de conducción y estado de alquiler serán monitoreados de cerca. Cualquier incidente adicional durante el período de prueba puede resultar en la remoción del programa.",
+      callout: { icon: "", text: "Política de Cleveland — 6 semanas de prueba después de cualquier accidente" },
+    },
+    ru: {
+      title: "Кливленд: 6-Недельный Испытательный Период",
+      body: "В Кливленде, если вы попали в аварию, вас поставят на **6-недельный испытательный период**. В это время ваша история вождения и статус аренды будут тщательно контролироваться. Любые дополнительные инциденты в течение испытательного периода могут привести к исключению из программы.",
+      callout: { icon: "", text: "Политика Кливленда — 6 недель испытательного срока после любой аварии" },
+    },
+    ar: {
+      title: "كليفلاند: فترة اختبار 6 أسابيع",
+      body: "في كليفلاند، إذا تعرضت لحادث، سيتم وضعك في **فترة اختبار مدتها 6 أسابيع**. خلال هذه الفترة سيتم مراقبة سجل قيادتك وحالة إيجارك عن كثب. أي حوادث إضافية خلال فترة الاختبار قد تؤدي إلى إزالتك من البرنامج.",
+      callout: { icon: "", text: "سياسة كليفلاند — 6 أسابيع اختبار بعد أي حادث" },
+    },
+    fr: {
+      title: "Cleveland: Période Probatoire de 6 Semaines",
+      body: "A Cleveland, si vous etes implique dans un accident, vous serez place en **periode probatoire de 6 semaines**. Pendant cette periode, votre dossier de conduite et votre statut de location seront etroitement surveilles. Tout incident supplementaire pendant la periode probatoire peut entrainer votre retrait du programme.",
+      callout: { icon: "", text: "Politique de Cleveland — 6 semaines de probation apres tout accident" },
+    },
+    zh: {
+      title: "克利夫兰：6周试用期",
+      body: "在克利夫兰，如果您发生事故，您将被置于**6周试用期**。在此期间，您的驾驶记录和租赁状况将受到密切监控。试用期内的任何额外事故可能导致您被移出该计划。",
+      callout: { icon: "", text: "克利夫兰政策 — 任何事故后6周试用期" },
+    },
+    yue: {
+      title: "克利夫蘭：6週試用期",
+      body: "喺克利夫蘭，如果你發生事故，你會被放喺**6週試用期**。喺呢段時間，你嘅駕駛記錄同租賃狀況會被密切監控。試用期內嘅任何額外事故可能導致你被移出計劃。",
+      callout: { icon: "", text: "克利夫蘭政策 — 任何事故後6週試用期" },
+    },
+  };
+
+  if (market === "CLE") {
+    const prob = CLE_PROBATION[lang] || CLE_PROBATION.en;
+    MODS.forEach((m) => {
+      if (m.id === "accidents") {
+        const checkIdx = m.steps.findIndex((s) => s.type === "checkpoint");
+        if (checkIdx > -1) {
+          m.steps.splice(checkIdx, 0, { type: "learn", label: "Probation", title: prob.title, body: prob.body, callout: prob.callout });
+        }
       }
     });
   }
