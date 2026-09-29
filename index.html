@@ -1959,6 +1959,28 @@ function FlexdriveOnboarding() {
     });
   }
 
+  // DEN market override: EV incentive (50 rides = $100, no expiration)
+  const DEN_EV_INCENTIVE = {
+    en: { label: "Denver Incentive", title: "Earn $100 when you complete 50 rides", body: "Denver EV drivers: complete **50 rides** in your EV and earn a **$100 bonus**. This incentive has **no expiration** — there's no deadline to reach 50 rides.", callout: { icon: "", text: "50 rides = $100 bonus — no expiration" } },
+    es: { label: "Incentivo Denver", title: "Gana $100 al completar 50 viajes", body: "Conductores de VE en Denver: completa **50 viajes** en tu VE y gana un **bono de $100**. Este incentivo **no tiene fecha de vencimiento** — no hay plazo para llegar a 50 viajes.", callout: { icon: "", text: "50 viajes = bono de $100 — sin vencimiento" } },
+    ru: { label: "Бонус Денвер", title: "Получите $100 за 50 поездок", body: "Водители ЭМ в Денвере: выполните **50 поездок** на вашем ЭМ и получите **бонус $100**. У этого бонуса **нет срока действия** — нет крайнего срока для 50 поездок.", callout: { icon: "", text: "50 поездок = бонус $100 — без срока действия" } },
+    ar: { label: "حافز دنفر", title: "اربح 100$ عند إكمال 50 رحلة", body: "سائقو المركبات الكهربائية في دنفر: أكمل **50 رحلة** بمركبتك الكهربائية واحصل على **مكافأة 100$**. هذا الحافز **ليس له تاريخ انتهاء** — لا يوجد موعد نهائي للوصول إلى 50 رحلة.", callout: { icon: "", text: "50 رحلة = مكافأة 100$ — بدون تاريخ انتهاء" } },
+    fr: { label: "Prime Denver", title: "Gagnez 100 $ en effectuant 50 courses", body: "Chauffeurs VE a Denver : effectuez **50 courses** avec votre VE et gagnez une **prime de 100 $**. Cette prime **n'expire pas** — il n'y a pas de date limite pour atteindre 50 courses.", callout: { icon: "", text: "50 courses = prime de 100 $ — sans expiration" } },
+    zh: { label: "丹佛奖励", title: "完成50次行程即可获得100美元", body: "丹佛电动车司机：用您的电动车完成**50次行程**，即可获得**100美元奖励**。此奖励**没有截止日期**——完成50次行程没有时间限制。", callout: { icon: "", text: "50次行程 = 100美元奖励 — 无截止日期" } },
+    yue: { label: "丹佛獎勵", title: "完成50次行程就有100美元", body: "丹佛電動車司機：用你嘅電動車完成**50次行程**，就可以攞到**100美元獎勵**。呢個獎勵**冇截止日期**——完成50次行程冇時間限制。", callout: { icon: "", text: "50次行程 = 100美元獎勵 — 冇截止日期" } },
+  };
+  if (market === "DEN") {
+    for (let i = 0; i < MODS.length; i++) {
+      const m = MODS[i];
+      if (m.id === "ev") {
+        const inc = DEN_EV_INCENTIVE[lang] || DEN_EV_INCENTIVE.en;
+        const steps = [...m.steps];
+        steps.splice(1, 0, { type: "learn", label: inc.label, title: inc.title, body: inc.body, callout: inc.callout });
+        MODS[i] = { ...m, steps };
+      }
+    }
+  }
+
   const t = (key) => (UI[lang] || UI.en)[key] || UI.en[key] || key;
   const mod = activeModuleIdx !== null ? MODS[activeModuleIdx] : null;
   const step = mod ? mod.steps[stepIdx] : null;
