@@ -86,13 +86,6 @@ const MODULES = [
       },
       {
         type: "learn",
-        label: "Adjusted Rates",
-        title: "Express Drive drivers earn at adjusted rates",
-        body: "If you're using an Express Drive vehicle, your rate card is adjusted because the rental provider already covers many insurance and maintenance costs. You can always check your current rates on the **Driver Dashboard** in the Lyft Driver app.",
-        callout: { icon: "7", text: "Check the Driver Dashboard for your current rate card anytime." },
-      },
-      {
-        type: "learn",
         label: "Minimum Rides",
         title: "Weekly ride minimum: 20 rides",
         body: "All locations require a **minimum of 20 rides per week**. Meeting this minimum keeps your account in good standing and increases the likelihood that your earnings will fully cover your rental fee.",
@@ -540,7 +533,6 @@ const MODULES_ES = [
       { type: "learn", label: "Semana de Facturación", title: "Tu semana de facturación va de lunes a lunes", body: "La semana de facturación del alquiler comienza el **lunes a las 5:00 AM** y termina el siguiente **lunes a las 4:59 AM**. Todo — tus ganancias, conteo de viajes y millas personales — se reinicia al inicio de cada semana. **Debes mantener el vehículo por un mínimo de 7 días.**", callout: { icon: "", text: "Lunes 5:00 AM → Lunes 4:59 AM" } },
       { type: "learn", label: "Ganancias Primero", title: "Tus ganancias cubren primero las tarifas de alquiler", body: "Todas tus ganancias por viajes se aplican automáticamente a tus tarifas de alquiler antes que nada. Mientras más conduzcas, más se compensan tus costos de alquiler — y en muchos casos, se cubren completamente.", callout: { icon: "", text: "Consejo: ¡Intenta cumplir el objetivo semanal de viajes para cubrir completamente tu alquiler!" } },
       { type: "scenario", title: "Escenario Rápido", body: "Es martes por la mañana. Tus ganancias de la semana pasada no cubrieron completamente tu tarifa de alquiler. ¿Qué sucede?", options: [ { text: "Nada — el saldo se perdona", correct: false }, { text: "El saldo restante se cobra a tu tarjeta registrada", correct: true }, { text: "Tu cuenta se suspende inmediatamente", correct: false } ], explanation: "Las tarifas de alquiler no cubiertas por ganancias se cobran a tu tarjeta registrada el martes después de que termina la semana. Si ese cargo falla, el saldo puede acumularse en las tarifas de la semana actual." },
-      { type: "learn", label: "Tarifas Ajustadas", title: "Los conductores Express Drive ganan con tarifas ajustadas", body: "Si usas un vehículo Express Drive, tu tarifa está ajustada porque el proveedor de alquiler ya cubre muchos costos de seguro y mantenimiento. Siempre puedes verificar tus tarifas actuales en el **Panel del Conductor** en la app de Lyft Driver.", callout: { icon: "7", text: "Revisa el Panel del Conductor para ver tu tarifa actual en cualquier momento." } },
       { type: "learn", label: "Viajes Mínimos", title: "Mínimo semanal: 20 viajes", body: "Todas las ubicaciones requieren un **mínimo de 20 viajes por semana**. Cumplir este mínimo mantiene tu cuenta en buen estado y aumenta la probabilidad de que tus ganancias cubran completamente tu tarifa de alquiler.", callout: { icon: "", text: "Mínimo 20 viajes cada semana — todas las ubicaciones" } },
       { type: "checkpoint", title: "Verificación de Conocimientos", question: "¿Cuándo comienza la semana de facturación del alquiler?", options: [ { text: "Domingo a medianoche", correct: false }, { text: "Lunes a las 5:00 AM", correct: true }, { text: "Martes a las 5:00 AM", correct: false }, { text: "Lunes a medianoche", correct: false } ], explanation: "La semana de facturación comienza cada lunes a las 5:00 AM y termina el siguiente lunes a las 4:59 AM." },
     ],
@@ -630,7 +622,6 @@ const MODULES_RU = [
       { type: "learn", label: "Неделя Оплаты", title: "Ваша неделя оплаты — с понедельника по понедельник", body: "Неделя оплаты аренды начинается в **понедельник в 5:00** и заканчивается в следующий **понедельник в 4:59**. Всё — ваши заработки, количество поездок и личные мили — обнуляется в начале каждой недели. **Вы должны оставить автомобиль минимум на 7 дней.**", callout: { icon: "", text: "Понедельник 5:00 → Понедельник 4:59" } },
       { type: "learn", label: "Сначала Заработок", title: "Ваш заработок покрывает арендную плату в первую очередь", body: "Весь ваш заработок от поездок автоматически применяется к арендной плате прежде всего. Чем больше вы ездите, тем больше компенсируются расходы на аренду — и во многих случаях полностью покрываются.", callout: { icon: "", text: "Совет: Старайтесь выполнить недельную цель по поездкам, чтобы полностью покрыть аренду!" } },
       { type: "scenario", title: "Быстрый Сценарий", body: "Утро вторника. Ваш заработок за прошлую неделю не полностью покрыл арендную плату. Что произойдёт дальше?", options: [ { text: "Ничего — остаток прощается", correct: false }, { text: "Оставшаяся сумма списывается с вашей карты", correct: true }, { text: "Ваш аккаунт немедленно блокируется", correct: false } ], explanation: "Арендная плата, не покрытая заработком, списывается с вашей карты во вторник после окончания недели. Если списание не удаётся, остаток может перейти на текущую неделю." },
-      { type: "learn", label: "Скорректированные Тарифы", title: "Водители Express Drive зарабатывают по скорректированным тарифам", body: "Если вы используете автомобиль Express Drive, ваш тариф скорректирован, так как арендодатель уже покрывает многие расходы на страховку и обслуживание. Вы всегда можете проверить текущие тарифы на **Панели Водителя** в приложении Lyft Driver.", callout: { icon: "7", text: "Проверяйте Панель Водителя для актуальных тарифов в любое время." } },
       { type: "learn", label: "Минимум Поездок", title: "Недельный минимум: 20 поездок", body: "Во всех локациях требуется **минимум 20 поездок в неделю**. Выполнение этого минимума сохраняет хорошую репутацию вашего аккаунта и повышает вероятность полного покрытия аренды.", callout: { icon: "", text: "Минимум 20 поездок каждую неделю — все локации" } },
       { type: "checkpoint", title: "Проверка Знаний", question: "Когда начинается неделя оплаты аренды?", options: [ { text: "Воскресенье в полночь", correct: false }, { text: "Понедельник в 5:00", correct: true }, { text: "Вторник в 5:00", correct: false }, { text: "Понедельник в полночь", correct: false } ], explanation: "Неделя оплаты начинается каждый понедельник в 5:00 и заканчивается в следующий понедельник в 4:59." },
     ],
@@ -720,7 +711,6 @@ const MODULES_AR = [
       { type: "learn", label: "أسبوع الفوترة", title: "أسبوع الفوترة من الاثنين إلى الاثنين", body: "يبدأ أسبوع فوترة الإيجار يوم **الاثنين الساعة 5:00 صباحاً** وينتهي يوم **الاثنين التالي الساعة 4:59 صباحاً**. كل شيء — أرباحك، عدد الرحلات، والأميال الشخصية — يُعاد تعيينه في بداية كل أسبوع. **يجب عليك الاحتفاظ بالمركبة لمدة 7 أيام على الأقل.**", callout: { icon: "", text: "الاثنين 5:00 ص ← الاثنين 4:59 ص" } },
       { type: "learn", label: "الأرباح أولاً", title: "أرباحك تغطي رسوم الإيجار أولاً", body: "جميع أرباحك من الرحلات تُطبق تلقائياً على رسوم الإيجار قبل أي شيء آخر. كلما قدت أكثر، كلما انخفضت تكاليف الإيجار — وفي كثير من الحالات، تُغطى بالكامل.", callout: { icon: "", text: "نصيحة: حاول تحقيق هدف الرحلات الأسبوعي لتغطية إيجارك بالكامل!" } },
       { type: "scenario", title: "سيناريو سريع", body: "صباح الثلاثاء. أرباحك من الأسبوع الماضي لم تغطِّ رسوم الإيجار بالكامل. ماذا يحدث بعد ذلك؟", options: [ { text: "لا شيء — يُسامح بالرصيد المتبقي", correct: false }, { text: "يُخصم الرصيد المتبقي من بطاقتك المسجلة", correct: true }, { text: "يُعلّق حسابك فوراً", correct: false } ], explanation: "رسوم الإيجار غير المغطاة بالأرباح تُخصم من بطاقتك المسجلة يوم الثلاثاء بعد انتهاء الأسبوع. إذا فشل الخصم، قد يُضاف الرصيد إلى رسوم الأسبوع الحالي." },
-      { type: "learn", label: "أسعار معدّلة", title: "سائقو Express Drive يكسبون بأسعار معدّلة", body: "إذا كنت تستخدم سيارة Express Drive، فإن تعرفتك معدّلة لأن مزود الإيجار يغطي بالفعل العديد من تكاليف التأمين والصيانة. يمكنك دائماً التحقق من أسعارك الحالية في **لوحة السائق** في تطبيق Lyft Driver.", callout: { icon: "7", text: "تحقق من لوحة السائق لمعرفة تعرفتك الحالية في أي وقت." } },
       { type: "learn", label: "الحد الأدنى للرحلات", title: "الحد الأدنى الأسبوعي: 20 رحلة", body: "جميع المواقع تتطلب **حداً أدنى 20 رحلة أسبوعياً**. تحقيق هذا الحد الأدنى يحافظ على حسابك بحالة جيدة ويزيد احتمال تغطية أرباحك لرسوم الإيجار بالكامل.", callout: { icon: "", text: "حد أدنى 20 رحلة كل أسبوع — جميع المواقع" } },
       { type: "checkpoint", title: "اختبار المعرفة", question: "متى يبدأ أسبوع فوترة الإيجار؟", options: [ { text: "الأحد منتصف الليل", correct: false }, { text: "الاثنين الساعة 5:00 صباحاً", correct: true }, { text: "الثلاثاء الساعة 5:00 صباحاً", correct: false }, { text: "الاثنين منتصف الليل", correct: false } ], explanation: "يبدأ أسبوع الفوترة كل اثنين الساعة 5:00 صباحاً وينتهي الاثنين التالي الساعة 4:59 صباحاً." },
     ],
@@ -810,7 +800,6 @@ const MODULES_FR = [
       { type: "intro", visual: "", title: "Facturation et Revenus", body: "Ce module explique comment fonctionne votre semaine de facturation, comment vos revenus s'appliquent aux frais de location, et ce que vous devez savoir sur les charges." },
       { type: "learn", label: "Semaine de Facturation", title: "Votre semaine de facturation va du lundi au lundi", body: "La semaine de facturation commence le **lundi a 5h00** et se termine le **lundi suivant a 4h59**. Tout — vos revenus, nombre de courses et miles personnels — est reinitialise au debut de chaque semaine. **Vous devez garder le vehicule pendant un minimum de 7 jours.**", callout: { icon: "", text: "Lundi 5h00 - Lundi 4h59" } },
       { type: "learn", label: "Les Revenus d'Abord", title: "Vos revenus couvrent d'abord les frais de location", body: "Tous vos revenus Lyft seront **d'abord appliques a vos frais de location**. Tout montant restant apres deduction des frais vous est verse. Si vos revenus ne couvrent pas entierement la location, le solde sera debite de votre carte le **mardi** suivant.", callout: { icon: "", text: "Revenus - frais de location d'abord - le reste vous revient" } },
-      { type: "learn", label: "Grille Tarifaire", title: "Les tarifs sont ajustes pour les conducteurs Flexdrive", body: "Les conducteurs en vehicules Express Drive gagnent avec une **grille tarifaire ajustee** car Flexdrive couvre de nombreux couts d'assurance et d'entretien. Consultez le **Tableau de Bord Conducteur** dans votre app Lyft Driver.", callout: null },
       { type: "learn", label: "Exigence Minimum", title: "Minimum hebdomadaire : 20 courses", body: "Tous les emplacements exigent un **minimum de 20 courses par semaine**. Vous pouvez suivre votre progression dans l'**app Lyft Driver**. **Conseil : Visez 40-60 courses/semaine** pour augmenter vos chances de couvrir votre location.", callout: { icon: "", text: "Minimum 20 courses/semaine — tous les emplacements" } },
       { type: "learn", label: "Premiere Semaine", title: "Votre premiere semaine est au prorata", body: "Votre premiere semaine de location est **au prorata** selon le jour ou vous commencez. Vous ne paierez que pour les jours ou vous avez le vehicule.", callout: null },
       { type: "checkpoint", title: "Verification des Connaissances", question: "Quand commence et se termine votre semaine de facturation ?", options: [ { text: "Dimanche minuit a Samedi 23h59", correct: false }, { text: "Lundi 5h00 au Lundi suivant 4h59", correct: true }, { text: "Vendredi minuit a Jeudi 23h59", correct: false }, { text: "Mercredi midi au Mercredi suivant 11h59", correct: false } ], explanation: "La semaine de facturation va du Lundi 5h00 au Lundi suivant 4h59." },
@@ -896,7 +885,6 @@ const MODULES_ZH = [
       { type: "intro", visual: "", title: "账单与收入", body: "本模块解释您的账单周期如何运作、收入如何用于支付租金以及您需要了解的费用信息。" },
       { type: "learn", label: "账单周期", title: "您的账单周期从周一到周一", body: "租赁账单周期从**周一早上5:00**开始，到**下周一早上4:59**结束。所有内容——收入、行程数和个人里程——在每个账单周期开始时重置。**您必须保留车辆至少7天。**", callout: { icon: "", text: "周一5:00 - 下周一4:59" } },
       { type: "learn", label: "收入优先", title: "您的收入首先用于支付租金", body: "所有Lyft收入将**首先用于支付租金**。扣除租金后的剩余金额将支付给您。如果收入不足以完全覆盖租金，余额将在周结束后的**周二**从您的卡中扣除。", callout: { icon: "", text: "收入 - 先付租金 - 余额归您" } },
-      { type: "learn", label: "费率表", title: "Flexdrive司机使用调整后的费率表", body: "Express Drive车辆的司机使用**调整后的费率表**，因为Flexdrive承担了许多保险和维护费用。请查看Lyft Driver应用中的**司机仪表板**。", callout: null },
       { type: "learn", label: "最低要求", title: "每周最低行程：20次", body: "所有地点均要求**每周至少完成20次行程**。您可以在**Lyft Driver应用**中查看进度。**建议：每周完成40-60次行程**以增加覆盖租金的可能性。", callout: { icon: "", text: "所有地点：每周最少20次行程" } },
       { type: "learn", label: "第一周", title: "第一周按比例计算", body: "您的第一周租金将根据您开始的日期**按比例计算**。您只需支付拥有车辆那几天的费用。", callout: null },
       { type: "checkpoint", title: "知识检查", question: "您的账单周期何时开始和结束？", options: [ { text: "周日午夜到周六23:59", correct: false }, { text: "周一5:00到下周一4:59", correct: true }, { text: "周五午夜到周四23:59", correct: false }, { text: "周三中午到下周三11:59", correct: false } ], explanation: "账单周期从周一5:00到下周一4:59。" },
@@ -982,7 +970,6 @@ const MODULES_YUE = [
       { type: "intro", visual: "", title: "賬單同收入", body: "呢個模組解釋你嘅賬單週期點運作、收入點樣用嚟交租金、同你需要知嘅費用。" },
       { type: "learn", label: "賬單週期", title: "你嘅賬單週期由星期一到星期一", body: "租賃賬單週期由**星期一朝早5:00**開始，到**下個星期一朝早4:59**結束。所有嘢——收入、行程數同個人里程——喺每個賬單週期開始時重置。**你必須保留車輛至少7日。**", callout: { icon: "", text: "星期一5:00 - 下星期一4:59" } },
       { type: "learn", label: "收入優先", title: "你嘅收入首先用嚟交租金", body: "所有Lyft收入會**首先用嚟交租金**。扣除租金後嘅餘額會俾返你。如果收入唔夠交租金，餘額會喺週結束後嘅**星期二**由你張卡扣除。", callout: { icon: "", text: "收入 - 先交租金 - 餘額歸你" } },
-      { type: "learn", label: "費率表", title: "Flexdrive司機用調整過嘅費率表", body: "Express Drive車輛嘅司機用**調整過嘅費率表**，因為Flexdrive承擔咗好多保險同維護費用。請查看Lyft Driver應用入面嘅**司機儀表板**。", callout: null },
       { type: "learn", label: "最低要求", title: "每週最低行程：20次", body: "所有地點都要求**每週最少完成20次行程**。你可以喺**Lyft Driver應用**入面睇進度。**建議：每週完成40-60次行程**。", callout: { icon: "", text: "所有地點：每週最少20次行程" } },
       { type: "learn", label: "第一週", title: "第一週按比例計算", body: "你嘅第一週租金會根據你開始嗰日**按比例計算**。", callout: null },
       { type: "checkpoint", title: "知識測驗", question: "你嘅賬單週期幾時開始同結束？", options: [ { text: "星期日午夜到星期六23:59", correct: false }, { text: "星期一5:00到下星期一4:59", correct: true }, { text: "星期五午夜到星期四23:59", correct: false }, { text: "星期三中午到下星期三11:59", correct: false } ], explanation: "賬單週期由星期一5:00到下星期一4:59。" },
@@ -1263,6 +1250,7 @@ const UI = {
     qrHolman: "Holman Roadside Assistance: 833-274-5938 (driver-side windshield).",
     beforeYouBegin: "Before You Begin",
     licenseNotice: "Please give the associate your driver's license and the debit/credit card UNDER YOUR NAME that you used for the deposit before starting.",
+    back: "Back",
     evQuestion: "Which type of vehicle are you renting?",
     yesEV: "EV",
     noEV: "Hybrid / Midsize",
@@ -1326,6 +1314,7 @@ const UI = {
     qrHolman: "Holman Roadside Assistance: 833-274-5938 (parabrisas lado del conductor).",
     beforeYouBegin: "Antes de Comenzar",
     licenseNotice: "Entregue al asociado su licencia de conducir y la tarjeta de débito/crédito A SU NOMBRE que utilizó para el depósito antes de comenzar.",
+    back: "Atrás",
     evQuestion: "\u00bfQu\u00e9 tipo de veh\u00edculo est\u00e1s rentando?",
     yesEV: "EV",
     noEV: "H\u00edbrido / Mediano",
@@ -1389,6 +1378,7 @@ const UI = {
     qrHolman: "Holman Roadside Assistance: 833-274-5938 (лобовое стекло со стороны водителя).",
     beforeYouBegin: "Перед Началом",
     licenseNotice: "Передайте сотруднику водительские права и дебетовую/кредитную карту НА ВАШЕ ИМЯ, которую вы использовали для депозита, перед началом.",
+    back: "Назад",
     evQuestion: "Какой тип автомобиля вы арендуете?",
     yesEV: "\u042d\u041c",
     noEV: "\u0413\u0438\u0431\u0440\u0438\u0434 / \u0421\u0440\u0435\u0434\u043d\u0438\u0439",
@@ -1452,6 +1442,7 @@ const UI = {
     qrHolman: "Holman Roadside Assistance: 833-274-5938 (الزجاج الأمامي من جهة السائق).",
     beforeYouBegin: "قبل البدء",
     licenseNotice: "يرجى تسليم الموظف رخصة القيادة وبطاقة الخصم/الائتمان باسمك التي استخدمتها للإيداع قبل البدء.",
+    back: "رجوع",
     evQuestion: "ما نوع المركبة التي تستأجرها؟",
     yesEV: "\u0643\u0647\u0631\u0628\u0627\u0626\u064a\u0629",
     noEV: "\u0647\u0627\u064a\u0628\u0631\u062f / \u0645\u062a\u0648\u0633\u0637",
@@ -1459,6 +1450,7 @@ const UI = {
     evReadyToRoad: "\u0623\u0646\u062a \u0645\u0633\u062a\u0639\u062f \u0644\u0645\u0631\u0643\u0628\u062a\u0643 \u0627\u0644\u0643\u0647\u0631\u0628\u0627\u0626\u064a\u0629!",
   },
   fr: {
+    back: "Retour",
     evQuestion: "Quel type de vehicule louez-vous ?",
     yesEV: "VE",
     noEV: "Hybride / Berline",
@@ -1468,6 +1460,7 @@ const UI = {
     selectMarketSub: "Choisissez l'emplacement flexdrive le plus proche de vous",
   },
   zh: {
+    back: "返回",
     evQuestion: "您租用的是哪种车型？",
     yesEV: "电动车",
     noEV: "混合动力 / 中型车",
@@ -1477,6 +1470,7 @@ const UI = {
     selectMarketSub: "选择离您最近的flexdrive地点",
   },
   yue: {
+    back: "返回",
     evQuestion: "你租緊邊種車？",
     yesEV: "電動車",
     noEV: "混合動力 / 中型車",
@@ -2062,6 +2056,14 @@ function FlexdriveOnboarding() {
     }
   }, [mod, stepIdx]);
 
+  const goBack = useCallback(() => {
+    if (!mod) return;
+    if (stepIdx > 0) {
+      setStepIdx((s) => s - 1);
+      setAnimKey((k) => k + 1);
+    }
+  }, [mod, stepIdx]);
+
   // Auto-send tracking when celebration shows
   useEffect(() => {
     if (showCelebration && !trackingSentRef.current) {
@@ -2371,7 +2373,14 @@ function FlexdriveOnboarding() {
           ) : (
             <div key={animKey} style={{ maxWidth: 560, width: "100%", animation: "slideUp 0.3s ease" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-                <StepDots total={mod.steps.length} current={stepIdx} accent={mod.accent} />
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  {stepIdx > 0 && (
+                    <button onClick={goBack} style={{ background: "transparent", border: "2px solid #003B71", color: "#003B71", borderRadius: 10, padding: "6px 14px", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "'Source Sans Pro', sans-serif", whiteSpace: "nowrap" }}>
+                      {"\u2190 " + t("back")}
+                    </button>
+                  )}
+                  <StepDots total={mod.steps.length} current={stepIdx} accent={mod.accent} />
+                </div>
                 <span style={{ fontSize: 12, fontWeight: 700, color: "#003B71" }}>
                   {stepIdx + 1} / {mod.steps.length}
                 </span>
