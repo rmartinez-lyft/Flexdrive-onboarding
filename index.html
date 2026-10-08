@@ -920,7 +920,7 @@ const MODULES_ZH = [
       { type: "learn", label: "步骤2", title: "在Lyft应用中报告", body: "联系警方后，在**Lyft Driver应用中报告事故**。报告后车辆将被**停用**。", callout: null },
       { type: "scenario", title: "快速场景", body: "轻微碰撞。车辆可以行驶。报警和应用报告后，该怎么做？", options: [ { text: "继续当天的行程", correct: false }, { text: "尽快将车辆开到租赁地点检查", correct: true }, { text: "开到最近的修理厂", correct: false } ], explanation: "如果车辆可以安全行驶，应尽快开到租赁地点进行检查。" },
       { type: "learn", label: "无法行驶", title: "如果车辆无法行驶——打电话给Holman", body: "拨打**Holman道路救援**电话**833-274-5938**（也在**挡风玻璃驾驶员侧**）。他们将安排拖车到您的租赁地点。", callout: { icon: "", text: "Holman号码 - 挡风玻璃驾驶员侧" } },
-      { type: "learn", label: "索赔期", title: "未结索赔暂停您的租赁资格", body: "在事故索赔未结期间，您将**无资格租赁**，直到索赔完全解决、您被认定为"无过错"且所有欠款已付清。**满足这些条件并不代表自动恢复资格**——您的续租资格仍需**审核**。每次审核都是**逐案处理**，最长可能需要**6个月**。", callout: { icon: "", text: "索赔解决 + 无过错 + 欠款付清 不保证可以续租——逐案审核（最长6个月）" } },
+      { type: "learn", label: "索赔期", title: "未结索赔暂停您的租赁资格", body: "在事故索赔未结期间，您将**无资格租赁**，直到索赔完全解决、您被认定为“无过错”且所有欠款已付清。**满足这些条件并不代表自动恢复资格**——您的续租资格仍需**审核**。每次审核都是**逐案处理**，最长可能需要**6个月**。", callout: { icon: "", text: "索赔解决 + 无过错 + 欠款付清 不保证可以续租——逐案审核（最长6个月）" } },
       { type: "learn", label: "续租政策", title: "事故后续租的关键规则", body: "**事故后当天不能续租**——无论是否有CDW。Flexdrive将收取**每次事故最高$1,000**（加税费）。保险公司必须确定责任——过程可能需要**数月或更长时间。**", callout: { icon: "", text: "事故后当天不能续租——即使有CDW。" } },
       { type: "learn", label: "续租资格", title: "决定您能否再次租赁的因素", body: "**以下情况不符合续租资格：**12个月内超过1次事故，或总共3次以上。**无过错续租要求：**Lyft FNOL审查完成、账户良好（无欠款、无逾期、至少6周项目参与并达到行程最低要求）、所有费用已付、配合保险调查。**有过错续租**还需要损害来自不可避免的自然事件。", callout: { icon: "", text: "良好状态 = 无欠款 + 无逾期 + 6周 + 达到最低行程。" } },
       { type: "checkpoint", title: "知识检查", question: "事故后何时可以续租？", options: [ { text: "有CDW当天即可", correct: false }, { text: "保险确定责任、费用已付、账户良好，且续租资格审核通过后", correct: true }, { text: "报警后立即", correct: false }, { text: "24小时后", correct: false } ], explanation: "当天永远不能续租。保险必须确定责任，所有费用已付，账户良好。即便如此，续租资格仍需逐案审核，最长可能需要6个月。" },
@@ -1970,6 +1970,24 @@ function FlexdriveOnboarding() {
 
   if (market === "CLE") {
     const prob = CLE_PROBATION[lang] || CLE_PROBATION.en;
+    // CLE: weekly ride minimum is 30 (all other markets 20)
+    const MIN_TITLES = ["Weekly ride minimum: 20 rides", "Mínimo semanal: 20 viajes", "Недельный минимум: 20 поездок", "الحد الأدنى الأسبوعي: 20 رحلة", "Minimum hebdomadaire : 20 courses", "每周最低行程：20次", "每週最低行程：20次"];
+    const CLE_MIN = {
+      en: { title: "Weekly ride minimum: 30 rides", body: "In Cleveland, you are required to complete a **minimum of 30 rides per week**. Meeting this minimum keeps your account in good standing and increases the likelihood that your earnings will fully cover your rental fee.", callout: { icon: "", text: "Cleveland: minimum 30 rides every week" } },
+      es: { title: "Mínimo semanal: 30 viajes", body: "En Cleveland, debes completar un **mínimo de 30 viajes por semana**. Cumplir este mínimo mantiene tu cuenta en buen estado y aumenta la probabilidad de que tus ganancias cubran completamente tu tarifa de alquiler.", callout: { icon: "", text: "Cleveland: mínimo 30 viajes cada semana" } },
+      ru: { title: "Недельный минимум: 30 поездок", body: "В Кливленде требуется **минимум 30 поездок в неделю**. Выполнение этого минимума сохраняет хорошую репутацию вашего аккаунта и повышает вероятность полного покрытия аренды.", callout: { icon: "", text: "Кливленд: минимум 30 поездок каждую неделю" } },
+      ar: { title: "الحد الأدنى الأسبوعي: 30 رحلة", body: "في كليفلاند، يُطلب منك إكمال **حد أدنى 30 رحلة أسبوعياً**. تحقيق هذا الحد الأدنى يحافظ على حسابك بحالة جيدة ويزيد احتمال تغطية أرباحك لرسوم الإيجار بالكامل.", callout: { icon: "", text: "كليفلاند: حد أدنى 30 رحلة كل أسبوع" } },
+      fr: { title: "Minimum hebdomadaire : 30 courses", body: "A Cleveland, vous devez effectuer un **minimum de 30 courses par semaine**. Vous pouvez suivre votre progression dans l'**app Lyft Driver**. **Conseil : Visez 40-60 courses/semaine** pour augmenter vos chances de couvrir votre location.", callout: { icon: "", text: "Cleveland : minimum 30 courses/semaine" } },
+      zh: { title: "每周最低行程：30次", body: "在克利夫兰，您需要**每周至少完成30次行程**。您可以在**Lyft Driver应用**中查看进度。**建议：每周完成40-60次行程**以增加覆盖租金的可能性。", callout: { icon: "", text: "克利夫兰：每周最少30次行程" } },
+      yue: { title: "每週最低行程：30次", body: "喺克利夫蘭，你要**每週最少完成30次行程**。你可以喺**Lyft Driver應用**入面睇進度。**建議：每週完成40-60次行程**。", callout: { icon: "", text: "克利夫蘭：每週最少30次行程" } },
+    };
+    const cm = CLE_MIN[lang] || CLE_MIN.en;
+    for (let i = 0; i < MODS.length; i++) {
+      const m = MODS[i];
+      if (m.id === "billing") {
+        MODS[i] = { ...m, steps: m.steps.map((s) => (MIN_TITLES.includes(s.title) ? { ...s, title: cm.title, body: cm.body, callout: cm.callout } : s)) };
+      }
+    }
     MODS.forEach((m) => {
       if (m.id === "accidents") {
         const checkIdx = m.steps.findIndex((s) => s.type === "checkpoint");
